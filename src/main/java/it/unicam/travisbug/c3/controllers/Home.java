@@ -16,6 +16,10 @@ public class Home {
         return "login";
     }
 
+    public void fratm(){
+
+    }
+
     //dima si un cojooooo
     //conc si un cojooooo
     //fraa si un cojooooo
