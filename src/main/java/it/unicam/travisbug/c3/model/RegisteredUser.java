@@ -12,7 +12,7 @@ public class RegisteredUser {
     private String name;
 
     @Column(nullable = false)
-    private String surnaname;
+    private String surname;
 
     @Column(nullable = false)
     private String email;
@@ -38,12 +38,12 @@ public class RegisteredUser {
         this.name = name;
     }
 
-    public String getSurnaname() {
-        return surnaname;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setSurnaname(String surnaname) {
-        this.surnaname = surnaname;
+    public void setSurname(String surnaname) {
+        this.surname = surnaname;
     }
 
     public String getEmail() {
