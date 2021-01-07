@@ -6,15 +6,16 @@ import javax.persistence.*;
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Integer employee_id;
 
     @Column(nullable = false)
-    private String name;
+    private String employee_name;
 
     @Column(nullable = false)
-    private String email;
+    private String employee_email;
 
     @ManyToOne
-    private Shop shop;
+    @JoinColumn(name = "shop_id", nullable = false)
+    private Shop employee_shop;
 
 }

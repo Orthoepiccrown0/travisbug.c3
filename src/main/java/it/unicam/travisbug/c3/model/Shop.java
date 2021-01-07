@@ -7,49 +7,19 @@ import java.util.Set;
 public class Shop {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer id;
+    private Integer shop_id;
 
     @Column(nullable = false)
-    private String shopName;
+    private String shop_shopName;
 
-    @OneToOne(mappedBy = "shop")
+    @OneToOne
     private Merchant merchant;
 
-    @OneToOne(mappedBy = "shop", cascade = CascadeType.ALL)
-    private ShopCategory shopCategory;
-
-    @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private Set<Employee> employee;
 
-    public Integer getId() {
-        return id;
-    }
+    @ManyToOne
+    @JoinColumn(name = "shop_category_id", nullable = false)
+    private ShopCategory shopCategory;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getShopName() {
-        return shopName;
-    }
-
-    public void setShopName(String shopName) {
-        this.shopName = shopName;
-    }
-
-    public Merchant getMerchant() {
-        return merchant;
-    }
-
-    public void setMerchant(Merchant merchant) {
-        this.merchant = merchant;
-    }
-
-    public ShopCategory getShopCategory() {
-        return shopCategory;
-    }
-
-    public void setShopCategory(ShopCategory shopCategory) {
-        this.shopCategory = shopCategory;
-    }
 }

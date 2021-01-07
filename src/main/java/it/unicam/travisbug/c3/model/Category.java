@@ -4,19 +4,17 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-public class ShopCategory {
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer shop_category_id;
+    private Integer category_id;
 
     @Column(nullable = false)
-    private String nameCategory;
+    private String category_name;
 
     @Column(nullable = false)
-    private String categoryDescription;
+    private String category_description;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private Set<Shop> shop;
-
-
+    @OneToMany
+    private Set<Product> product;
 }
