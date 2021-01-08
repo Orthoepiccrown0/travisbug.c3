@@ -7,8 +7,9 @@ import java.util.Set;
 public class Merchant extends RegisteredUser{
 
     @OneToOne(cascade = CascadeType.ALL)
-    private Shop merchant_shop;
+    @JoinColumn(name = "shop_id", referencedColumnName = "id")
+    private Shop shop;
 
-    @OneToMany
+    @OneToMany(mappedBy = "merchant")
     private Set<Product> product;
 }

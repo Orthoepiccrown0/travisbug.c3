@@ -9,7 +9,7 @@ import java.util.Set;
 public class Promotion {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String promotion_id;
+    private String id;
 
     @Column(nullable = false)
     private Date promotion_start;
@@ -19,8 +19,4 @@ public class Promotion {
 
     @Column(nullable = false)
     private Integer promotion_discount;
-
-    @OneToMany
-    private Set<ProductPromotion> productPromotion;
-
 }

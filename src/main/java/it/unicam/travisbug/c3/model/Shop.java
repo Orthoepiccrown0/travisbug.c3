@@ -7,19 +7,19 @@ import java.util.Set;
 public class Shop {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer shop_id;
+    private Integer id;
 
     @Column(nullable = false)
     private String shop_shopName;
 
-    @OneToOne
+    @OneToOne(mappedBy = "shop")
     private Merchant merchant;
 
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Employee> employee;
 
     @ManyToOne
-    @JoinColumn(name = "shop_category_id", nullable = false)
+    @JoinColumn(name = "shop_category_id", referencedColumnName = "id")
     private ShopCategory shopCategory;
 
 }

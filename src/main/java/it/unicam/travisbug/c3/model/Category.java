@@ -7,7 +7,7 @@ import java.util.Set;
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer category_id;
+    private Integer id;
 
     @Column(nullable = false)
     private String category_name;
@@ -15,6 +15,6 @@ public class Category {
     @Column(nullable = false)
     private String category_description;
 
-    @OneToMany
+    @OneToMany(mappedBy = "category")
     private Set<Product> product;
 }

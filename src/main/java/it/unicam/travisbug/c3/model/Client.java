@@ -7,6 +7,6 @@ import java.util.Set;
 
 @Entity
 public class Client extends RegisteredUser{
-    @OneToMany
+    @OneToMany(mappedBy = "client")
     private Set<Order> order;
 }

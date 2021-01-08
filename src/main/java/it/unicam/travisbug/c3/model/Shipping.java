@@ -6,7 +6,7 @@ import javax.persistence.*;
 public class Shipping {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer shipping_id;
+    private Integer id;
 
     @Column(nullable = false)
     private Double shipping_shipCharge;
@@ -15,14 +15,14 @@ public class Shipping {
     private String shipping_status;
 
     @ManyToOne
-    @JoinColumn(name = "courier_id", nullable = false)
+    @JoinColumn(name = "courier_id", referencedColumnName = "id")
     private Courier shipping_courier;
 
     @ManyToOne
-    @JoinColumn(name = "address_id", nullable = false)
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address shipping_address;
 
-    @OneToOne
+    @OneToOne(mappedBy = "shipping")
     private Order shipping_order;
 
 }

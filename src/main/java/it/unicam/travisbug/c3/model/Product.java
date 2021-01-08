@@ -7,7 +7,7 @@ import java.util.Set;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer product_id;
+    private Integer id;
 
     @Column(nullable = false)
     private String product_name;
@@ -25,18 +25,23 @@ public class Product {
     private Integer product_supply;
 
     @ManyToOne
-    @JoinColumn(name = "merchant_id", nullable = false)
+    @JoinColumn(name = "merchant_id", referencedColumnName = "id")
     private Merchant merchant;
 
     @ManyToOne
-    @JoinColumn(name = "category_id", nullable = false)
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
 
-    @OneToMany
+    @OneToMany(mappedBy = "product")
     private Set<OrderDetails> orderDetails;
 
-    @OneToMany
-    private Set<ProductPromotion> productPromotion;
+    @ManyToMany
+    @JoinTable(
+            name = "product_promotions",
+            joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "promotion_id", referencedColumnName = "id")
+    )
+    private Set<Promotion> promotion;
 
 
 }

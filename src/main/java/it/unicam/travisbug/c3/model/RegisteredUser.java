@@ -6,20 +6,20 @@ import javax.persistence.*;
 public class RegisteredUser {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer registered_user_id;
+    private Integer id;
 
     @Column(nullable = false)
-    private String registered_user_name;
+    private String user_name;
 
     @Column(nullable = false)
-    private String registered_user_surname;
+    private String user_surname;
 
     @Column(nullable = false)
-    private String registered_user_email;
+    private String user_email;
 
     @Column(nullable = false)
-    private String registered_user_password;
+    private String user_password;
 
-    private String registered_user_phone;
+    private String user_phone;
 
 }

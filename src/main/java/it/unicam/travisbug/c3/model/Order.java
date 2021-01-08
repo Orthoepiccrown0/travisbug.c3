@@ -9,7 +9,7 @@ public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer order_id;
+    private Integer id;
 
     @Column(nullable = false)
     private Double amount;
@@ -21,13 +21,14 @@ public class Order {
     private String order_status;
 
     @ManyToOne
-    @JoinColumn(name = "client_id", nullable = false)
+    @JoinColumn(name = "client_id", referencedColumnName = "id")
     private Client client;
 
     @OneToOne
+    @JoinColumn(name = "shipping_id", referencedColumnName = "id")
     private Shipping shipping;
 
-    @OneToMany
+    @OneToMany(mappedBy = "order")
     private Set<OrderDetails> orderDetails;
 
     //TODO: billing address table?

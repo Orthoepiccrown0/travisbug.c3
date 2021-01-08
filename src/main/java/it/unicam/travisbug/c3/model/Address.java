@@ -7,7 +7,7 @@ import java.util.Set;
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer address_id;
+    private Integer id;
 
     @Column(nullable = false)
     private String address_city;
@@ -18,8 +18,7 @@ public class Address {
     @Column(nullable = false)
     private Integer address_number;
 
-    @ManyToOne
-    @JoinColumn(name = "shippind_id", nullable = false)
-    private Shipping shipping;
+    @OneToMany(mappedBy = "shipping_address")
+    private Set<Shipping> shipping;
 
 }

@@ -6,7 +6,7 @@ import javax.persistence.*;
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer employee_id;
+    private Integer id;
 
     @Column(nullable = false)
     private String employee_name;
@@ -15,7 +15,7 @@ public class Employee {
     private String employee_email;
 
     @ManyToOne
-    @JoinColumn(name = "shop_id", nullable = false)
+    @JoinColumn(name = "shop_id", referencedColumnName = "id")
     private Shop employee_shop;
 
 }
