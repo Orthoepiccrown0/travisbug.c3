@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 @Entity
 public class OrderDetails {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -12,10 +13,11 @@ public class OrderDetails {
     private Integer quantity;
 
     @ManyToOne
-    @JoinColumn(name = "product_id", referencedColumnName = "id")
+    @JoinColumn(name = "product_id", referencedColumnName = "ID")
     private Product product;
 
     @ManyToOne
-    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    @JoinColumn(name = "order_id", referencedColumnName = "ID")
     private Order order;
+
 }

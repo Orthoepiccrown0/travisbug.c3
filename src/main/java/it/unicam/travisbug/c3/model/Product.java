@@ -5,31 +5,32 @@ import java.util.Set;
 
 @Entity
 public class Product {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     @Column(nullable = false)
-    private String product_name;
+    private String name;
 
     @Column(nullable = false)
-    private String product_description;
+    private String description;
 
     @Column(nullable = false)
-    private Double product_price;
+    private Double price;
 
     @Column(nullable = false)
-    private Double product_weight;
+    private Double weight;
 
     @Column(nullable = false)
-    private Integer product_supply;
+    private Integer supply;
 
     @ManyToOne
-    @JoinColumn(name = "merchant_id", referencedColumnName = "id")
+    @JoinColumn(name = "merchant_id", referencedColumnName = "ID")
     private Merchant merchant;
 
     @ManyToOne
-    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    @JoinColumn(name = "category_id", referencedColumnName = "ID")
     private Category category;
 
     @OneToMany(mappedBy = "product")
@@ -38,8 +39,8 @@ public class Product {
     @ManyToMany
     @JoinTable(
             name = "product_promotions",
-            joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "promotion_id", referencedColumnName = "id")
+            joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "ID"),
+            inverseJoinColumns = @JoinColumn(name = "promotion_id", referencedColumnName = "ID")
     )
     private Set<Promotion> promotion;
 
