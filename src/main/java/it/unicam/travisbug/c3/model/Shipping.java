@@ -4,23 +4,24 @@ import javax.persistence.*;
 
 @Entity
 public class Shipping {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     @Column(nullable = false)
-    private Double shipping_shipCharge;
+    private Double shipCharge;
 
     @Column(nullable = false)
-    private String shipping_status;
+    private String shipStatus;
 
     @ManyToOne
-    @JoinColumn(name = "courier_id", referencedColumnName = "id")
-    private Courier shipping_courier;
+    @JoinColumn(name = "courier_id", referencedColumnName = "ID")
+    private Courier courier;
 
     @ManyToOne
-    @JoinColumn(name = "address_id", referencedColumnName = "id")
-    private Address shipping_address;
+    @JoinColumn(name = "address_id", referencedColumnName = "ID")
+    private Address address;
 
     @OneToOne(mappedBy = "shipping")
     private Order shipping_order;

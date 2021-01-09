@@ -7,6 +7,8 @@ import java.util.Set;
 
 @Entity
 public class Courier extends RegisteredUser {
-    @OneToMany(mappedBy = "shipping_courier")
+
+    @OneToMany(mappedBy = "courier")
     private Set<Shipping> shipping;
+
 }

@@ -4,22 +4,23 @@ import javax.persistence.*;
 
 @Entity
 public class RegisteredUser {
+
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
 
     @Column(nullable = false)
-    private String user_name;
+    private String name;
 
     @Column(nullable = false)
-    private String user_surname;
+    private String urname;
 
     @Column(nullable = false)
-    private String user_email;
+    private String email;
 
     @Column(nullable = false)
-    private String user_password;
+    private String password;
 
-    private String user_phone;
+    private String phone;
 
 }

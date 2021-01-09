@@ -5,20 +5,21 @@ import java.util.Set;
 
 @Entity
 public class Address {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     @Column(nullable = false)
-    private String address_city;
+    private String city;
 
     @Column(nullable = false)
-    private String address_street;
+    private String street;
 
     @Column(nullable = false)
-    private Integer address_number;
+    private Integer number;
 
-    @OneToMany(mappedBy = "shipping_address")
+    @OneToMany(mappedBy = "address")
     private Set<Shipping> shipping;
 
 }

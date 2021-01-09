@@ -7,16 +7,21 @@ import java.util.Set;
 
 @Entity
 public class Promotion {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
 
     @Column(nullable = false)
-    private Date promotion_start;
+    private Date start;
 
     @Column(nullable = false)
-    private Date promotion_end;
+    private Date end;
 
     @Column(nullable = false)
-    private Integer promotion_discount;
+    private Integer discount;
+
+    @ManyToMany(mappedBy = "promotion")
+    private Set<Product> product;
+
 }

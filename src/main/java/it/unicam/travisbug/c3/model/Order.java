@@ -16,17 +16,17 @@ public class Order {
     private Double amount;
 
     @Column(nullable = false)
-    private Date order_date;
+    private Date date;
 
     @Column(nullable = false)
-    private String order_status;
+    private String status;
 
     @ManyToOne
-    @JoinColumn(name = "client_id", referencedColumnName = "id")
+    @JoinColumn(name = "client_id", referencedColumnName = "ID")
     private Client client;
 
     @OneToOne
-    @JoinColumn(name = "shipping_id", referencedColumnName = "id")
+    @JoinColumn(name = "shipping_id", referencedColumnName = "ID")
     private Shipping shipping;
 
     @OneToMany(mappedBy = "order")
@@ -34,4 +34,5 @@ public class Order {
 
     //TODO: billing address table?
 //    private BillingAddress billingAddress;
+
 }

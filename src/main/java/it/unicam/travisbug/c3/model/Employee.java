@@ -4,18 +4,19 @@ import javax.persistence.*;
 
 @Entity
 public class Employee {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     @Column(nullable = false)
-    private String employee_name;
+    private String name;
 
     @Column(nullable = false)
-    private String employee_email;
+    private String email;
 
     @ManyToOne
-    @JoinColumn(name = "shop_id", referencedColumnName = "id")
-    private Shop employee_shop;
+    @JoinColumn(name = "shop_id", referencedColumnName = "ID")
+    private Shop shop;
 
 }

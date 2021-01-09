@@ -5,6 +5,7 @@ import java.util.Set;
 
 @Entity
 public class ShopCategory {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -15,8 +16,7 @@ public class ShopCategory {
     @Column(nullable = false)
     private String categoryDescription;
 
-    @OneToMany(mappedBy = "shopCategory",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "shopCategory", cascade = CascadeType.ALL)
     private Set<Shop> shop;
-
 
 }
