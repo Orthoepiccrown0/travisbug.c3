@@ -13,4 +13,19 @@ public class Merchant extends RegisteredUser{
     @OneToMany(mappedBy = "merchant")
     private Set<Product> product;
 
+    public Shop getShop() {
+        return shop;
+    }
+
+    public void setShop(Shop shop) {
+        this.shop = shop;
+    }
+
+    public Set<Product> getProduct() {
+        return product;
+    }
+
+    public void setProduct(Set<Product> product) {
+        this.product = product;
+    }
 }

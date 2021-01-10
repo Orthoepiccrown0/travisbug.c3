@@ -1,7 +1,6 @@
 package it.unicam.travisbug.c3.model;
 
 import javax.persistence.*;
-import javax.xml.crypto.Data;
 import java.util.Date;
 import java.util.Set;
 
@@ -24,4 +23,43 @@ public class Promotion {
     @ManyToMany(mappedBy = "promotion")
     private Set<Product> product;
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Date getStart() {
+        return start;
+    }
+
+    public void setStart(Date start) {
+        this.start = start;
+    }
+
+    public Date getEnd() {
+        return end;
+    }
+
+    public void setEnd(Date end) {
+        this.end = end;
+    }
+
+    public Integer getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Integer discount) {
+        this.discount = discount;
+    }
+
+    public Set<Product> getProduct() {
+        return product;
+    }
+
+    public void setProduct(Set<Product> product) {
+        this.product = product;
+    }
 }

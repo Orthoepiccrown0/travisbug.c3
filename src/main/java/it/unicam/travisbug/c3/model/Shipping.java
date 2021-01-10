@@ -26,4 +26,51 @@ public class Shipping {
     @OneToOne(mappedBy = "shipping")
     private Order shipping_order;
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Double getShipCharge() {
+        return shipCharge;
+    }
+
+    public void setShipCharge(Double shipCharge) {
+        this.shipCharge = shipCharge;
+    }
+
+    public String getShipStatus() {
+        return shipStatus;
+    }
+
+    public void setShipStatus(String shipStatus) {
+        this.shipStatus = shipStatus;
+    }
+
+    public Courier getCourier() {
+        return courier;
+    }
+
+    public void setCourier(Courier courier) {
+        this.courier = courier;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public Order getShipping_order() {
+        return shipping_order;
+    }
+
+    public void setShipping_order(Order shipping_order) {
+        this.shipping_order = shipping_order;
+    }
 }

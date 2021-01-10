@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface ShopService {
     void saveShop(Shop s);
+
     List<Shop> getAll();
 }
