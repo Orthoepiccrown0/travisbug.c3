@@ -4,9 +4,11 @@ import it.unicam.travisbug.c3.model.Promotion;
 import it.unicam.travisbug.c3.repository.PromotionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service("promotionService")
 public class PromotionServiceImpl implements PromotionService {
 
     @Qualifier("promotionRepository")

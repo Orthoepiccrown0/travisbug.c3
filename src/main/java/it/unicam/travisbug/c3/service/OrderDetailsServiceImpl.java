@@ -4,9 +4,11 @@ import it.unicam.travisbug.c3.model.OrderDetails;
 import it.unicam.travisbug.c3.repository.OrderDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service("orderDetailsService")
 public class OrderDetailsServiceImpl implements OrderDetailsService {
 
     @Qualifier("orderDetailsRepository")
