@@ -5,9 +5,11 @@ import it.unicam.travisbug.c3.repository.MerchantRepository;
 import it.unicam.travisbug.c3.service.MerchantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service("merchantService")
 public class MerchantServiceImpl implements MerchantService {
     @Qualifier("merchantRepository")
     @Autowired

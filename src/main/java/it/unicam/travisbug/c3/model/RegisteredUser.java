@@ -2,7 +2,7 @@ package it.unicam.travisbug.c3.model;
 
 import javax.persistence.*;
 
-@Entity
+@MappedSuperclass
 public class RegisteredUser {
 
     @Id

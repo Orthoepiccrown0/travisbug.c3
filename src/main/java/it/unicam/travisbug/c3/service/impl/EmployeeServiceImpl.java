@@ -5,9 +5,11 @@ import it.unicam.travisbug.c3.repository.EmployeeRepository;
 import it.unicam.travisbug.c3.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service("employeeService")
 public class EmployeeServiceImpl implements EmployeeService {
     @Qualifier("employeeRepository")
     @Autowired

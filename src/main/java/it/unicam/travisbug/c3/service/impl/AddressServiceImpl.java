@@ -5,9 +5,11 @@ import it.unicam.travisbug.c3.repository.AddressRepository;
 import it.unicam.travisbug.c3.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service("addressService")
 public class AddressServiceImpl implements AddressService {
 
     @Qualifier("addressRepository")
