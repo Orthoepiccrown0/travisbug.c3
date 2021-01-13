@@ -21,21 +21,26 @@
       oninput='password2.setCustomValidity(password2.value != password.value ? "Passwords do not match." : "")'>
     <h3 class="h3 mb-3 font-weight-normal">Please sign up</h3>
     <label for="inputName" class="sr-only">Name</label>
-    <input th:required="true" type="text" id="inputName" name="name" class="form-control" placeholder="Name" required autofocus>
+    <input th:required="true" type="text" id="inputName" name="name" class="form-control" placeholder="Name" required
+           autofocus>
 
     <label for="inputSurname" class="sr-only">Surname</label>
-    <input th:required="true" type="text" id="inputSurname" name="surname" class="form-control" placeholder="Surname" required
+    <input th:required="true" type="text" id="inputSurname" name="surname" class="form-control" placeholder="Surname"
+           required
            autofocus>
 
     <label for="inputEmail" class="sr-only">Email address</label>
-    <input th:required="true" type="email" id="inputEmail" name="email" class="form-control" placeholder="Email address" required
+    <input th:required="true" type="email" id="inputEmail" name="email" class="form-control" placeholder="Email address"
+           required
            autofocus>
 
     <label for="inputPassword" class="sr-only">Password</label>
-    <input th:required="true" type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
+    <input th:required="true" type="password" id="inputPassword" name="password" class="form-control"
+           placeholder="Password" required>
 
     <label for="inputPassword2" class="sr-only">Retype password</label>
-    <input th:required="true" type="password" id="inputPassword2" name="password2" class="form-control" placeholder="Retype password"
+    <input th:required="true" type="password" id="inputPassword2" name="password2" class="form-control"
+           placeholder="Retype password"
            required>
 
     <label for="inputPhone" class="sr-only">Phone number</label>
@@ -45,7 +50,7 @@
     <button class="btn btn-lg btn-success btn-block" type="submit">Sign up</button>
     <a class="btn btn-lg btn-primary btn-block" href="/register">Register</a>
     <a class="btn btn-lg btn-secondary btn-block" href="/register/merchant">Register as merchant</a>
-    <p class="mt-5 mb-3 text-muted">&copy; 2017-2020</p>
+    <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
 </form>
 
 <div th:insert="blocks/footer :: script"></div>

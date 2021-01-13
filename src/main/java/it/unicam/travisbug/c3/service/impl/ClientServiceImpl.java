@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service("clientService")
 public class ClientServiceImpl implements ClientService {
@@ -18,12 +19,12 @@ public class ClientServiceImpl implements ClientService {
 
     private static ClientServiceImpl clientService;
 
-    private ClientServiceImpl(){
+    private ClientServiceImpl() {
 
     }
 
-    @Bean
-    public static ClientService getClientServiceInstance() {
+
+    public static ClientService getServiceInstance() {
         if (clientService == null)
             clientService = new ClientServiceImpl();
         return clientService;
@@ -37,5 +38,15 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public List<Client> getAll() {
         return clientRepository.findAll();
+    }
+
+    @Override
+    public Optional<Client> findById(String id) {
+        return clientRepository.findById(id);
+    }
+
+    @Override
+    public Client findByEmailAndPass(String email, String password) {
+        return clientRepository.findByEmailAndPassword(email, password);
     }
 }
