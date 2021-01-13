@@ -3,16 +3,21 @@ package it.unicam.travisbug.c3.service.impl;
 import it.unicam.travisbug.c3.model.Client;
 import it.unicam.travisbug.c3.repository.ClientRepository;
 import it.unicam.travisbug.c3.service.ClientService;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Bean;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service("clientService")
-public class ClientServiceImpl implements ClientService {
+@Component
+public class ClientServiceImpl implements ClientService, ApplicationContextAware {
+
     @Qualifier("clientRepository")
     @Autowired
     private ClientRepository clientRepository;
@@ -22,7 +27,6 @@ public class ClientServiceImpl implements ClientService {
     private ClientServiceImpl() {
 
     }
-
 
     public static ClientService getServiceInstance() {
         if (clientService == null)
@@ -48,5 +52,10 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public Client findByEmailAndPass(String email, String password) {
         return clientRepository.findByEmailAndPassword(email, password);
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+
     }
 }

@@ -17,7 +17,7 @@
 <body>
 <header th:insert="blocks/header :: style"></header>
 <!--content space-->
-<form class="form-signin" action="/register" method=post
+<form class="form-signin" method=post
       oninput='password2.setCustomValidity(password2.value != password.value ? "Passwords do not match." : "")'>
     <h3 class="h3 mb-3 font-weight-normal">Please sign up</h3>
     <label for="inputName" class="sr-only">Name</label>
@@ -47,13 +47,21 @@
     <input type="tel" id="inputPhone" name="phone" class="form-control" placeholder="Phone number">
     <p class="font-italic" style="font-size: small">*Optional</p>
 
-    <div class="mb-3">
-    <label for="typeClient"> Client</label> <input id="typeClient" type="radio" name="type" value="Client"/>
-    <label for="typeCourier">Courier</label> <input id="typeCourier" type="radio" name="type" value="Courier"/>
+    <label for="inputShopName" class="sr-only">Shop name</label>
+    <input th:required="true" type="text" id="inputShopName" name="shopName" class="form-control" placeholder="Shop name" required
+           autofocus>
+
+    <div class="form-group">
+        <label for="sel1">Select shop category:</label>
+        <select class="form-control" id="sel1" name="shopCategory">
+            <option value="Games">Games</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Restaurant">Restaurant</option>
+            <option value="Jewelery">Jewelery</option>
+        </select>
     </div>
 
     <button class="btn btn-lg btn-success btn-block" type="submit">Sign up</button>
-    <a class="btn btn-lg btn-secondary btn-block" href="/register/merchant">Register as merchant</a>
     <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
 </form>
 

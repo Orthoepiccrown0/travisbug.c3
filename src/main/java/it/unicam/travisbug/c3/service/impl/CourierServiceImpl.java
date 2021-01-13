@@ -2,11 +2,9 @@ package it.unicam.travisbug.c3.service.impl;
 
 import it.unicam.travisbug.c3.model.Courier;
 import it.unicam.travisbug.c3.repository.CourierRepository;
-import it.unicam.travisbug.c3.service.ClientService;
 import it.unicam.travisbug.c3.service.CourierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +12,7 @@ import java.util.Optional;
 
 @Service("courierService")
 public class CourierServiceImpl implements CourierService {
+
     @Qualifier("courierRepository")
     @Autowired
     private CourierRepository courierRepository;
@@ -23,7 +22,6 @@ public class CourierServiceImpl implements CourierService {
     private CourierServiceImpl() {
 
     }
-
 
     public static CourierService getServiceInstance() {
         if (courierService == null)
