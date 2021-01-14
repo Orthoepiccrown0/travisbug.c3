@@ -12,9 +12,12 @@ import java.util.List;
 @Service("employeeService")
 public class EmployeeServiceImpl implements EmployeeService {
     @Qualifier("employeeRepository")
-    @Autowired
     private EmployeeRepository employeeRepository;
 
+    @Autowired
+    public void setEmployeeRepository(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
+    }
 
     @Override
     public void saveEmployee(Employee employee) {

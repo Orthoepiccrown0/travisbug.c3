@@ -14,8 +14,12 @@ import java.util.Optional;
 public class CourierServiceImpl implements CourierService {
 
     @Qualifier("courierRepository")
-    @Autowired
     private CourierRepository courierRepository;
+
+    @Autowired
+    public void setCourierRepository(CourierRepository courierRepository) {
+        this.courierRepository = courierRepository;
+    }
 
     private static CourierServiceImpl courierService;
 

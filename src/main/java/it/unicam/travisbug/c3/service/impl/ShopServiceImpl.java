@@ -14,8 +14,12 @@ import java.util.List;
 public class ShopServiceImpl implements ShopService {
 
     @Qualifier("shopRepository")
-    @Autowired
     private ShopRepository shopRepository;
+
+    @Autowired
+    public void setShopRepository(ShopRepository shopRepository) {
+        this.shopRepository = shopRepository;
+    }
 
     @Override
     public void saveShop(Shop s) {

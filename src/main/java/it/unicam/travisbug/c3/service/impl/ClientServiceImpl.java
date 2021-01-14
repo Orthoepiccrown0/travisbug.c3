@@ -19,8 +19,12 @@ import java.util.Optional;
 public class ClientServiceImpl implements ClientService, ApplicationContextAware {
 
     @Qualifier("clientRepository")
-    @Autowired
     private ClientRepository clientRepository;
+
+    @Autowired
+    public void setClientRepository(ClientRepository clientRepository) {
+        this.clientRepository = clientRepository;
+    }
 
     private static ClientServiceImpl clientService;
 

@@ -13,8 +13,12 @@ import java.util.List;
 public class AddressServiceImpl implements AddressService {
 
     @Qualifier("addressRepository")
-    @Autowired
     private AddressRepository addressRepository;
+
+    @Autowired
+    public void setAddressRepository(AddressRepository addressRepository) {
+        this.addressRepository = addressRepository;
+    }
 
     @Override
     public void saveAddress(Address address) {

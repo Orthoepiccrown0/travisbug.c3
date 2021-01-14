@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.Set;
 import java.util.UUID;
 
 @Controller
@@ -65,4 +66,5 @@ public class MerchantRegistration {
 
         return "redirect:/";
     }
+
 }

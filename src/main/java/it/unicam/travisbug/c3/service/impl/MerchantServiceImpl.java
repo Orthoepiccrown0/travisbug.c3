@@ -15,8 +15,12 @@ import java.util.Optional;
 @Service("merchantService")
 public class MerchantServiceImpl implements MerchantService {
     @Qualifier("merchantRepository")
-    @Autowired
     private MerchantRepository merchantRepository;
+
+    @Autowired
+    public void setMerchantRepository(MerchantRepository merchantRepository) {
+        this.merchantRepository = merchantRepository;
+    }
 
     private static MerchantServiceImpl merchantService;
 

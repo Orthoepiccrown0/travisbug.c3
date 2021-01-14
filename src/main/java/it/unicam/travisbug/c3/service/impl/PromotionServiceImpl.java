@@ -13,8 +13,13 @@ import java.util.List;
 public class PromotionServiceImpl implements PromotionService {
 
     @Qualifier("promotionRepository")
-    @Autowired
     private PromotionRepository promotionRepository;
+
+    @Autowired
+    public void setPromotionRepository(PromotionRepository promotionRepository) {
+        this.promotionRepository = promotionRepository;
+    }
+
 
     @Override
     public void savePromotion(Promotion p) {

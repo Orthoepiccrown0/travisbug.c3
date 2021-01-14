@@ -13,8 +13,12 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService {
 
     @Qualifier("productRepository")
-    @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    public void setProductRepository(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
     @Override
     public void saveProduct(Product p) {

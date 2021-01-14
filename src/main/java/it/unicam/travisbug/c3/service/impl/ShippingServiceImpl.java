@@ -13,8 +13,12 @@ import java.util.List;
 public class ShippingServiceImpl implements ShippingService {
 
     @Qualifier("shippingRepository")
-    @Autowired
     private ShippingRepository shippingRepository;
+
+    @Autowired
+    public void setShippingRepository(ShippingRepository shippingRepository) {
+        this.shippingRepository = shippingRepository;
+    }
 
     @Override
     public void saveShipping(Shipping s) {

@@ -13,8 +13,12 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
 
     @Qualifier("orderRepository")
-    @Autowired
     private OrderRepository orderRepository;
+
+    @Autowired
+    public void setOrderRepository(OrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
+    }
 
     @Override
     public void saveOrder(Order o) {

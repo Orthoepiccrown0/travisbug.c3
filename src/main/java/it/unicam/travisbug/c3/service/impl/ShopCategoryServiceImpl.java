@@ -13,8 +13,12 @@ import java.util.List;
 public class ShopCategoryServiceImpl implements ShopCategoryService {
 
     @Qualifier("shopCategoryRepository")
-    @Autowired
     private ShopCategoryRepository shopCategoryRepository;
+
+    @Autowired
+    public void setShopCategoryRepository(ShopCategoryRepository shopCategoryRepository) {
+        this.shopCategoryRepository = shopCategoryRepository;
+    }
 
     @Override
     public void saveShopCategory(ShopCategory c) {

@@ -11,9 +11,14 @@ import java.util.List;
 
 @Service("categoryService")
 public class CategoryServiceImpl implements CategoryService {
+
     @Qualifier("categoryRepository")
-    @Autowired
     private CategoryRepository categoryRepository;
+
+    @Autowired
+    public void setCategoryRepository(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
+    }
 
     @Override
     public void saveCategory(Category category) {

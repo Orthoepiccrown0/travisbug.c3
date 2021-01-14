@@ -13,8 +13,12 @@ import java.util.List;
 public class OrderDetailsServiceImpl implements OrderDetailsService {
 
     @Qualifier("orderDetailsRepository")
-    @Autowired
     private OrderDetailsRepository orderDetailsRepository;
+
+    @Autowired
+    public void setOrderDetailsRepository(OrderDetailsRepository orderDetailsRepository) {
+        this.orderDetailsRepository = orderDetailsRepository;
+    }
 
     @Override
     public void saveOrderDetails(OrderDetails d) {

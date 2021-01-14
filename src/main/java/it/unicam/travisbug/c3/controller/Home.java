@@ -49,5 +49,8 @@ public class Home {
         return "redirect:/";
     }
 
-
+    @GetMapping("/adminLogin")
+    public String showAdminLogin(){
+        return "adminLogin";
+    }
 }
