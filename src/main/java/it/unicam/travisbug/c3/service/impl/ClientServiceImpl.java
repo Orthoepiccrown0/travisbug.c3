@@ -55,6 +55,11 @@ public class ClientServiceImpl implements ClientService, ApplicationContextAware
     }
 
     @Override
+    public Client findByEmail(String email) {
+        return clientRepository.findByEmail(email);
+    }
+
+    @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 
     }

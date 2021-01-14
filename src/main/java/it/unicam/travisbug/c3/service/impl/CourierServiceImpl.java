@@ -43,4 +43,9 @@ public class CourierServiceImpl implements CourierService {
     public Optional<Courier> findById(String id) {
         return courierRepository.findById(id);
     }
+
+    @Override
+    public Courier findByEmail(String email) {
+        return courierRepository.findByEmail(email);
+    }
 }

@@ -2,6 +2,7 @@ package it.unicam.travisbug.c3.controller;
 
 import it.unicam.travisbug.c3.model.Merchant;
 import it.unicam.travisbug.c3.model.Shop;
+import it.unicam.travisbug.c3.repository.ClientRepository;
 import it.unicam.travisbug.c3.service.impl.MerchantServiceImpl;
 import it.unicam.travisbug.c3.service.impl.ShopServiceImpl;
 import it.unicam.travisbug.c3.utils.PasswordTool;
@@ -18,11 +19,19 @@ import java.util.UUID;
 @Controller
 public class MerchantRegistration {
 
-    @Autowired
     private MerchantServiceImpl merchantService;
 
-    @Autowired
     private ShopServiceImpl shopService;
+
+    @Autowired
+    public void setMerchantService(MerchantServiceImpl merchantService) {
+        this.merchantService = merchantService;
+    }
+
+    @Autowired
+    public void setShopService(ShopServiceImpl shopService) {
+        this.shopService = shopService;
+    }
 
     @GetMapping("/register/merchant")
     public String merchantRegister(Model model) {

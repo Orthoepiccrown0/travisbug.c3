@@ -13,4 +13,6 @@ public interface ClientService {
     Optional<Client> findById(String id);
 
     Client findByEmailAndPass(String email, String password);
+
+    Client findByEmail(String email);
 }

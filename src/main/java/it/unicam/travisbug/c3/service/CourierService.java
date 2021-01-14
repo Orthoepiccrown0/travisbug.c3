@@ -12,4 +12,6 @@ public interface CourierService {
     List<Courier> getAll();
 
     Optional<Courier> findById(String id);
+
+    Courier findByEmail(String email);
 }

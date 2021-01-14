@@ -2,16 +2,8 @@ package it.unicam.travisbug.c3.controller;
 
 import it.unicam.travisbug.c3.model.Client;
 import it.unicam.travisbug.c3.model.Courier;
-import it.unicam.travisbug.c3.model.Merchant;
-import it.unicam.travisbug.c3.model.Shop;
-import it.unicam.travisbug.c3.repository.ClientRepository;
-import it.unicam.travisbug.c3.service.ClientService;
-import it.unicam.travisbug.c3.service.CourierService;
-import it.unicam.travisbug.c3.service.MerchantService;
 import it.unicam.travisbug.c3.service.impl.ClientServiceImpl;
 import it.unicam.travisbug.c3.service.impl.CourierServiceImpl;
-import it.unicam.travisbug.c3.service.impl.MerchantServiceImpl;
-import it.unicam.travisbug.c3.service.impl.ShopServiceImpl;
 import it.unicam.travisbug.c3.utils.PasswordTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -27,11 +20,19 @@ import java.util.UUID;
 @Controller
 public class Registration {
 
-    @Autowired
     private ClientServiceImpl clientService;
 
-    @Autowired
     private CourierServiceImpl courierService;
+
+    @Autowired
+    public void setClientService(ClientServiceImpl clientService) {
+        this.clientService = clientService;
+    }
+
+    @Autowired
+    public void setCourierService(CourierServiceImpl courierService) {
+        this.courierService = courierService;
+    }
 
     @PostMapping("/login")
     public String login(Model model,
@@ -39,11 +40,8 @@ public class Registration {
                         String password,
                         @RequestParam(value = "checkboxName", required = false) String remember,
                         HttpServletResponse response) {
-        ClientService clientService = ClientServiceImpl.getServiceInstance();
-        CourierService courierService = CourierServiceImpl.getServiceInstance();
-        MerchantService merchantService = MerchantServiceImpl.getServiceInstance();
         boolean rememberState = false;
-        if(remember!=null)
+        if (remember != null)
             rememberState = true;
         Client client = clientService.findByEmailAndPass(email, PasswordTool.getMD5String(password));
         if (client != null) {
@@ -61,13 +59,31 @@ public class Registration {
                            String password,
                            String phone,
                            String type,
-                           HttpServletResponse response) {
-        if(type.equals("Client")) {
-            registerClient(name, surname, email, password, phone, response);
-        }else{
-            registerCourier(name, surname, email, password, phone, response);
+                           HttpServletResponse response,
+                           RedirectAttributes redirectAttrs) {
+        if (!isUsedEmail(email)) {
+            if (type.equals("Client")) {
+                registerClient(name, surname, email, password, phone, response);
+            } else {
+                registerCourier(name, surname, email, password, phone, response);
+            }
+            return "redirect:/";
         }
-        return "redirect:/";
+        redirectAttrs.addAttribute("used_email", "used");
+        return "redirect:/register";
+    }
+
+    @GetMapping("/register")
+    public String registerUser(Model model, String used_email) {
+        model.addAttribute("used_email", used_email);
+        return "registration";
+    }
+
+    private boolean isUsedEmail(String email) {
+        Client client = clientService.findByEmail(email);
+        Courier courier = courierService.findByEmail(email);
+
+        return client != null || courier != null;
     }
 
     private void registerClient(String name, String surname, String email, String password, String phone, HttpServletResponse response) {
@@ -113,10 +129,7 @@ public class Registration {
         response.addCookie(cookie);
     }
 
-    @GetMapping("/register")
-    public String register(Model model) {
-        return "registration";
-    }
+
 
 
 }
