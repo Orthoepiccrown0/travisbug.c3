@@ -18,7 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class DataTests {
 
     @Autowired
-    ClientRepository clientRepository;
+    ClientService clientService;
 
     @Test
     void clientRegistration() throws Exception{
@@ -27,10 +27,7 @@ public class DataTests {
         client.setSurname("Cognome");
         client.setEmail("Cogione@gmail.com");
         client.setPassword(PasswordTool.getMD5String("password"));
-//        ClientService clientService = ClientServiceImpl.getClientServiceInstance();
-//        clientService.saveClient(client);
-//        clientService.saveClient(client);
-        clientRepository.save(client);
+        clientService.saveClient(client);
     }
 
 }

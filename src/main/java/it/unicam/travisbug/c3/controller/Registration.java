@@ -4,6 +4,7 @@ import it.unicam.travisbug.c3.model.Client;
 import it.unicam.travisbug.c3.model.Courier;
 import it.unicam.travisbug.c3.service.impl.ClientServiceImpl;
 import it.unicam.travisbug.c3.service.impl.CourierServiceImpl;
+import it.unicam.travisbug.c3.utils.AppCookies;
 import it.unicam.travisbug.c3.utils.PasswordTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,8 @@ public class Registration {
     private ClientServiceImpl clientService;
 
     private CourierServiceImpl courierService;
+
+    private AppCookies appCookies;
 
     @Autowired
     public void setClientService(ClientServiceImpl clientService) {
@@ -45,8 +48,8 @@ public class Registration {
             rememberState = true;
         Client client = clientService.findByEmailAndPass(email, PasswordTool.getMD5String(password));
         if (client != null) {
-            setRoleCookie("client", response);
-            setUserIDCookie(client.getId(), response, rememberState);
+            appCookies.setRoleCookie("client", response);
+            appCookies.setUserIDCookie(client.getId(), response, rememberState);
         }
         return "redirect:/";
     }
@@ -97,8 +100,8 @@ public class Registration {
             client.setPhone(phone);
         clientService.saveClient(client);
 
-        setUserIDCookie(client.getId(), response, true);
-        setRoleCookie("client", response);
+        appCookies.setUserIDCookie(client.getId(), response, true);
+        appCookies.setRoleCookie("client", response);
     }
 
     private void registerCourier(String name, String surname, String email, String password, String phone, HttpServletResponse response) {
@@ -112,22 +115,11 @@ public class Registration {
             courier.setPhone(phone);
         courierService.saveCourier(courier);
 
-        setUserIDCookie(courier.getId(), response, true);
-        setRoleCookie("courier", response);
+        appCookies.setUserIDCookie(courier.getId(), response, true);
+        appCookies.setRoleCookie("courier", response);
     }
 
-    private void setRoleCookie(String role, HttpServletResponse response) {
-        Cookie cookie = new Cookie("role", role);
-        cookie.setMaxAge(7 * 24 * 60 * 60);
-        response.addCookie(cookie);
-    }
 
-    private void setUserIDCookie(String id, HttpServletResponse response, Boolean remember) {
-        Cookie cookie = new Cookie("user_id", id);
-        if (remember)
-            cookie.setMaxAge(7 * 24 * 60 * 60);
-        response.addCookie(cookie);
-    }
 
 
 

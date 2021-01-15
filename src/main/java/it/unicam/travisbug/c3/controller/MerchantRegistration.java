@@ -2,7 +2,6 @@ package it.unicam.travisbug.c3.controller;
 
 import it.unicam.travisbug.c3.model.Merchant;
 import it.unicam.travisbug.c3.model.Shop;
-import it.unicam.travisbug.c3.repository.ClientRepository;
 import it.unicam.travisbug.c3.service.impl.MerchantServiceImpl;
 import it.unicam.travisbug.c3.service.impl.ShopServiceImpl;
 import it.unicam.travisbug.c3.utils.PasswordTool;
@@ -11,10 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.Set;
 import java.util.UUID;
 
 @Controller
