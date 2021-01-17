@@ -15,11 +15,7 @@ public class Home {
     public String showHome(Model model,
                            @CookieValue(value = "user_id", defaultValue = "") String userid,
                            @CookieValue(value = "role", defaultValue = "") String role) {
-        String logged = "guest";
-        if(!userid.equals("") && !role.equals("")){
-            logged = "logged";
-        }
-        model.addAttribute("logged",logged);
+        checkLogged(model, userid, role);
         return "index";
     }
 
@@ -42,5 +38,23 @@ public class Home {
     @GetMapping("/adminLogin")
     public String showAdminLogin(){
         return "adminLogin";
+    }
+
+    @GetMapping("/contacts")
+    public String showContacts(Model model,
+                               @CookieValue(value = "user_id", defaultValue = "") String userid,
+                               @CookieValue(value = "role", defaultValue = "") String role) {
+        checkLogged(model, userid, role);
+        return "contacts";
+    }
+
+    private void checkLogged(Model model,
+                            @CookieValue(value = "user_id", defaultValue = "") String userid,
+                            @CookieValue(value = "role", defaultValue = "") String role){
+        String logged = "guest";
+        if(!userid.equals("") && !role.equals("")){
+            logged = "logged";
+        }
+        model.addAttribute("logged",logged);
     }
 }

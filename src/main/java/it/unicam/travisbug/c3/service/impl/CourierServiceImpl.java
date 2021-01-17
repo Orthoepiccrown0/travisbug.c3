@@ -1,5 +1,6 @@
 package it.unicam.travisbug.c3.service.impl;
 
+import it.unicam.travisbug.c3.model.Client;
 import it.unicam.travisbug.c3.model.Courier;
 import it.unicam.travisbug.c3.repository.CourierRepository;
 import it.unicam.travisbug.c3.service.CourierService;
@@ -52,4 +53,10 @@ public class CourierServiceImpl implements CourierService {
     public Courier findByEmail(String email) {
         return courierRepository.findByEmail(email);
     }
+
+    @Override
+    public Courier findByEmailAndPass(String email, String password) {
+        return courierRepository.findByEmailAndPassword(email, password);
+    }
+
 }
