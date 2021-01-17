@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Shop</title>
+</head>
+
+<!--custom css-->
+<style>
+
+
+</style>
+<link th:href="@{/assets/css/shopSubmit.css}" rel="stylesheet">
+
+<body>
+<header th:insert="blocks/header :: style"></header>
+<!--content space-->
+<form class="form-signin" method=post>
+    <h3 class="h3 mb-1 font-weight-normal">Almost done!</h3>
+    <p class="mb-3 font-italic">Tell us more about your shop</p>
+    <label for="inputShopName" class="sr-only">Shop name</label>
+    <input th:required="true" type="text" id="inputShopName" name="shopName" class="form-control" placeholder="Shop name" required
+           autofocus>
+
+    <label for="inputComment" class="sr-only">Comment</label>
+    <textarea th:required="true"  id="inputComment" name="comment" class="form-control" placeholder="Comment for administration" required
+              autofocus></textarea>
+
+    <div class="form-group">
+        <label for="sel1">Select shop category:</label>
+        <select class="form-control" id="sel1" name="shopCategory">
+            <option value="Games">Games</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Restaurant">Restaurant</option>
+            <option value="Jewelery">Jewelery</option>
+        </select>
+    </div>
+
+    <button class="btn btn-lg btn-success btn-block" type="submit">Submit to review</button>
+    <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
+</form>
+
+<div th:insert="blocks/footer :: script"></div>
+</body>
+</html>

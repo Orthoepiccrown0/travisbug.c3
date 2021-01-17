@@ -11,6 +11,8 @@ public class Promotion {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
 
+    private Boolean approved;
+
     @Column(nullable = false)
     private Date start;
 
@@ -22,6 +24,14 @@ public class Promotion {
 
     @ManyToMany(mappedBy = "promotion")
     private Set<Product> product;
+
+    public Boolean getApproved() {
+        return approved;
+    }
+
+    public void setApproved(Boolean approved) {
+        this.approved = approved;
+    }
 
     public String getId() {
         return id;

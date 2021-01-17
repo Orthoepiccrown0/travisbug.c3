@@ -1,7 +1,8 @@
 package it.unicam.travisbug.c3.model;
 
-import javax.persistence.*;
-import java.util.UUID;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public class RegisteredUser {

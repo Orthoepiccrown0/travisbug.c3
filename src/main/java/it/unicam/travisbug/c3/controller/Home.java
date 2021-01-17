@@ -23,12 +23,12 @@ public class Home {
         return "index";
     }
 
-    @GetMapping("/login")
+    @GetMapping("/user_login")
     public String showLogin() {
         return "login";
     }
 
-    @GetMapping("/logout")
+    @GetMapping("/user_logout")
     public String logout(HttpServletResponse response){
         Cookie user_cookie = new Cookie("user_id", "");
         Cookie role_cookie = new Cookie("role", "");

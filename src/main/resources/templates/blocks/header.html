@@ -13,10 +13,10 @@
         </nav>
         <!--/*@thymesVar id="logged" type="java.lang.String"*/-->
         <div th:if="${logged} == 'guest'">
-            <a class="btn btn-outline-primary" href="/login">Sign in</a>
+            <a class="btn btn-outline-primary" href="/user_login">Sign in</a>
         </div>
         <div th:if="${logged} == 'logged'">
-            <a class="btn btn-outline-primary" href="/logout">Logout</a>
+            <a class="btn btn-outline-primary" href="/user_logout">Logout</a>
         </div>
     </div>
 </div>

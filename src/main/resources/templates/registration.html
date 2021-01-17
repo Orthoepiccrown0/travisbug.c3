@@ -21,11 +21,13 @@
       oninput='password2.setCustomValidity(password2.value != password.value ? "Passwords do not match." : "")'>
     <h3 class="h3 mb-3 font-weight-normal">Please sign up</h3>
     <label for="inputName" class="sr-only">Name</label>
-    <input th:required="true" type="text" id="inputName" name="name" class="form-control" placeholder="Name" required
+    <input th:required="true" type="text" id="inputName" name="name" autocomplete="given-name" class="form-control"
+           placeholder="Name" required
            autofocus>
 
     <label for="inputSurname" class="sr-only">Surname</label>
-    <input th:required="true" type="text" id="inputSurname" name="surname" class="form-control" placeholder="Surname"
+    <input th:required="true" type="text" id="inputSurname" name="surname" autocomplete="family-name"
+           class="form-control" placeholder="Surname"
            required
            autofocus>
 
@@ -48,8 +50,8 @@
     <p class="font-italic" style="font-size: small">*Optional</p>
 
     <div class="mb-3">
-    <label for="typeClient"> Client</label> <input id="typeClient" type="radio" name="type" value="Client"/>
-    <label for="typeCourier">Courier</label> <input id="typeCourier" type="radio" name="type" value="Courier"/>
+        <label for="typeClient"> Client</label> <input id="typeClient" type="radio" name="type" value="Client"/>
+        <label for="typeCourier">Courier</label> <input id="typeCourier" type="radio" name="type" value="Courier"/>
     </div>
 
     <!--/*@thymesVar id="used_email" type="java.lang.String"*/-->

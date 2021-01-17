@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
@@ -25,7 +24,7 @@ public class Registration {
 
     private CourierServiceImpl courierService;
 
-    private AppCookies appCookies;
+    private final AppCookies appCookies = new AppCookies();
 
     @Autowired
     public void setClientService(ClientServiceImpl clientService) {

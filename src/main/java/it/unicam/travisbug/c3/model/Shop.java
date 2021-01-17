@@ -10,6 +10,8 @@ public class Shop {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
 
+    private Boolean approved;
+
     @Column(nullable = false)
     private String shopName;
 
@@ -22,6 +24,14 @@ public class Shop {
     @ManyToOne
     @JoinColumn(name = "shop_category_id", referencedColumnName = "ID")
     private ShopCategory shopCategory;
+
+    public Boolean getApproved() {
+        return approved;
+    }
+
+    public void setApproved(Boolean approved) {
+        this.approved = approved;
+    }
 
     public Integer getId() {
         return id;

@@ -2,11 +2,9 @@ package it.unicam.travisbug.c3.service.impl;
 
 import it.unicam.travisbug.c3.model.Merchant;
 import it.unicam.travisbug.c3.repository.MerchantRepository;
-import it.unicam.travisbug.c3.service.CourierService;
 import it.unicam.travisbug.c3.service.MerchantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,5 +46,10 @@ public class MerchantServiceImpl implements MerchantService {
     @Override
     public Optional<Merchant> findById(String id) {
         return merchantRepository.findById(id);
+    }
+
+    @Override
+    public Merchant findByEmail(String email) {
+        return merchantRepository.findByEmail(email);
     }
 }
