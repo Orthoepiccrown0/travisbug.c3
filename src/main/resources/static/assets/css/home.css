@@ -1,6 +1,7 @@
-html {
+html, body{
   font-size: 14px;
 }
+
 @media (min-width: 768px) {
   html {
     font-size: 16px;
@@ -18,3 +19,4 @@ html {
 .card-deck .card {
   min-width: 220px;
 }
+
