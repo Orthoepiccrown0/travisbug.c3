@@ -17,4 +17,5 @@ public class Client extends RegisteredUser{
     public void setOrder(Set<Order> order) {
         this.order = order;
     }
+
 }

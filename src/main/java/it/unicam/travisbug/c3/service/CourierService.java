@@ -14,4 +14,6 @@ public interface CourierService {
     Optional<Courier> findById(String id);
 
     Courier findByEmail(String email);
+
+    Courier findByEmailAndPass(String email, String password);
 }

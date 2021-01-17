@@ -25,8 +25,6 @@ public class Registration {
 
     private CourierServiceImpl courierService;
 
-    private AppCookies appCookies;
-
     @Autowired
     public void setClientService(ClientServiceImpl clientService) {
         this.clientService = clientService;
@@ -47,7 +45,14 @@ public class Registration {
         if (remember != null)
             rememberState = true;
         Client client = clientService.findByEmailAndPass(email, PasswordTool.getMD5String(password));
+        Courier courier = courierService.findByEmailAndPass(email, PasswordTool.getMD5String(password));
+        if (courier != null) {
+            AppCookies appCookies = new AppCookies();
+            appCookies.setRoleCookie("courier", response);
+            appCookies.setUserIDCookie(client.getId(), response, rememberState);
+        }
         if (client != null) {
+            AppCookies appCookies = new AppCookies();
             appCookies.setRoleCookie("client", response);
             appCookies.setUserIDCookie(client.getId(), response, rememberState);
         }
@@ -99,7 +104,7 @@ public class Registration {
         if (phone != null)
             client.setPhone(phone);
         clientService.saveClient(client);
-
+        AppCookies appCookies = new AppCookies();
         appCookies.setUserIDCookie(client.getId(), response, true);
         appCookies.setRoleCookie("client", response);
     }
@@ -114,13 +119,9 @@ public class Registration {
         if (phone != null)
             courier.setPhone(phone);
         courierService.saveCourier(courier);
-
+        AppCookies appCookies = new AppCookies();
         appCookies.setUserIDCookie(courier.getId(), response, true);
         appCookies.setRoleCookie("courier", response);
     }
-
-
-
-
 
 }
