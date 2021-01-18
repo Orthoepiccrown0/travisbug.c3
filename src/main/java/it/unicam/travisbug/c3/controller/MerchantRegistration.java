@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 import java.util.UUID;
 
 @Controller
@@ -43,7 +44,7 @@ public class MerchantRegistration {
 
     @GetMapping("/register/merchant")
     public String merchantRegister(Model model) {
-        return "merchantRegistration";
+        return "accounts/merchantRegistration";
     }
 
     @PostMapping("/register/merchant")
@@ -92,7 +93,7 @@ public class MerchantRegistration {
     }
 
     @PostMapping("/register/merchant/shop")
-    public String shopRegister(Model model,
+    public String saveShop(Model model,
                                String shopName,
                                String comment,
                                Merchant merchant) {
@@ -100,7 +101,9 @@ public class MerchantRegistration {
         shop.setMerchant(merchant);
         shop.setShopName(shopName);
         shop.setApproved(false);
+        merchant.setShop(shop);
         shopService.saveShop(shop);
+        merchantService.saveMerchant(merchant);
 
         addRequest(shopName, comment, shop);
         return "redirect:/";
@@ -112,6 +115,7 @@ public class MerchantRegistration {
         adminRequests.setShop(shop);
         adminRequests.setTitle(shopName);
         adminRequests.setComment(comment);
+        adminRequests.setDate(new Date());
         adminRequestsRepository.save(adminRequests);
     }
 

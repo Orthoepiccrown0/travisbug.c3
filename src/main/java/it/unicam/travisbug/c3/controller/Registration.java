@@ -78,7 +78,7 @@ public class Registration {
     @GetMapping("/register")
     public String registerUser(Model model, String used_email) {
         model.addAttribute("used_email", used_email);
-        return "registration";
+        return "accounts/registration";
     }
 
     private boolean isUsedEmail(String email) {

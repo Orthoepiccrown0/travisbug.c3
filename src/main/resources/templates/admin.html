@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+</head>
+<body>
+<link rel="stylesheet" th:href="@{/assets/css/admin.css}">
+<div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+        <a class="my-0 mr-md-auto text-secondary" href="/">Sottocorte Village</a>
+
+        <a class="btn btn-outline-primary" href="/logout">Logout</a>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <!--/*@thymesVar id="requests" type="java.util.List"*/-->
+            <!--/*@thymesVar id="request" type="it.unicam.travisbug.c3.model.AdminRequests"*/-->
+            <div th:each="request: ${requests}">
+                <div class="row m-2">
+                    <div class="col col-md-2"></div>
+                    <div class="col col-md-8">
+                        <div id="request" class="collapsible">
+                            <div class="row">
+                                <h4 th:text="${request.title}" class="col-8 pl-4 m-auto"></h4>
+                                <div class="col-4 d-flex justify-content-end">
+                                    <a th:href="@{/admin/accept/{id}(id=${request.id})}" class="btn btn-outline-success">Approve</a>
+                                    <a th:href="@{/admin/decline/{id}(id=${request.id})}" class="btn btn-outline-danger ml-1 mr-2">Decline</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <p th:text="${request.comment}"></p>
+                        </div>
+                    </div>
+                    <div class="col col-md-2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        });
+    }
+
+    var collapsed = false;
+    document.querySelector('#request').addEventListener('click', () => {
+        if (collapsed)
+            document.querySelector('#request').setAttribute("class", "collapsible");
+        else
+            document.querySelector('#request').setAttribute("class", "collapsible-onclick");
+        collapsed = !collapsed;
+    });
+</script>
+
+
+</body>
+</html>

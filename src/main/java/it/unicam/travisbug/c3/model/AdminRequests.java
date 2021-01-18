@@ -1,6 +1,7 @@
 package it.unicam.travisbug.c3.model;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class AdminRequests {
@@ -12,11 +13,21 @@ public class AdminRequests {
 
     private String comment;
 
+    private Date date;
+
     @OneToOne
     private Shop shop;
 
     @OneToOne
     private Promotion promotion;
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
     public String getTitle() {
         return title;

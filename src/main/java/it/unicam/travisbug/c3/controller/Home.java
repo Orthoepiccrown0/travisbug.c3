@@ -21,7 +21,7 @@ public class Home {
 
     @GetMapping("/user_login")
     public String showLogin() {
-        return "login";
+        return "accounts/login";
     }
 
     @GetMapping("/user_logout")
@@ -35,10 +35,6 @@ public class Home {
         return "redirect:/";
     }
 
-    @GetMapping("/adminLogin")
-    public String showAdminLogin(){
-        return "adminLogin";
-    }
 
     @GetMapping("/contacts")
     public String showContacts(Model model,

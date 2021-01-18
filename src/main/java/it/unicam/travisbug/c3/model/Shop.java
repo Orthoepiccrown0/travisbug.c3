@@ -15,7 +15,7 @@ public class Shop {
     @Column(nullable = false)
     private String shopName;
 
-    @OneToOne(mappedBy = "shop")
+    @OneToOne(mappedBy = "shop", cascade = CascadeType.ALL)
     private Merchant merchant;
 
     @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL) //si puo fare 2 volte mappedBy ="shop" ??
