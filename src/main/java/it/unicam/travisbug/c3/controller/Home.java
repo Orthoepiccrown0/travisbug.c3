@@ -1,11 +1,9 @@
 package it.unicam.travisbug.c3.controller;
 
 import it.unicam.travisbug.c3.model.Client;
-import it.unicam.travisbug.c3.service.impl.ClientServiceImpl;
-import it.unicam.travisbug.c3.service.impl.CourierServiceImpl;
 import it.unicam.travisbug.c3.utils.AppCookies;
+import it.unicam.travisbug.c3.utils.DBManager;
 import it.unicam.travisbug.c3.utils.PasswordTool;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -19,23 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class Home {
 
-    private ClientServiceImpl clientService;
-
-    private CourierServiceImpl courierService;
+    private DBManager dbManager;
 
     private final AppCookies appCookies = new AppCookies();
-
-    @Autowired
-    public void setClientService(ClientServiceImpl clientService) {
-        this.clientService = clientService;
-    }
-
-    @Autowired
-    public void setCourierService(CourierServiceImpl courierService) {
-        this.courierService = courierService;
-    }
-
-
 
     @GetMapping("/")
     public String showHome(Model model,
@@ -59,7 +43,7 @@ public class Home {
         boolean rememberState = false;
         if (remember != null)
             rememberState = true;
-        Client client = clientService.findByEmailAndPass(email, PasswordTool.getMD5String(password));
+        Client client = dbManager.getClientService().findByEmailAndPass(email, PasswordTool.getMD5String(password));
         if (client != null) {
             appCookies.setRoleCookie("client", response);
             appCookies.setUserIDCookie(client.getId(), response, rememberState);

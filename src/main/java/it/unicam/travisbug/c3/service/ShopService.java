@@ -10,4 +10,6 @@ public interface ShopService {
 
     List<Shop> getAll();
 
+    void deleteShop(Shop s);
+
 }

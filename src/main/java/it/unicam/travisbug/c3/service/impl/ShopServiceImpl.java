@@ -29,4 +29,9 @@ public class ShopServiceImpl implements ShopService {
     public List<Shop> getAll() {
         return shopRepository.findAll();
     }
+
+    @Override
+    public void deleteShop(Shop shop){
+        shopRepository.delete(shop);
+    }
 }

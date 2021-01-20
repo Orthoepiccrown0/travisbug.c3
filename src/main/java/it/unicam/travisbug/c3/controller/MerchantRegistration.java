@@ -3,11 +3,8 @@ package it.unicam.travisbug.c3.controller;
 import it.unicam.travisbug.c3.model.AdminRequests;
 import it.unicam.travisbug.c3.model.Merchant;
 import it.unicam.travisbug.c3.model.Shop;
-import it.unicam.travisbug.c3.repository.AdminRequestsRepository;
-import it.unicam.travisbug.c3.service.impl.MerchantServiceImpl;
-import it.unicam.travisbug.c3.service.impl.ShopServiceImpl;
+import it.unicam.travisbug.c3.utils.DBManager;
 import it.unicam.travisbug.c3.utils.PasswordTool;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,26 +18,7 @@ import java.util.UUID;
 @Controller
 public class MerchantRegistration {
 
-    private MerchantServiceImpl merchantService;
-
-    private ShopServiceImpl shopService;
-
-    private AdminRequestsRepository adminRequestsRepository;
-
-    @Autowired
-    public void setAdminRequestsRepository(AdminRequestsRepository adminRequestsRepository) {
-        this.adminRequestsRepository = adminRequestsRepository;
-    }
-
-    @Autowired
-    public void setMerchantService(MerchantServiceImpl merchantService) {
-        this.merchantService = merchantService;
-    }
-
-    @Autowired
-    public void setShopService(ShopServiceImpl shopService) {
-        this.shopService = shopService;
-    }
+    private DBManager dbManager;
 
     @GetMapping("/register/merchant")
     public String merchantRegister(Model model) {
@@ -80,7 +58,7 @@ public class MerchantRegistration {
         merchant.setEmail(email);
         if (phone != null)
             merchant.setPhone(phone);
-        merchantService.saveMerchant(merchant);
+        dbManager.getMerchantService().saveMerchant(merchant);
 
         redirectAttrs.addAttribute("merchant", merchant);
         return "redirect:/register/merchant/shop";
@@ -102,8 +80,8 @@ public class MerchantRegistration {
         shop.setShopName(shopName);
         shop.setApproved(false);
         merchant.setShop(shop);
-        shopService.saveShop(shop);
-        merchantService.saveMerchant(merchant);
+        dbManager.getShopService().saveShop(shop);
+        dbManager.getMerchantService().saveMerchant(merchant);
 
         addRequest(shopName, comment, shop);
         return "redirect:/";
@@ -116,11 +94,11 @@ public class MerchantRegistration {
         adminRequests.setTitle(shopName);
         adminRequests.setComment(comment);
         adminRequests.setDate(new Date());
-        adminRequestsRepository.save(adminRequests);
+        dbManager.getAdminRequestsService().saveAdminRequests(adminRequests);
     }
 
     private boolean isUsedEmail(String email) {
-        Merchant merchant = merchantService.findByEmail(email);
+        Merchant merchant = dbManager.getMerchantService().findByEmail(email);
         return merchant != null;
     }
 
