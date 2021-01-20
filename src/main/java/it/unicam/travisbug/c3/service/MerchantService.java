@@ -16,4 +16,6 @@ public interface MerchantService {
 
     void deleteMerchant(Merchant m);
 
+    Merchant findByEmailAndPass(String email, String password);
+
 }

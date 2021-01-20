@@ -3,8 +3,11 @@ package it.unicam.travisbug.c3.controller;
 import it.unicam.travisbug.c3.model.AdminRequests;
 import it.unicam.travisbug.c3.model.Merchant;
 import it.unicam.travisbug.c3.model.Shop;
+import it.unicam.travisbug.c3.model.ShopCategory;
+import it.unicam.travisbug.c3.utils.AppCookies;
 import it.unicam.travisbug.c3.utils.DBManager;
 import it.unicam.travisbug.c3.utils.PasswordTool;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +22,13 @@ import java.util.UUID;
 public class MerchantRegistration {
 
     private DBManager dbManager;
+
+    private final AppCookies appCookies = new AppCookies();
+
+    @Autowired
+    public void setDbManager(DBManager dbManager) {
+        this.dbManager = dbManager;
+    }
 
     @GetMapping("/register/merchant")
     public String merchantRegister(Model model) {
@@ -74,7 +84,8 @@ public class MerchantRegistration {
     public String saveShop(Model model,
                                String shopName,
                                String comment,
-                               Merchant merchant) {
+                               Merchant merchant,
+                               HttpServletResponse response) {
         Shop shop = new Shop();
         shop.setMerchant(merchant);
         shop.setShopName(shopName);
@@ -82,8 +93,11 @@ public class MerchantRegistration {
         merchant.setShop(shop);
         dbManager.getShopService().saveShop(shop);
         dbManager.getMerchantService().saveMerchant(merchant);
-
         addRequest(shopName, comment, shop);
+
+        appCookies.setUserIDCookie(merchant.getId(), response, true);
+        appCookies.setRoleCookie("merchant", response);
+
         return "redirect:/";
     }
 

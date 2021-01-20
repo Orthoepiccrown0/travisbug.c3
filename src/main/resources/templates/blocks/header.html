@@ -9,6 +9,18 @@
             <a class="p-2 text-dark" href="/">Home</a>
             <a class="p-2 text-dark" href="/contacts">Contacts</a>
             <a class="p-2 text-dark" href="#">Support</a>
+            <a th:if="${logged} == 'guest'">
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownPersonalArea" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Personal Area
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </div>
+            </a>
         </nav>
         <!--/*@thymesVar id="logged" type="java.lang.String"*/-->
 

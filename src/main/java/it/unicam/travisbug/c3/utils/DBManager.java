@@ -2,7 +2,9 @@ package it.unicam.travisbug.c3.utils;
 
 import it.unicam.travisbug.c3.service.impl.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class DBManager {
 
     private AddressServiceImpl addressService;

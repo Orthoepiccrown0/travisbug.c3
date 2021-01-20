@@ -5,6 +5,7 @@ import it.unicam.travisbug.c3.model.Merchant;
 import it.unicam.travisbug.c3.model.Promotion;
 import it.unicam.travisbug.c3.model.Shop;
 import it.unicam.travisbug.c3.utils.DBManager;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,11 @@ import java.util.List;
 public class Administration {
 
     private DBManager dbManager;
+
+    @Autowired
+    public void setDbManager(DBManager dbManager) {
+        this.dbManager = dbManager;
+    }
 
     @GetMapping("/admin")
     public String admin(Model model) {

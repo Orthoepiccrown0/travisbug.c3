@@ -1,9 +1,12 @@
 package it.unicam.travisbug.c3.controller;
 
 import it.unicam.travisbug.c3.model.Client;
+import it.unicam.travisbug.c3.model.Courier;
+import it.unicam.travisbug.c3.model.Merchant;
 import it.unicam.travisbug.c3.utils.AppCookies;
 import it.unicam.travisbug.c3.utils.DBManager;
 import it.unicam.travisbug.c3.utils.PasswordTool;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -20,6 +23,11 @@ public class Home {
     private DBManager dbManager;
 
     private final AppCookies appCookies = new AppCookies();
+
+    @Autowired
+    public void setDbManager(DBManager dbManager) {
+        this.dbManager = dbManager;
+    }
 
     @GetMapping("/")
     public String showHome(Model model,
@@ -44,9 +52,17 @@ public class Home {
         if (remember != null)
             rememberState = true;
         Client client = dbManager.getClientService().findByEmailAndPass(email, PasswordTool.getMD5String(password));
+        Courier courier = dbManager.getCourierService().findByEmailAndPass(email, PasswordTool.getMD5String(password));
+        Merchant merchant = dbManager.getMerchantService().findByEmailAndPass(email, PasswordTool.getMD5String(password));
         if (client != null) {
             appCookies.setRoleCookie("client", response);
             appCookies.setUserIDCookie(client.getId(), response, rememberState);
+        }else if(courier != null){
+            appCookies.setRoleCookie("courier", response);
+            appCookies.setUserIDCookie(courier.getId(), response, rememberState);
+        }else if(merchant != null){
+            appCookies.setRoleCookie("merchant", response);
+            appCookies.setUserIDCookie(merchant.getId(), response, rememberState);
         }
         return "redirect:/";
     }
@@ -61,7 +77,6 @@ public class Home {
         response.addCookie(role_cookie);
         return "redirect:/";
     }
-
 
     @GetMapping("/contacts")
     public String showContacts(Model model,

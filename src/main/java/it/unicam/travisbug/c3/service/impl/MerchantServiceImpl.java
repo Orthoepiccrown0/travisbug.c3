@@ -57,4 +57,9 @@ public class MerchantServiceImpl implements MerchantService {
     public void deleteMerchant(Merchant merchant) {
         merchantRepository.delete(merchant);
     }
+
+    @Override
+    public Merchant findByEmailAndPass(String email, String password) {
+        return merchantRepository.findByEmailAndPassword(email,password);
+    }
 }
