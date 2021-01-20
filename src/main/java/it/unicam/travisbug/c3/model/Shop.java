@@ -25,7 +25,7 @@ public class Shop {
     @JoinColumn(name = "shop_category_id", referencedColumnName = "ID")
     private ShopCategory shopCategory;
 
-    public Boolean getApproved() {
+    public Boolean isApproved() {
         return approved;
     }
 

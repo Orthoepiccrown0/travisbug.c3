@@ -12,7 +12,11 @@
           integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
     <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-        <a class="my-0 mr-md-auto text-secondary" href="/">Sottocorte Village</a>
+        <a class="my-0 mr-md-auto navbar-brand" href="/">Sottocorte Village</a>
+
+        <nav class="my-2 my-md-0 mr-md-3">
+            <a class="p-2 text-dark" href="/">Home</a>
+        </nav>
 
         <a class="btn btn-outline-primary" href="/logout">Logout</a>
     </div>
@@ -61,14 +65,14 @@
         });
     }
 
-    var collapsed = false;
-    document.querySelector('#request').addEventListener('click', () => {
-        if (collapsed)
-            document.querySelector('#request').setAttribute("class", "collapsible");
-        else
-            document.querySelector('#request').setAttribute("class", "collapsible-onclick");
-        collapsed = !collapsed;
-    });
+    // var collapsed = false;
+    // document.querySelector('#request').addEventListener('click', () => {
+    //     if (collapsed)
+    //         document.querySelector('#request').setAttribute("class", "collapsible");
+    //     else
+    //         document.querySelector('#request').setAttribute("class", "collapsible-onclick");
+    //     collapsed = !collapsed;
+    // });
 </script>
 
 

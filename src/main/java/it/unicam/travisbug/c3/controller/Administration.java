@@ -62,9 +62,11 @@ public class Administration {
         if (shop != null) {
             shop.setApproved(true);
             shopRepository.save(shop);
+            adminRequestsRepository.delete(request);
         } else if (promotion != null) {
             promotion.setApproved(true);
             promotionRepository.save(promotion);
+            adminRequestsRepository.delete(request);
         }
         return "redirect:/admin";
     }
@@ -75,11 +77,12 @@ public class Administration {
         Shop shop = request.getShop();
         Promotion promotion = request.getPromotion();
         if (shop != null) {
-            for (Merchant merchant: merchantRepository.findAll()) {
-                if(merchant.getShop().getId().equals(shop.getId()))
+            for (Merchant merchant : merchantRepository.findAll()) {
+                if (merchant.getShop().getId().equals(shop.getId())) {
                     adminRequestsRepository.delete(request);
                     shopRepository.delete(shop);
                     merchantRepository.delete(merchant);
+                }
             }
 //            merchantRepository.delete(merchant);
 //            shopRepository.delete(shop);

@@ -8,7 +8,7 @@
 </head>
 
 <!--custom css-->
-<link th:href="@{/assets/css/pricing.css}" rel="stylesheet">
+<link th:href="@{/assets/css/home.css}" rel="stylesheet">
 
 <body>
 <header th:insert="blocks/header :: header"></header>
@@ -28,25 +28,48 @@
         </div>
     </div>
 
-    <div class="card-deck mb-3 text-center">
-        <div class="card mb-4 shadow-sm">
-            <div class="card-body">
-                <h3 class="d-flex p-2 justify-content-center display-3">GameStop</h3>
-            </div>
-        </div>
-
-        <div class="card mb-4 shadow-sm">
-            <div class="card-body">
-                <h3 class="d-flex p-2 justify-content-center display-3">Ovs</h3>
-            </div>
-        </div>
-
-        <div class="card mb-4 shadow-sm">
-            <div class="card-body">
-                <h3 class="d-flex p-2 justify-content-center display-3">CiroPizza</h3>
+    <div class="row justify-content-center">
+        <div th:if="${shops != null}" th:each="shop : ${shops}">
+            <div class="col-auto mb-3">
+                <div class="card " style="width: 18rem;">
+                    <div class="card-body clickable">
+                        <h5 class="card-title" th:text="${shop.getShopName()}"></h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Category</h6>
+<!--                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
+<!--                        <a href="#" class="card-link">Card link</a>-->
+<!--                        <a href="#" class="card-link">Another link</a>-->
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+
+
+    <!--    <div class="card-deck mb-3 text-center">-->
+    <!--        <div th:if="${shops != null}" th:each="shop : ${shops}">-->
+    <!--            <div class="card mb-4 shadow-sm">-->
+    <!--                <div class="card-body">-->
+    <!--                    <h3 class="d-flex p-2 justify-content-center display-3" th:text="${shop.getShopName()}"></h3>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--        </div>-->
+
+    <!--        <div th:if="${shops == null}" class="alert alert-info d-block mx-auto">-->
+    <!--            <strong>Info!</strong> Currently there is no shops available.-->
+    <!--        </div>-->
+
+    <!--        <div class="card mb-4 shadow-sm">-->
+    <!--            <div class="card-body">-->
+    <!--                <h3 class="d-flex p-2 justify-content-center display-3">Ovs</h3>-->
+    <!--            </div>-->
+    <!--        </div>-->
+
+    <!--        <div class="card mb-4 shadow-sm">-->
+    <!--            <div class="card-body">-->
+    <!--                <h3 class="d-flex p-2 justify-content-center display-3">CiroPizza</h3>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </div>-->
 
     <div th:insert="blocks/footer :: footer"></div>
 </div>
