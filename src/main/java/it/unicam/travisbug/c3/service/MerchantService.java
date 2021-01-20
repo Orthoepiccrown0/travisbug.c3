@@ -13,4 +13,7 @@ public interface MerchantService {
     Optional<Merchant> findById(String id);
 
     Merchant findByEmail(String email);
+
+    void deleteMerchant(Merchant m);
+
 }

@@ -52,4 +52,9 @@ public class MerchantServiceImpl implements MerchantService {
     public Merchant findByEmail(String email) {
         return merchantRepository.findByEmail(email);
     }
+
+    @Override
+    public void deleteMerchant(Merchant merchant) {
+        merchantRepository.delete(merchant);
+    }
 }

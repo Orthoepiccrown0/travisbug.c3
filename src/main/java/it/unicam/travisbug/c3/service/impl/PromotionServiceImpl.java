@@ -20,7 +20,6 @@ public class PromotionServiceImpl implements PromotionService {
         this.promotionRepository = promotionRepository;
     }
 
-
     @Override
     public void savePromotion(Promotion p) {
         promotionRepository.save(p);
@@ -30,4 +29,11 @@ public class PromotionServiceImpl implements PromotionService {
     public List<Promotion> getAll() {
         return promotionRepository.findAll();
     }
+
+    @Override
+    public void deletePromotion(Promotion promotion){
+        promotionRepository.delete(promotion);
+    }
+
 }
+

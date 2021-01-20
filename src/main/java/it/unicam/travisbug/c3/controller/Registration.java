@@ -2,16 +2,13 @@ package it.unicam.travisbug.c3.controller;
 
 import it.unicam.travisbug.c3.model.Client;
 import it.unicam.travisbug.c3.model.Courier;
-import it.unicam.travisbug.c3.service.impl.ClientServiceImpl;
-import it.unicam.travisbug.c3.service.impl.CourierServiceImpl;
 import it.unicam.travisbug.c3.utils.AppCookies;
+import it.unicam.travisbug.c3.utils.DBManager;
 import it.unicam.travisbug.c3.utils.PasswordTool;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletResponse;
@@ -20,23 +17,9 @@ import java.util.UUID;
 @Controller
 public class Registration {
 
-    private ClientServiceImpl clientService;
-
-    private CourierServiceImpl courierService;
+    private DBManager dbManager;
 
     private final AppCookies appCookies = new AppCookies();
-
-    @Autowired
-    public void setClientService(ClientServiceImpl clientService) {
-        this.clientService = clientService;
-    }
-
-    @Autowired
-    public void setCourierService(CourierServiceImpl courierService) {
-        this.courierService = courierService;
-    }
-
-
 
     @PostMapping("/register")
     public String register(Model model,
@@ -67,8 +50,8 @@ public class Registration {
     }
 
     private boolean isUsedEmail(String email) {
-        Client client = clientService.findByEmail(email);
-        Courier courier = courierService.findByEmail(email);
+        Client client = dbManager.getClientService().findByEmail(email);
+        Courier courier = dbManager.getCourierService().findByEmail(email);
 
         return client != null || courier != null;
     }
@@ -82,7 +65,7 @@ public class Registration {
         client.setEmail(email);
         if (phone != null)
             client.setPhone(phone);
-        clientService.saveClient(client);
+        dbManager.getClientService().saveClient(client);
 
         appCookies.setUserIDCookie(client.getId(), response, true);
         appCookies.setRoleCookie("client", response);
@@ -97,14 +80,10 @@ public class Registration {
         courier.setEmail(email);
         if (phone != null)
             courier.setPhone(phone);
-        courierService.saveCourier(courier);
+        dbManager.getCourierService().saveCourier(courier);
 
         appCookies.setUserIDCookie(courier.getId(), response, true);
         appCookies.setRoleCookie("courier", response);
     }
-
-
-
-
 
 }

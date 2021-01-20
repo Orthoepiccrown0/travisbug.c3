@@ -10,4 +10,6 @@ public interface PromotionService {
 
     List<Promotion> getAll();
 
+    void deletePromotion(Promotion p);
+
 }
