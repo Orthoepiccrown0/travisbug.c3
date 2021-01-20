@@ -36,22 +36,7 @@ public class Registration {
         this.courierService = courierService;
     }
 
-    @PostMapping("/login")
-    public String login(Model model,
-                        String email,
-                        String password,
-                        @RequestParam(value = "checkboxName", required = false) String remember,
-                        HttpServletResponse response) {
-        boolean rememberState = false;
-        if (remember != null)
-            rememberState = true;
-        Client client = clientService.findByEmailAndPass(email, PasswordTool.getMD5String(password));
-        if (client != null) {
-            appCookies.setRoleCookie("client", response);
-            appCookies.setUserIDCookie(client.getId(), response, rememberState);
-        }
-        return "redirect:/";
-    }
+
 
     @PostMapping("/register")
     public String register(Model model,
