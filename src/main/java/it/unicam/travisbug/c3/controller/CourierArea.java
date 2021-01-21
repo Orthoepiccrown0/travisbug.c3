@@ -30,6 +30,7 @@ public class CourierArea {
 
     @GetMapping("/courierArea")
     public String showCourierArea(Model model){
+        model.addAttribute("shipments",dbManager.getShippingService().getAll());
         return "courierArea";
     }
 }
