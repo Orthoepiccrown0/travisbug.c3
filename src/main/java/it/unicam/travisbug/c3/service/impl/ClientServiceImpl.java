@@ -1,6 +1,7 @@
 package it.unicam.travisbug.c3.service.impl;
 
 import it.unicam.travisbug.c3.model.Client;
+import it.unicam.travisbug.c3.model.Merchant;
 import it.unicam.travisbug.c3.repository.ClientRepository;
 import it.unicam.travisbug.c3.service.ClientService;
 import org.springframework.beans.BeansException;
@@ -56,6 +57,11 @@ public class ClientServiceImpl implements ClientService, ApplicationContextAware
     @Override
     public Client findByEmailAndPass(String email, String password) {
         return clientRepository.findByEmailAndPassword(email, password);
+    }
+
+    @Override
+    public void deleteClient(Client client) {
+        clientRepository.delete(client);
     }
 
     @Override

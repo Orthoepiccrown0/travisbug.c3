@@ -16,4 +16,7 @@ public interface ClientService {
     Client findByEmailAndPass(String email, String password);
 
     Client findByEmail(String email);
+
+    void deleteClient(Client client);
+
 }

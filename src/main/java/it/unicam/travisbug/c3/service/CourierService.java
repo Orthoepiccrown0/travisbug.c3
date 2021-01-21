@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CourierService {
+
     void saveCourier(Courier courier);
 
     List<Courier> getAll();
@@ -15,4 +16,7 @@ public interface CourierService {
     Courier findByEmail(String email);
 
     Courier findByEmailAndPass(String email, String password);
+
+    void deleteCourier(Courier courier);
+
 }

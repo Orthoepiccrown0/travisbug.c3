@@ -50,6 +50,11 @@ public class CourierServiceImpl implements CourierService {
     }
 
     @Override
+    public void deleteCourier(Courier courier) {
+        courierRepository.delete(courier);
+    }
+
+    @Override
     public Courier findByEmail(String email) {
         return courierRepository.findByEmail(email);
     }

@@ -10,7 +10,7 @@ public class Merchant extends RegisteredUser{
     @JoinColumn(name = "shop_id", referencedColumnName = "ID")
     private Shop shop;
 
-    @OneToMany(mappedBy = "merchant")
+    @OneToMany(mappedBy = "merchant", cascade = CascadeType.REMOVE)
     private Set<Product> product;
 
     public Shop getShop() {
@@ -28,4 +28,5 @@ public class Merchant extends RegisteredUser{
     public void setProduct(Set<Product> product) {
         this.product = product;
     }
+
 }

@@ -17,15 +17,24 @@
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Personal Area
                 </button>
+
                 <div th:if="${role} == 'merchant'" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" href="/myProductsArea">My products</a>
-                    <a class="dropdown-item" href="">Remove Shop</a>
+                    <a class="dropdown-item"
+                       onclick="return confirm('Are you sure you want to delete your Account and your Shop?')"
+                       href="/deleteShop">Delete Account and Shop</a>
                 </div>
+
                 <div th:if="${role} == 'client'" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-
+                    <a class="dropdown-item" href="">Cart</a>
+                    <a class="dropdown-item" onclick="return confirm('Are you sure you want to delete your client Account?')"
+                       href="/deleteClient">Delete Account</a>
                 </div>
-                <div th:if="${role} == 'courier'" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
+                <div th:if="${role} == 'courier'" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="">Qualcosa</a>
+                    <a class="dropdown-item" onclick="return confirm('Are you sure you want to delete your courier Account?')"
+                       href="/deleteCourier">Delete Account</a>
                 </div>
             </div>
         </div>
