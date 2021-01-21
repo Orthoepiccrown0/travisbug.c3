@@ -21,11 +21,11 @@
     <h3 class="h3 mb-1 font-weight-normal">Almost done!</h3>
     <p class="mb-3 font-italic">Tell us more about your shop</p>
     <label for="inputShopName" class="sr-only">Shop name</label>
-    <input th:required="true" type="text" id="inputShopName" name="shopName" class="form-control" placeholder="Shop name" required
+    <input th:required="true" type="text" maxlength="20" id="inputShopName" name="shopName" class="form-control" placeholder="Shop name" required
            autofocus>
 
     <label for="inputComment" class="sr-only">Comment</label>
-    <textarea th:required="true"  id="inputComment" name="comment" class="form-control" placeholder="Comment for administration" required
+    <textarea th:required="true" maxlength="150" id="inputComment" name="comment" class="form-control" placeholder="Comment for administration" required
               autofocus></textarea>
 
     <div class="form-group">

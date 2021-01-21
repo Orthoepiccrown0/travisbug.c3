@@ -21,12 +21,12 @@
       oninput='password2.setCustomValidity(password2.value != password.value ? "Passwords do not match." : "")'>
     <h3 class="h3 mb-3 font-weight-normal">Please sign up</h3>
     <label for="inputName" class="sr-only">Name</label>
-    <input th:required="true" type="text" id="inputName" name="name" autocomplete="given-name" class="form-control"
+    <input th:required="true" type="text" maxlength="20" id="inputName" name="name" autocomplete="given-name" class="form-control"
            placeholder="Name" required
            autofocus>
 
     <label for="family-name" class="sr-only">Surname</label>
-    <input th:required="true" type="text" id="family-name" name="surname" autocomplete="family-name"
+    <input th:required="true" type="text" maxlength="20" id="family-name" name="surname" autocomplete="family-name"
            class="form-control" placeholder="Surname"
            required
            autofocus>
@@ -35,7 +35,7 @@
     <input th:required="true" type="email" id="inputEmail" name="email" class="form-control" placeholder="Email address"
            required
            autofocus>
-
+   <!--MinLENGH password-->
     <label for="inputPassword" class="sr-only">Password</label>
     <input th:required="true" type="password" id="inputPassword" name="password" class="form-control"
            placeholder="Password" required>
@@ -46,7 +46,7 @@
            required>
 
     <label for="inputPhone" class="sr-only">Phone number</label>
-    <input type="tel" id="inputPhone" name="phone" class="form-control" placeholder="Phone number">
+    <input type="tel" maxlength="10" id="inputPhone" name="phone" class="form-control" placeholder="Phone number">
     <p class="font-italic" style="font-size: small">*Optional</p>
 
     <!--/*@thymesVar id="used_email" type="java.lang.String"*/-->
