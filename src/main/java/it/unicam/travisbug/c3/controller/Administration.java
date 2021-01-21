@@ -38,8 +38,10 @@ public class Administration {
         if (shop != null) {
             shop.setApproved(true);
             dbManager.getShopService().saveShop(shop);
+            dbManager.getAdminRequestsService().deleteAdminRequest(request);
         } else if (promotion != null) {
             promotion.setApproved(true);
+            dbManager.getAdminRequestsService().deleteAdminRequest(request);
             dbManager.getPromotionService().savePromotion(promotion);
         }
         return "redirect:/admin";

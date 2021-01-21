@@ -21,7 +21,7 @@
     </div>
 
     <div class="row justify-content-center">
-        <div th:if="${products != null}" th:each="product : ${product}">
+        <div th:if="${products != null}" th:each="product : ${products}">
             <!--/*@thymesVar id="product" type="it.unicam.travisbug.c3.model.Product"*/-->
             <div class="col-auto mb-3">
                 <div class="card " style="width: 18rem;">
@@ -42,8 +42,9 @@
             <h3>Sorry, we don't have nothing to show now :(</h3>
         </div>
     </div>
+    <div th:insert="blocks/footer :: footer"></div>
 </div>
 
-<div th:insert="blocks/footer :: footer"></div>
+
 </body>
 </html>

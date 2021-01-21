@@ -21,20 +21,18 @@ public class AppCookies {
         response.addCookie(cookie);
     }
 
-    public void checkLogged(Model model,
-                             @CookieValue(value = "user_id", defaultValue = "") String userid,
-                             @CookieValue(value = "role", defaultValue = "") String role){
+    public void checkLogged(Model model, String userid, String role) {
         String logged = "guest";
-        if(!userid.equals("") && !role.equals("")){
+        if (!userid.equals("") && !role.equals("")) {
             logged = "logged";
         }
-        model.addAttribute("logged",logged);
+        model.addAttribute("logged", logged);
+        checkRole(model, role);
     }
 
-    public void checkRole(Model model,
-                          @CookieValue(value = "role", defaultValue = "") String role){
-        if(role != null && !role.equals("")){
-            model.addAttribute("role",role);
+    private void checkRole(Model model, String role) {
+        if (role != null && !role.equals("")) {
+            model.addAttribute("role", role);
         }
     }
 

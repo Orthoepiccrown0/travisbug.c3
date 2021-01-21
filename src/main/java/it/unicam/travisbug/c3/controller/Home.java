@@ -36,7 +36,6 @@ public class Home {
                            @CookieValue(value = "user_id", defaultValue = "") String userid,
                            @CookieValue(value = "role", defaultValue = "") String role) {
         appCookies.checkLogged(model, userid, role);
-        appCookies.checkRole(model,role);
         List<Shop> shops = dbManager.getShopService().getAll();
         if (shops.size() != 0) {
             shops.removeIf(shop -> !shop.isApproved());
