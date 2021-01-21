@@ -2,6 +2,7 @@ package it.unicam.travisbug.c3.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -9,8 +10,7 @@ import java.util.Set;
 public class Order {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private String id;
 
     @Column(nullable = false)
     private Double amount;
@@ -36,11 +36,11 @@ public class Order {
 //    private BillingAddress billingAddress;
 
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -90,5 +90,21 @@ public class Order {
 
     public void setOrderDetails(Set<OrderDetails> orderDetails) {
         this.orderDetails = orderDetails;
+    }
+
+    public void addOrderDetails(OrderDetails order) {
+        if (orderDetails == null)
+            orderDetails = new HashSet<>();
+        orderDetails.add(order);
+    }
+
+    public void updateAmount() {
+        if (orderDetails != null) {
+            amount = 0.0;
+            for (OrderDetails order : orderDetails) {
+                double price = order.getProduct().getPrice() * order.getQuantity();
+                amount += price;
+            }
+        }
     }
 }

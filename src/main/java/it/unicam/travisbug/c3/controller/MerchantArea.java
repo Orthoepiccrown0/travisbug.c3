@@ -35,12 +35,12 @@ public class MerchantArea {
         if (products.size() != 0) {
             model.addAttribute("products", products);
         }
-        return "myProductsArea";
+        return "products/myProductsArea";
     }
 
     @GetMapping("/addProduct")
     public String showAddProduct(Model model){
-        return "addProduct";
+        return "products/addProduct";
     }
 
     @PostMapping("/addProduct")
