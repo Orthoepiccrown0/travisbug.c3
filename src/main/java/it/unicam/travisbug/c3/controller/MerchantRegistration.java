@@ -1,9 +1,7 @@
 package it.unicam.travisbug.c3.controller;
 
-import it.unicam.travisbug.c3.model.AdminRequests;
-import it.unicam.travisbug.c3.model.Merchant;
+import it.unicam.travisbug.c3.model.*;
 import it.unicam.travisbug.c3.model.Shop;
-import it.unicam.travisbug.c3.model.ShopCategory;
 import it.unicam.travisbug.c3.utils.AppCookies;
 import it.unicam.travisbug.c3.utils.DBManager;
 import it.unicam.travisbug.c3.utils.PasswordTool;
@@ -112,8 +110,10 @@ public class MerchantRegistration {
     }
 
     private boolean isUsedEmail(String email) {
+        Client client = dbManager.getClientService().findByEmail(email);
+        Courier courier = dbManager.getCourierService().findByEmail(email);
         Merchant merchant = dbManager.getMerchantService().findByEmail(email);
-        return merchant != null;
+        return merchant != null || client !=null || courier!=null;
     }
 
 }

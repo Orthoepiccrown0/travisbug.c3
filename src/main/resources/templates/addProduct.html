@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+
+
+<link th:href="@{/assets/css/login.css}" rel="stylesheet">
+
+<body>
+<header th:insert="blocks/header :: style"></header>
+
+<form class="form-signin" method=post>
+    <h1 class="h3 logo-text">Add Product</h1>
+    <h3 class="h3 mb-4 font-weight-normal">Insert product details</h3>
+
+    <label for="inputProductName" class="sr-only">Name</label>
+    <input type="text" id="inputProductName" th:required="true" name="productName" class="form-control" placeholder="Product name"
+           required autofocus>
+
+    <label for="inputPrice" class="sr-only">Price</label>
+    <input type="number" step="0.01" id="inputPrice" th:required="true" name="productPrice" class="form-control"
+           placeholder="Product price" required>
+
+    <label for="inputDescription" class="sr-only">Description</label>
+    <textarea id="inputDescription" th:required="true" name="productDescription" class="form-control"
+              placeholder="Product description" required></textarea>
+
+    <label for="inputSupply" class="sr-only">Supply</label>
+    <input type="number" id="inputSupply" th:required="true" name="productSupply" class="form-control"
+           placeholder="Product supply" required>
+
+    <label for="inputWeight" class="sr-only">Weight</label>
+    <input type="number" step="0.01" id="inputWeight" name="productWeight" class="form-control"
+           placeholder="Product weight (kg)" required>
+
+    <div class="mt-2 form-group">
+        <label for="sel2">Select product category:</label>
+        <select class="form-control" id="sel2" name="productCategory">
+            <option value="VideoGame">VideoGame</option>
+            <option value="Computer">Computer</option>
+            <option value="Food">Food</option>
+            <option value="Jewel">Jewel</option>
+            <option value="Smartphone">Smartphone</option>
+        </select>
+    </div>
+
+    <button class="mt-4 btn btn-lg btn-success btn-block" type="submit">Add product</button>
+    <a class="btn btn-lg btn-primary btn-block" href="/myProductsArea">Back</a>
+    <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
+</form>
+
+<div th:insert="blocks/footer :: script"></div>
+</body>
+</html>

@@ -9,29 +9,36 @@
             <a class="p-2 text-dark" href="/">Home</a>
             <a class="p-2 text-dark" href="/contacts">Contacts</a>
             <a class="p-2 text-dark" href="#">Support</a>
-            <a th:if="${logged} == 'guest'">
+        </nav>
+
+        <div th:if="${logged} == 'logged'">
             <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownPersonalArea" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownPersonalArea"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Personal Area
                 </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
+                <div th:if="${role} == 'merchant'" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="/myProductsArea">My products</a>
+                    <a class="dropdown-item" href="">Remove Shop</a>
+                </div>
+                <div th:if="${role} == 'client'" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+                </div>
+                <div th:if="${role} == 'courier'" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
                 </div>
             </div>
-            </a>
-        </nav>
-        <!--/*@thymesVar id="logged" type="java.lang.String"*/-->
+        </div>
 
+        <!--/*@thymesVar id="logged" type="java.lang.String"*/-->
         <div th:if="${logged} == 'guest'">
-            <a class="btn btn-outline-primary" href="/user_login">Login</a>
+            <a class="ml-2 btn btn-outline-primary" href="/user_login">Login</a>
         </div>
         <div th:if="${logged} == 'logged'">
-            <a class="btn btn-outline-primary" href="/user_logout">Logout</a>
+            <a class="ml-2 btn btn-outline-primary" href="/user_logout">Logout</a>
         </div>
         <div th:if="${logged} == 'guest'">
-        <a class="ml-2 btn btn-outline-success" href="/register">Sign up</a>
+            <a class="ml-2 btn btn-outline-success" href="/register">Sign up</a>
         </div>
     </div>
 </div>

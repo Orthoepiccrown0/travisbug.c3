@@ -3,6 +3,7 @@ package it.unicam.travisbug.c3.controller;
 import it.unicam.travisbug.c3.model.Client;
 import it.unicam.travisbug.c3.model.Courier;
 import it.unicam.travisbug.c3.model.Merchant;
+import it.unicam.travisbug.c3.model.Shop;
 import it.unicam.travisbug.c3.utils.AppCookies;
 import it.unicam.travisbug.c3.utils.DBManager;
 import it.unicam.travisbug.c3.utils.PasswordTool;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @Controller
 public class Home {
@@ -33,7 +35,15 @@ public class Home {
     public String showHome(Model model,
                            @CookieValue(value = "user_id", defaultValue = "") String userid,
                            @CookieValue(value = "role", defaultValue = "") String role) {
-        checkLogged(model, userid, role);
+        appCookies.checkLogged(model, userid, role);
+        appCookies.checkRole(model,role);
+        List<Shop> shops = dbManager.getShopService().getAll();
+        if (shops.size() != 0) {
+            shops.removeIf(shop -> !shop.isApproved());
+            if(shops.size() != 0) {
+                model.addAttribute("shops", shops);
+            }
+        }
         return "index";
     }
 
@@ -82,17 +92,9 @@ public class Home {
     public String showContacts(Model model,
                                @CookieValue(value = "user_id", defaultValue = "") String userid,
                                @CookieValue(value = "role", defaultValue = "") String role) {
-        checkLogged(model, userid, role);
+        appCookies.checkLogged(model, userid, role);
         return "contacts";
     }
 
-    private void checkLogged(Model model,
-                            @CookieValue(value = "user_id", defaultValue = "") String userid,
-                            @CookieValue(value = "role", defaultValue = "") String role){
-        String logged = "guest";
-        if(!userid.equals("") && !role.equals("")){
-            logged = "logged";
-        }
-        model.addAttribute("logged",logged);
-    }
+
 }

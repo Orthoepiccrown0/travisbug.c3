@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+
+<link th:href="@{/assets/css/home.css}" rel="stylesheet">
+
+<body>
+<header th:insert="blocks/header :: header"></header>
+
+<div class="pricing-header px-3 py-3 mb-4 pt-md-5 pb-md-4 mx-auto text-center">
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <h1 class="display-4">My Products Area</h1>
+        </div>
+        <div class="col-auto align-self-center">
+            <a class="center m-auto btn btn-outline-dark" href="/addProduct">Add Product</a>
+        </div>
+    </div>
+</div>
+
+<div class="mb-3 container">
+
+    <div class="row justify-content-center">
+
+        <div th:if="${products != null}" th:each="product : ${products}">
+            <div class="col-auto mb-3">
+                <div class="card " style="width: 18rem;">
+                    <div class="card-body clickable">
+                        <h5 class="card-title" th:text="${product.getName()}"></h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Category</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:if="${products == null}">
+            <div class="col-auto mb-3">
+                <div class="card " style="width: 18rem;">
+                    <div class="card-body clickable">
+                        <h5 class="card-title">Your shop has no product</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Try to add a product</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div th:insert="blocks/footer :: footer"></div>
+</div>
+</body>
+</html>
