@@ -35,4 +35,9 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> findAllByMerchant(Merchant merchant) {
         return productRepository.findAllByMerchantOrderByNameAsc(merchant);
     }
+
+    @Override
+    public Product findById(Integer id) {
+        return productRepository.findById(id).orElseThrow();
+    }
 }

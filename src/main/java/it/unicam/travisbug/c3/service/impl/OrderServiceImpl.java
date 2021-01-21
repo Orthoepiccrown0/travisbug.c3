@@ -1,5 +1,6 @@
 package it.unicam.travisbug.c3.service.impl;
 
+import it.unicam.travisbug.c3.model.Client;
 import it.unicam.travisbug.c3.model.Order;
 import it.unicam.travisbug.c3.repository.OrderRepository;
 import it.unicam.travisbug.c3.service.OrderService;
@@ -29,4 +30,11 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> getAll() {
         return orderRepository.findAll();
     }
+
+    @Override
+    public Order findByClientAndStatus(Client client, String status) {
+        return orderRepository.findByClientAndStatus(client, status);
+    }
+
+
 }

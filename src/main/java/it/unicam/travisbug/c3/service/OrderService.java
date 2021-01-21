@@ -1,5 +1,6 @@
 package it.unicam.travisbug.c3.service;
 
+import it.unicam.travisbug.c3.model.Client;
 import it.unicam.travisbug.c3.model.Order;
 
 import java.util.List;
@@ -10,4 +11,5 @@ public interface OrderService {
 
     List<Order> getAll();
 
+    Order findByClientAndStatus(Client client, String status);
 }

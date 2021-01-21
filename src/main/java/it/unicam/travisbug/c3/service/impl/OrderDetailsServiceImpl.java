@@ -1,6 +1,8 @@
 package it.unicam.travisbug.c3.service.impl;
 
+import it.unicam.travisbug.c3.model.Order;
 import it.unicam.travisbug.c3.model.OrderDetails;
+import it.unicam.travisbug.c3.model.Product;
 import it.unicam.travisbug.c3.repository.OrderDetailsRepository;
 import it.unicam.travisbug.c3.service.OrderDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +30,10 @@ public class OrderDetailsServiceImpl implements OrderDetailsService {
     @Override
     public List<OrderDetails> getAll() {
         return orderDetailsRepository.findAll();
+    }
+
+    @Override
+    public OrderDetails findByProductAndOrder(Product product, Order order) {
+        return orderDetailsRepository.findByProductAndOrder(product, order);
     }
 }

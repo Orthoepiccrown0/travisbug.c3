@@ -12,4 +12,6 @@ public interface ProductService {
     List<Product> getAll();
 
     List<Product> findAllByMerchant(Merchant merchant);
+
+    Product findById(Integer id);
 }

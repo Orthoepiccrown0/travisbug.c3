@@ -1,6 +1,7 @@
 package it.unicam.travisbug.c3.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -123,5 +124,11 @@ public class Product {
 
     public void setPromotion(Set<Promotion> promotion) {
         this.promotion = promotion;
+    }
+
+    public void addOrderDetails(OrderDetails order) {
+        if (orderDetails == null)
+            orderDetails = new HashSet<>();
+        orderDetails.add(order);
     }
 }

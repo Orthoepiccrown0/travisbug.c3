@@ -6,8 +6,7 @@ import javax.persistence.*;
 public class OrderDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private String id;
 
     @Column(nullable = false)
     private Integer quantity;
@@ -20,11 +19,11 @@ public class OrderDetails {
     @JoinColumn(name = "order_id", referencedColumnName = "ID")
     private Order order;
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
