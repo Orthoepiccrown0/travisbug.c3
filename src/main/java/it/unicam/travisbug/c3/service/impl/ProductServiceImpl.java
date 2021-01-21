@@ -1,5 +1,6 @@
 package it.unicam.travisbug.c3.service.impl;
 
+import it.unicam.travisbug.c3.model.Merchant;
 import it.unicam.travisbug.c3.model.Product;
 import it.unicam.travisbug.c3.repository.ProductRepository;
 import it.unicam.travisbug.c3.service.ProductService;
@@ -28,5 +29,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> getAll() {
         return productRepository.findAll();
+    }
+
+    @Override
+    public List<Product> findAllByMerchant(Merchant merchant) {
+        return productRepository.findAllByMerchantOrderByNameAsc(merchant);
     }
 }

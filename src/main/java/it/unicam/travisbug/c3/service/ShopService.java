@@ -12,4 +12,6 @@ public interface ShopService {
 
     void deleteShop(Shop s);
 
+    Shop findById(Integer id);
+
 }

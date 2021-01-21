@@ -34,4 +34,9 @@ public class ShopServiceImpl implements ShopService {
     public void deleteShop(Shop shop){
         shopRepository.delete(shop);
     }
+
+    @Override
+    public Shop findById(Integer id) {
+        return shopRepository.findById(id).orElseThrow();
+    }
 }

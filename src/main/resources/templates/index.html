@@ -29,17 +29,21 @@
     </div>
 
     <div class="row justify-content-center">
+
         <div th:if="${shops != null}" th:each="shop : ${shops}">
+            <!--/*@thymesVar id="shop" type="it.unicam.travisbug.c3.model.Shop"*/-->
             <div class="col-auto mb-3">
-                <div class="card " style="width: 18rem;">
-                    <div class="card-body clickable">
-                        <h5 class="card-title" th:text="${shop.getShopName()}"></h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Category</h6>
-<!--                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
-<!--                        <a href="#" class="card-link">Card link</a>-->
-<!--                        <a href="#" class="card-link">Another link</a>-->
+                <a style="text-decoration:none" th:href="@{/shop/{id}(id=${shop.getId()})}">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body clickable">
+                            <h5 class="card-title" th:text="${shop.getShopName()}"></h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Category</h6>
+                            <!--                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
+                            <!--                        <a href="#" class="card-link">Card link</a>-->
+                            <!--                        <a href="#" class="card-link">Another link</a>-->
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
     </div>
