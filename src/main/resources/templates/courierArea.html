@@ -8,7 +8,8 @@
 </head>
 
 <!--custom css-->
-<link rel="stylesheet" th:href="@{/assets/css/courierArea.css}"><link>
+<link rel="stylesheet" th:href="@{/assets/css/courierArea.css}">
+<link>
 <body>
 <header th:insert="blocks/header :: header"></header>
 <!--content space-->
@@ -28,27 +29,64 @@
         <div class="col-auto mb-3">
             <div class="card " style="width: 18rem;">
                 <div class="card-body clickable">
-                    <h5 class="card-title" th:text="${shipment.getAddress().getCity()}"></h5>
-                    <h6 class="card-subtitle mb-2 text-muted" th:text="${shipment.getShipStatus()}"></h6>
-                    <h6><button type="button">Update Status</button></h6>
-                    <p class="card-text" th:text="${shipment.getShipCharge()}"> aaa</p>
-                    <a href="#">Prendi in carico la spedizione<a/>
+                    <h5 class="card-title" th:text="${'City: ' + shipment.getAddress().getCity()}"></h5>
+                    <h5 class="card-subtitle mb-2 text-muted"
+                        th:text="${'Street: ' + shipment.getAddress().getStreet()}"></h5>
+                    <h6 class="card-subtitle mb-2 text-muted" th:text="${'Status: ' + shipment.getShipStatus()}"></h6>
+                    <h1>
+                        <button type="button" class="btn btn-primary" data-toggle="modal"
+                                th:attr="data-target='#editModal' + *{shipment.getId()}">
+                            Update Status
+                        </button>
+                        <!-- Modal -->
+                        <div class="modal fade" th:id="*{'editModal' + {shipment.getId()} }" tabindex="-1" role="dialog"
+                             aria-labelledby="exampleModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Update Status</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="/courierArea" method="post">
+                                            <div class="form-group">
+                                                <label>
+                                                    Shipping ID
+                                                    <input type="text" name="id" th:value="*{shipment.getId()}"
+                                                           class="form-control" readonly>
+                                                </label>
+                                                <label>
+                                                    New Status
+                                                    <input type="text" class="form-control" name="newStatus">
+                                                </label>
+                                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                    Close
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </h1>
+                    <p class="card-text" th:text="${'Charge: ' + shipment.getShipCharge() + '€'}"> aaa</p>
+                    <a href="#">Prendi in carico la spedizione</a>
                     <!--                        <a href="#" class="card-link">Another link</a>-->
                 </div>
             </div>
         </div>
     </div>
-</div>
-<!--
-<div>Lista spedizioni
-    <div th:each="ships : ${shipments}"> a
-        <p th:text="${ships.getId()}"></p>
-        <p th:text="${ships.getAddress()}"> addres</p>
-        <p th:text="${ships.getShipCharge()}">charge</p>
-        <p th:text="${ships.getShipStatus()}"> sstatus</p>
-        <p th:text="${ships.getCourier()}"> nome corrier</p>
+
+    <div th:if="${shipments == null}" class="col-auto m-5">
+        <h3>Sorry, we don't have nothing to show now :(</h3>
     </div>
-</div>-->
+
+</div>
+
 <div th:insert="blocks/footer :: footer"></div>
 </body>
 </html>

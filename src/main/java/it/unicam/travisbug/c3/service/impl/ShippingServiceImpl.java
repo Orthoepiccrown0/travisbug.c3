@@ -29,4 +29,18 @@ public class ShippingServiceImpl implements ShippingService {
     public List<Shipping> getAll() {
         return shippingRepository.findAll();
     }
+
+    @Override
+    public Shipping getShippingById(int id){
+        return shippingRepository.findById(id).get();
+    }
+
+    @Override
+    public void updateStatus(String status, Shipping s) {
+        s = shippingRepository.findById(s.getId()).get();
+        s.setShipStatus(status);
+        shippingRepository.save(s);
+
+    }
+
 }

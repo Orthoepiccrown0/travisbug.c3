@@ -10,4 +10,7 @@ public interface ShippingService{
 
     List<Shipping> getAll();
 
+    void updateStatus(String status, Shipping s);
+
+    public Shipping getShippingById(int id);
 }
