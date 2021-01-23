@@ -1,5 +1,6 @@
 package it.unicam.travisbug.c3.service.impl;
 
+import it.unicam.travisbug.c3.model.Category;
 import it.unicam.travisbug.c3.model.ShopCategory;
 import it.unicam.travisbug.c3.repository.ShopCategoryRepository;
 import it.unicam.travisbug.c3.service.ShopCategoryService;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service("shopCategoryService")
 public class ShopCategoryServiceImpl implements ShopCategoryService {
@@ -18,6 +20,11 @@ public class ShopCategoryServiceImpl implements ShopCategoryService {
     @Autowired
     public void setShopCategoryRepository(ShopCategoryRepository shopCategoryRepository) {
         this.shopCategoryRepository = shopCategoryRepository;
+    }
+
+    @Override
+    public Optional<ShopCategory> findById(Integer id) {
+        return shopCategoryRepository.findById(id);
     }
 
     @Override
