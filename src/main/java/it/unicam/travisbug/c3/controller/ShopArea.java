@@ -27,9 +27,9 @@ public class ShopArea {
     }
 
     @GetMapping("/shop/{id}")
-    public String showShop(Model model, @PathVariable Integer id,@CookieValue(value = "user_id", defaultValue = "") String userid,
+    public String showShop(Model model, @PathVariable Integer id, @CookieValue(value = "user_id", defaultValue = "") String userid,
                            @CookieValue(value = "role", defaultValue = "") String role) {
-        appCookies.checkLogged(model, userid, role);
+        boolean logged = appCookies.checkLogged(model, userid, role);
         Shop shop = dbManager.getShopService().findById(id);
         if (shop == null)
             return "redirect:/";
@@ -39,6 +39,8 @@ public class ShopArea {
             model.addAttribute("products", products);
             model.addAttribute("shop", shop);
         }
+        model.addAttribute("logged", logged);
+
         model.addAttribute("greeting", "Welcome to " + shop.getShopName());
         model.addAttribute("shopname", shop.getShopName());
         return "shop";

@@ -21,13 +21,14 @@ public class AppCookies {
         response.addCookie(cookie);
     }
 
-    public void checkLogged(Model model, String userid, String role) {
-        String logged = "guest";
+    public boolean checkLogged(Model model, String userid, String role) {
+        boolean logged = false;
         if (!userid.equals("") && !role.equals("")) {
-            logged = "logged";
+            logged = true;
         }
         model.addAttribute("logged", logged);
         checkRole(model, role);
+        return logged;
     }
 
     private void checkRole(Model model, String role) {

@@ -29,8 +29,8 @@
                         <h5 class="card-title" th:text="${product.getName()}"></h5>
                         <h6 class="card-subtitle mb-2 text-muted" th:text="${product.getCategory()}"></h6>
                         <p class="card-text" th:text="${product.getDescription()}"></p>
-                        <a th:href="@{/cart/add/{product_id}/{shop_id}(product_id=${product.getId()},shop_id=${shop.getId()})}"
-                           class="card-link">Add to
+                        <a th:if="${logged == true}" th:href="@{/cart/add/{product_id}/{shop_id}(product_id=${product.getId()},shop_id=${shop.getId()})}"
+                           class="card-link"><i class="fas fa-plus-circle"></i> Add to
                             card</a>
                         <!--                        <a href="#" class="card-link">Another link</a>-->
                     </div>

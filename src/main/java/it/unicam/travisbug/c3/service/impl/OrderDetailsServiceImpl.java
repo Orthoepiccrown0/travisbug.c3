@@ -36,4 +36,14 @@ public class OrderDetailsServiceImpl implements OrderDetailsService {
     public OrderDetails findByProductAndOrder(Product product, Order order) {
         return orderDetailsRepository.findByProductAndOrder(product, order);
     }
+
+    @Override
+    public OrderDetails findById(String id) {
+        return orderDetailsRepository.findById(id).orElseThrow();
+    }
+
+    @Override
+    public void delete(OrderDetails orderDetails) {
+        orderDetailsRepository.delete(orderDetails);
+    }
 }

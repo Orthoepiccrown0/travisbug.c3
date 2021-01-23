@@ -107,4 +107,8 @@ public class Order {
             }
         }
     }
+
+    public void removeItem(OrderDetails item){
+        orderDetails.remove(item);
+    }
 }
