@@ -1,6 +1,5 @@
 package it.unicam.travisbug.c3.service.impl;
 
-import it.unicam.travisbug.c3.model.Client;
 import it.unicam.travisbug.c3.model.Courier;
 import it.unicam.travisbug.c3.repository.CourierRepository;
 import it.unicam.travisbug.c3.service.CourierService;

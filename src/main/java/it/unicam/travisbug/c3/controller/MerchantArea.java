@@ -1,5 +1,6 @@
 package it.unicam.travisbug.c3.controller;
 
+import it.unicam.travisbug.c3.model.Category;
 import it.unicam.travisbug.c3.model.Merchant;
 import it.unicam.travisbug.c3.model.Product;
 import it.unicam.travisbug.c3.model.Shop;
@@ -31,7 +32,8 @@ public class MerchantArea {
                                    @CookieValue(value = "user_id", defaultValue = "") String userid,
                                    @CookieValue(value = "role", defaultValue = "") String role){
         appCookies.checkLogged(model, userid, role);
-        List<Product> products = dbManager.getProductService().getAll();
+        Merchant m = dbManager.getMerchantService().findById(userid).orElseThrow();
+        List<Product> products = dbManager.getProductService().findAllByMerchant(m);
         if (products.size() != 0) {
             model.addAttribute("products", products);
         }
@@ -40,6 +42,10 @@ public class MerchantArea {
 
     @GetMapping("/addProduct")
     public String showAddProduct(Model model){
+        List<Category> categories = dbManager.getCategoryService().getAll();
+        if (categories.size() != 0) {
+            model.addAttribute("categories", categories);
+        }
         return "products/addProduct";
     }
 
@@ -50,10 +56,10 @@ public class MerchantArea {
                                 Double productPrice,
                                 String productDescription,
                                 Integer productSupply,
-                                Double productWeight
-                                //Category productCategory)
-                                ){
-        return addProduct(productName,userid,productPrice,productDescription,productSupply,productWeight);
+                                Double productWeight,
+                                Integer productCategory){
+        Category c = dbManager.getCategoryService().findById(productCategory).orElseThrow();
+        return addProduct(productName,userid,productPrice,productDescription,productSupply,productWeight,c);
     }
 
     private String addProduct(String productName,
@@ -61,9 +67,8 @@ public class MerchantArea {
                               Double productPrice,
                               String productDescription,
                               Integer productSupply,
-                              Double productWeight
-                              //Category productCategory)
-                              ){
+                              Double productWeight,
+                              Category productCategory){
         Product product = new Product();
         Merchant m = dbManager.getMerchantService().findById(userid).orElseThrow();
         product.setMerchant(m);
@@ -71,7 +76,7 @@ public class MerchantArea {
         product.setDescription(productDescription);
         product.setSupply(productSupply);
         product.setPrice(productPrice);
-        //product.setCategory(productCategory);
+        product.setCategory(productCategory);
         if (productWeight != null) {
             product.setWeight(productWeight);
         }

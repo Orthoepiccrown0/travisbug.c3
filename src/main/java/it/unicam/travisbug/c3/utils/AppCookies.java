@@ -1,7 +1,6 @@
 package it.unicam.travisbug.c3.utils;
 
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
