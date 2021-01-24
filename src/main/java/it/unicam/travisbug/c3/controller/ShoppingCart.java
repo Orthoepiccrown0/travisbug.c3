@@ -47,7 +47,13 @@ public class ShoppingCart {
 
         if (cart_order.getOrderDetails().size() != 0) {
             List<OrderDetails> cart = new ArrayList<>(cart_order.getOrderDetails());
+            double amount = 0;
+            for (OrderDetails tmp : cart) {
+                amount += tmp.getProduct().getPrice() * tmp.getQuantity();
+            }
+
             model.addAttribute("cart", cart);
+            model.addAttribute("amount", String.format("%.2f", amount));
         }
         return "shoppingCart";
     }

@@ -111,4 +111,9 @@ public class Order {
     public void removeItem(OrderDetails item){
         orderDetails.remove(item);
     }
+
+    public void changeItem(OrderDetails item){
+        orderDetails.remove(item);
+        orderDetails.add(item);
+    }
 }

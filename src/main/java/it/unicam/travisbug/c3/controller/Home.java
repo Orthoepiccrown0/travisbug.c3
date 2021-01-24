@@ -1,5 +1,6 @@
 package it.unicam.travisbug.c3.controller;
 
+import it.unicam.travisbug.c3.AppCommandLine;
 import it.unicam.travisbug.c3.model.Client;
 import it.unicam.travisbug.c3.model.Courier;
 import it.unicam.travisbug.c3.model.Merchant;
@@ -26,6 +27,13 @@ public class Home {
 
     private final AppCookies appCookies = new AppCookies();
 
+    private AppCommandLine appCommandLine;
+
+    @Autowired
+    public void setAppCommandLine(AppCommandLine appCommandLine) {
+        this.appCommandLine = appCommandLine;
+    }
+
     @Autowired
     public void setDbManager(DBManager dbManager) {
         this.dbManager = dbManager;
@@ -43,6 +51,7 @@ public class Home {
                 model.addAttribute("shops", shops);
             }
         }
+
         return "index";
     }
 

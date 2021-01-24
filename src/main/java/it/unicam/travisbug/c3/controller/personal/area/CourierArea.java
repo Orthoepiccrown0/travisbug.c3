@@ -1,4 +1,4 @@
-package it.unicam.travisbug.c3.controller;
+package it.unicam.travisbug.c3.controller.personal.area;
 
 import it.unicam.travisbug.c3.model.Courier;
 import it.unicam.travisbug.c3.utils.AppCookies;

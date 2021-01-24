@@ -1,4 +1,4 @@
-package it.unicam.travisbug.c3.controller;
+package it.unicam.travisbug.c3.controller.registration;
 
 import it.unicam.travisbug.c3.model.*;
 import it.unicam.travisbug.c3.service.ShopCategoryService;
