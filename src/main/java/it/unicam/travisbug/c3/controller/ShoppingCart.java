@@ -39,8 +39,7 @@ public class ShoppingCart {
                                    @CookieValue(value = "role", defaultValue = "") String role,
                                    String shop_id) {
         appCookies.checkLogged(model, userid, role);
-        if (shop_id != null)
-            model.addAttribute("shop_id", shop_id);
+
 
         Client client = dbManager.getClientService().findById(userid).orElseThrow();
         Order cart_order = dbManager.getOrderService().findByClientAndStatus(client, "Pending");
@@ -54,6 +53,8 @@ public class ShoppingCart {
 
             model.addAttribute("cart", cart);
             model.addAttribute("amount", String.format("%.2f", amount));
+            model.addAttribute("order_id", cart_order.getId());
+            model.addAttribute("shop_id", shop_id);
         }
         return "shoppingCart";
     }
@@ -102,7 +103,8 @@ public class ShoppingCart {
             orderDetails.setProduct(product);
             orderDetails.setQuantity(1);
         } else {
-            orderDetails.setQuantity(orderDetails.getQuantity() + 1);
+            if (orderDetails.getProduct().getSupply() < (orderDetails.getQuantity() + 1))
+                orderDetails.setQuantity(orderDetails.getQuantity() + 1);
         }
         return orderDetails;
     }
