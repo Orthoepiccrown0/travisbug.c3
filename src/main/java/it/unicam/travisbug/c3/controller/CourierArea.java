@@ -45,6 +45,7 @@ public class CourierArea {
         Shipping s = dbManager.getShippingService().getShippingById(id);
         dbManager.getShippingService().updateStatus(status, s);
 
+
         return "redirect:/courierArea";
     }
 }
