@@ -29,4 +29,9 @@ public class AddressServiceImpl implements AddressService {
     public List<Address> getAll() {
         return addressRepository.findAll();
     }
+
+    @Override
+    public Address findById(Integer id) {
+        return addressRepository.findById(id).orElseThrow();
+    }
 }

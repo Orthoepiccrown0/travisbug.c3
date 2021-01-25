@@ -36,5 +36,10 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.findByClientAndStatus(client, status);
     }
 
+    @Override
+    public Order findById(String id) {
+        return orderRepository.findById(id).orElseThrow();
+    }
+
 
 }

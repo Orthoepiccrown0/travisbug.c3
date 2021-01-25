@@ -1,9 +1,6 @@
 package it.unicam.travisbug.c3.controller;
 
-import it.unicam.travisbug.c3.model.Client;
-import it.unicam.travisbug.c3.model.Order;
-import it.unicam.travisbug.c3.model.OrderDetails;
-import it.unicam.travisbug.c3.model.Product;
+import it.unicam.travisbug.c3.model.*;
 import it.unicam.travisbug.c3.utils.AppCookies;
 import it.unicam.travisbug.c3.utils.DBManager;
 import org.aspectj.weaver.ast.Or;
@@ -33,7 +30,7 @@ public class ShoppingCart {
         this.dbManager = dbManager;
     }
 
-    @GetMapping("cart")
+    @GetMapping("account/cart")
     public String showShoppingCart(Model model,
                                    @CookieValue(value = "user_id", defaultValue = "") String userid,
                                    @CookieValue(value = "role", defaultValue = "") String role,
@@ -43,6 +40,7 @@ public class ShoppingCart {
 
         Client client = dbManager.getClientService().findById(userid).orElseThrow();
         Order cart_order = dbManager.getOrderService().findByClientAndStatus(client, "Pending");
+        List<Address> addresses = dbManager.getAddressService().getAll();
 
         if (cart_order.getOrderDetails().size() != 0) {
             List<OrderDetails> cart = new ArrayList<>(cart_order.getOrderDetails());
@@ -55,11 +53,16 @@ public class ShoppingCart {
             model.addAttribute("amount", String.format("%.2f", amount));
             model.addAttribute("order_id", cart_order.getId());
             model.addAttribute("shop_id", shop_id);
+            model.addAttribute("addresses", addresses);
+            if (cart_order.getShipping().getAddress() != null)
+                model.addAttribute("selected_shipping", cart_order.getShipping().getAddress().getId());
+            else
+                model.addAttribute("selected_shipping", "null");
         }
         return "shoppingCart";
     }
 
-    @GetMapping("cart/add/{product_id}/{shop_id}")
+    @GetMapping("account/cart/add/{product_id}/{shop_id}")
     public String add(Model model,
                       @CookieValue(value = "user_id", defaultValue = "") String userid,
                       @PathVariable String product_id,
@@ -78,10 +81,10 @@ public class ShoppingCart {
         dbManager.getProductService().saveProduct(product);
         dbManager.getOrderService().saveOrder(order);
         redirectAttributes.addAttribute("shop_id", shop_id);
-        return "redirect:/cart";
+        return "redirect:/account/cart";
     }
 
-    @GetMapping("cart/remove/{item_id}")
+    @GetMapping("account/cart/remove/{item_id}")
     public String remove(Model model,
                          @CookieValue(value = "user_id", defaultValue = "") String userid,
                          @PathVariable String item_id) {
@@ -91,7 +94,7 @@ public class ShoppingCart {
         order.removeItem(orderDetails);
         dbManager.getOrderDetailsService().delete(orderDetails);
         dbManager.getOrderService().saveOrder(order);
-        return "redirect:/cart";
+        return "redirect:/account/cart";
     }
 
     private OrderDetails getOrderDetails(Product product, Order order) {
@@ -103,7 +106,7 @@ public class ShoppingCart {
             orderDetails.setProduct(product);
             orderDetails.setQuantity(1);
         } else {
-            if (orderDetails.getProduct().getSupply() < (orderDetails.getQuantity() + 1))
+            if (orderDetails.getProduct().getSupply() > (orderDetails.getQuantity() + 1))
                 orderDetails.setQuantity(orderDetails.getQuantity() + 1);
         }
         return orderDetails;
@@ -118,7 +121,13 @@ public class ShoppingCart {
             order.setDate(new Date());
             order.setStatus("Pending");
             order.setAmount(0.0);
+
+            Shipping shipping = new Shipping();
+            shipping.setShipping_order(order);
+            shipping.setShipStatus("Pending");
+            order.setShipping(shipping);
             dbManager.getOrderService().saveOrder(order);
+
         }
         return order;
     }

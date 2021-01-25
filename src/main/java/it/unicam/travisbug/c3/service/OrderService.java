@@ -12,4 +12,6 @@ public interface OrderService {
     List<Order> getAll();
 
     Order findByClientAndStatus(Client client, String status);
+
+    Order findById(String id);
 }

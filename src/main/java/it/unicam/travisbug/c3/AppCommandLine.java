@@ -1,14 +1,17 @@
 package it.unicam.travisbug.c3;
 
-import it.unicam.travisbug.c3.model.Category;
-import it.unicam.travisbug.c3.model.ShopCategory;
+import it.unicam.travisbug.c3.model.*;
 import it.unicam.travisbug.c3.utils.DBManager;
+import it.unicam.travisbug.c3.utils.PasswordTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.UUID;
+
 @Component
-public class AppCommandLine  {
+public class AppCommandLine implements CommandLineRunner {
 
     private DBManager dbManager;
 
@@ -18,55 +21,100 @@ public class AppCommandLine  {
     }
 
     public void run(String... args) {
-        Category c1 = new Category();
-        Category c2 = new Category();
-        Category c3 = new Category();
-        Category c4 = new Category();
-        Category c5 = new Category();
-        Category c6 = new Category();
-        Category c7 = new Category();
-        c1.setName("Videogames");
-        c2.setName("Food");
-        c3.setName("Film");
-        c4.setName("Flower");
-        c5.setName("Jewel");
-        c6.setName("Smartphone");
-        c7.setName("Watch");
-        c1.setId(12);
-        c1.setId(13);
-        c1.setId(14);
-        c1.setId(15);
-        c1.setId(16);
-        c1.setId(17);
-        c1.setId(18);
-        dbManager.getCategoryService().saveCategory(c1);
-        dbManager.getCategoryService().saveCategory(c2);
-        dbManager.getCategoryService().saveCategory(c3);
-        dbManager.getCategoryService().saveCategory(c4);
-        dbManager.getCategoryService().saveCategory(c5);
-        dbManager.getCategoryService().saveCategory(c6);
-        dbManager.getCategoryService().saveCategory(c7);
-        ShopCategory sc1 = new ShopCategory();
-        ShopCategory sc2 = new ShopCategory();
-        ShopCategory sc3 = new ShopCategory();
-        ShopCategory sc4 = new ShopCategory();
-        ShopCategory sc5 = new ShopCategory();
-        ShopCategory sc6 = new ShopCategory();
-        ShopCategory sc7 = new ShopCategory();
-        sc1.setNameCategory("Games");
-        sc2.setNameCategory("Restaurant");
-        sc3.setNameCategory("Electronics");
-        sc4.setNameCategory("Bakery");
-        sc5.setNameCategory("Jewelery");
-        sc6.setNameCategory("Clothes Shop");
-        sc7.setNameCategory("Shoe Shop");
-        dbManager.getShopCategoryService().saveShopCategory(sc1);
-        dbManager.getShopCategoryService().saveShopCategory(sc2);
-        dbManager.getShopCategoryService().saveShopCategory(sc3);
-        dbManager.getShopCategoryService().saveShopCategory(sc4);
-        dbManager.getShopCategoryService().saveShopCategory(sc5);
-        dbManager.getShopCategoryService().saveShopCategory(sc6);
-        dbManager.getShopCategoryService().saveShopCategory(sc7);
+        List<Address> addresses = dbManager.getAddressService().getAll();
+        if (addresses == null || addresses.size() == 0) {
+            addCategories();
+            addShopCategories();
+            addAddresses();
+            addMerchant();
+        }
+    }
+
+    private void addMerchant() {
+        Merchant merchant = new Merchant();
+        merchant.setId(UUID.randomUUID().toString());
+        merchant.setName("Francesco");
+        merchant.setSurname("Totti");
+        merchant.setEmail("merchant@gmail.com");
+        merchant.setPassword(PasswordTool.getMD5String("124578"));
+
+        merchant.setShop(addShop(merchant));
+        addProducts(merchant);
+        dbManager.getMerchantService().saveMerchant(merchant);
+    }
+
+    private void addProducts(Merchant merchant) {
+        List<Category> categories = dbManager.getCategoryService().getAll();
+        for (int i = 0; i < 2; i++) {
+            Product product = new Product();
+            product.setCategory(categories.get(i));
+            product.setName("Test " + i);
+            product.setDescription("Lorem ipsum");
+            product.setMerchant(merchant);
+            product.setPrice(i + 1.0);
+            product.setSupply(5);
+            product.setWeight(1.0);
+            dbManager.getProductService().saveProduct(product);
+        }
+    }
+
+    private Shop addShop(Merchant merchant) {
+        List<ShopCategory> categories = dbManager.getShopCategoryService().getAll();
+        Shop shop = new Shop();
+        shop.setApproved(true);
+        shop.setMerchant(merchant);
+        shop.setShopName("Tottis");
+        shop.setShopCategory(categories.get(0));
+        dbManager.getShopService().saveShop(shop);
+        return shop;
+    }
+
+    private void addAddresses() {
+        String[] address_cities = {"Camerino"};
+        String[] address_streets = {"Via Roma", "Via Napoli", "Via Milano", "Via Dante"};
+
+        for (String city : address_cities) {
+            double x = 0.0;
+            for (String street : address_streets) {
+                Address address = new Address();
+                address.setCity(city);
+                address.setStreet(street);
+                address.setNumber(1);
+                address.setShipCharge(x);
+                x += 1;
+                dbManager.getAddressService().saveAddress(address);
+            }
+        }
+    }
+
+    private void addShopCategories() {
+        String[] categories = {"Games",
+                "Restaurants",
+                "Electronics",
+                "Bakery",
+                "Jewelery",
+                "Clothes shop",
+                "Shoe shop"};
+        for (String cat : categories) {
+            ShopCategory shopCategory = new ShopCategory();
+            shopCategory.setNameCategory(cat);
+            dbManager.getShopCategoryService().saveShopCategory(shopCategory);
+        }
+    }
+
+    private void addCategories() {
+        String[] categories = {"Video games",
+                "Food",
+                "Films",
+                "Flowers",
+                "Jewel",
+                "Smartphone",
+                "Watch"};
+        for (String cat : categories) {
+            Category category = new Category();
+            category.setName(cat);
+            dbManager.getCategoryService().saveCategory(category);
+        }
     }
 
 }

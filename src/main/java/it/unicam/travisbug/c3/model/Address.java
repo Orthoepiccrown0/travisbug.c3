@@ -19,6 +19,8 @@ public class Address {
     @Column(nullable = false)
     private Integer number;
 
+    private Double shipCharge;
+
     @OneToMany(mappedBy = "address")
     private Set<Shipping> shipping;
 
@@ -28,6 +30,14 @@ public class Address {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Double getShipCharge() {
+        return shipCharge;
+    }
+
+    public void setShipCharge(Double shipCharge) {
+        this.shipCharge = shipCharge;
     }
 
     public String getCity() {
@@ -60,5 +70,10 @@ public class Address {
 
     public void setShipping(Set<Shipping> shipping) {
         this.shipping = shipping;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s, %s %d", city, street, number);
     }
 }

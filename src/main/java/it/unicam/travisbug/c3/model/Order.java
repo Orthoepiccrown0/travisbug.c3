@@ -25,16 +25,12 @@ public class Order {
     @JoinColumn(name = "client_id", referencedColumnName = "ID")
     private Client client;
 
-    @OneToOne
+    @OneToOne()
     @JoinColumn(name = "shipping_id", referencedColumnName = "ID")
     private Shipping shipping;
 
     @OneToMany(mappedBy = "order")
     private Set<OrderDetails> orderDetails;
-
-    //TODO: billing address table?
-//    private BillingAddress billingAddress;
-
 
     public String getId() {
         return id;
@@ -105,14 +101,16 @@ public class Order {
                 double price = order.getProduct().getPrice() * order.getQuantity();
                 amount += price;
             }
+            if (getShipping().getAddress() != null)
+                amount += getShipping().getAddress().getShipCharge();
         }
     }
 
-    public void removeItem(OrderDetails item){
+    public void removeItem(OrderDetails item) {
         orderDetails.remove(item);
     }
 
-    public void changeItem(OrderDetails item){
+    public void changeItem(OrderDetails item) {
         orderDetails.remove(item);
         orderDetails.add(item);
     }

@@ -10,4 +10,6 @@ public interface AddressService {
 
     List<Address> getAll();
 
+    Address findById(Integer id);
+
 }
