@@ -32,6 +32,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List<Order> getAll(Client client) {
+        return orderRepository.findAllByClientOrderByDateDesc(client);
+    }
+
+    @Override
     public Order findByClientAndStatus(Client client, String status) {
         return orderRepository.findByClientAndStatus(client, status);
     }

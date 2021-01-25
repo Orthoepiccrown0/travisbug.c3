@@ -1,9 +1,7 @@
 package it.unicam.travisbug.c3.model;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "user_order")
@@ -30,7 +28,7 @@ public class Order {
     private Shipping shipping;
 
     @OneToMany(mappedBy = "order")
-    private Set<OrderDetails> orderDetails;
+    private List<OrderDetails> orderDetails;
 
     public String getId() {
         return id;
@@ -80,17 +78,17 @@ public class Order {
         this.shipping = shipping;
     }
 
-    public Set<OrderDetails> getOrderDetails() {
+    public List<OrderDetails> getOrderDetails() {
         return orderDetails;
     }
 
-    public void setOrderDetails(Set<OrderDetails> orderDetails) {
+    public void setOrderDetails(List<OrderDetails> orderDetails) {
         this.orderDetails = orderDetails;
     }
 
     public void addOrderDetails(OrderDetails order) {
         if (orderDetails == null)
-            orderDetails = new HashSet<>();
+            orderDetails = new ArrayList<>();
         orderDetails.add(order);
     }
 

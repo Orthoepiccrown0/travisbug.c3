@@ -72,6 +72,10 @@ public class Address {
         this.shipping = shipping;
     }
 
+    public String getShippingChargeString() {
+        return String.format("%.2f", shipCharge);
+    }
+
     @Override
     public String toString() {
         return String.format("%s, %s %d", city, street, number);

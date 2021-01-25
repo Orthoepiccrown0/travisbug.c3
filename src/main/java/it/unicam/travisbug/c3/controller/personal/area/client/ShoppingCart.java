@@ -1,4 +1,4 @@
-package it.unicam.travisbug.c3.controller;
+package it.unicam.travisbug.c3.controller.personal.area.client;
 
 import it.unicam.travisbug.c3.model.*;
 import it.unicam.travisbug.c3.utils.AppCookies;
@@ -30,19 +30,33 @@ public class ShoppingCart {
         this.dbManager = dbManager;
     }
 
+    @GetMapping("account/orders/process/{id}")
+    public String process(Model model, @PathVariable String id,
+                          RedirectAttributes redirectAttributes) {
+        model.addAttribute("id", id);
+        Order order = dbManager.getOrderService().findById(id);
+        if(order.getShipping().getAddress()==null){
+            redirectAttributes.addAttribute("shipping_error", true);
+            return "redirect:/account/cart";
+        }
+        order.setStatus("Confirmed");
+        dbManager.getOrderService().saveOrder(order);
+        return "redirect:/account/orders";
+    }
+
     @GetMapping("account/cart")
     public String showShoppingCart(Model model,
                                    @CookieValue(value = "user_id", defaultValue = "") String userid,
                                    @CookieValue(value = "role", defaultValue = "") String role,
-                                   String shop_id) {
+                                   String shop_id,
+                                   boolean shipping_error) {
         appCookies.checkLogged(model, userid, role);
-
 
         Client client = dbManager.getClientService().findById(userid).orElseThrow();
         Order cart_order = dbManager.getOrderService().findByClientAndStatus(client, "Pending");
         List<Address> addresses = dbManager.getAddressService().getAll();
 
-        if (cart_order.getOrderDetails().size() != 0) {
+        if (cart_order !=null && cart_order.getOrderDetails().size() != 0) {
             List<OrderDetails> cart = new ArrayList<>(cart_order.getOrderDetails());
             double amount = 0;
             for (OrderDetails tmp : cart) {
@@ -54,12 +68,14 @@ public class ShoppingCart {
             model.addAttribute("order_id", cart_order.getId());
             model.addAttribute("shop_id", shop_id);
             model.addAttribute("addresses", addresses);
+            if(shipping_error)
+                model.addAttribute("shipping_error", shipping_error);
             if (cart_order.getShipping().getAddress() != null)
                 model.addAttribute("selected_shipping", cart_order.getShipping().getAddress().getId());
             else
                 model.addAttribute("selected_shipping", "null");
         }
-        return "shoppingCart";
+        return "client/shoppingCart";
     }
 
     @GetMapping("account/cart/add/{product_id}/{shop_id}")
@@ -121,16 +137,20 @@ public class ShoppingCart {
             order.setDate(new Date());
             order.setStatus("Pending");
             order.setAmount(0.0);
+            dbManager.getOrderService().saveOrder(order);
 
             Shipping shipping = new Shipping();
             shipping.setShipping_order(order);
             shipping.setShipStatus("Pending");
+            dbManager.getShippingService().saveShipping(shipping);
             order.setShipping(shipping);
             dbManager.getOrderService().saveOrder(order);
 
         }
         return order;
     }
+
+
 
 
 }

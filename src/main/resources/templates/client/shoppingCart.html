@@ -135,6 +135,9 @@
                                 </div>
                             </li>
                         </ul>
+                        <div th:if="${shipping_error == true}" class="alert alert-danger">
+                            Please, select shipping address
+                        </div>
                         <p style="display:none;" th:text="${order_id}" id="order_id"></p>
                     </div>
                 </div>
@@ -164,8 +167,7 @@
                         </ul>
 
                         <a th:href="@{/account/orders/process/{id}(id = ${order_id})}"
-                           class="btn btn-primary btn-block waves-effect waves-light">Go to
-                            checkout
+                           class="btn btn-primary btn-block waves-effect waves-light">Confirm order
                         </a>
 
                     </div>
@@ -217,43 +219,44 @@
     function changeShipping() {
         let address = $("#sel").val();
         let id = $("#order_id").html();
-        $.ajax("/account/cart/change/shipping",
-            {
-                type: 'POST',
-                data: {address_id: address, order_id: id},
-                success: function (data, status, xhr) {
-                    console.log(data);
-                    let obj = JSON.parse(data);
-                    $('#items-amount').html("$" + (obj.total - obj.shippingCharge).toFixed(2));
-                    $('#total').html("$" + obj.total.toFixed(2));
-                    $('#shipment-charge').html("$" + obj.shippingCharge.toFixed(2));
+            $.ajax("/account/cart/change/shipping",
+                {
+                    type: 'POST',
+                    data: {address_id: address, order_id: id},
+                    success: function (data, status, xhr) {
+                        console.log(data);
+                        let obj = JSON.parse(data);
+                        $('#items-amount').html("$" + (obj.total - obj.shippingCharge).toFixed(2));
+                        $('#total').html("$" + obj.total.toFixed(2));
+                        $('#shipment-charge').html("$" + obj.shippingCharge.toFixed(2));
+                    }
                 }
-            }
-        );
+            );
     }
 
     $(document).ready(function () {
         let id = $("#order_id").html();
-        $.ajax("/account/cart/price",
-            {
-                type: 'POST',
-                data: {order_id: id},
-                success: function (data, status, xhr) {
-                    console.log(data);
-                    let obj = JSON.parse(data);
-                    $('#items-amount').html("$" + (obj.total - obj.shippingCharge).toFixed(2));
-                    $('#total').html("$" + obj.total.toFixed(2));
-                    $('#shipment-charge').html("$" + obj.shippingCharge.toFixed(2));
+        if(id!=null) {
+            $.ajax("/account/cart/price",
+                {
+                    type: 'POST',
+                    data: {order_id: id},
+                    success: function (data, status, xhr) {
+                        console.log(data);
+                        let obj = JSON.parse(data);
+                        $('#items-amount').html("$" + (obj.total - obj.shippingCharge).toFixed(2));
+                        $('#total').html("$" + obj.total.toFixed(2));
+                        $('#shipment-charge').html("$" + obj.shippingCharge.toFixed(2));
+                    }
                 }
-            }
-        );
+            );
+        }
 
         $("input[id|='spinner']").each(function (i, el) {
             //It'll be an array of elements
             $(this).on("change", function (sender) {
                 let id = $(this).parent().parent().parent().parent().children(":first").html();
                 let quantity = $(this).val();
-                //TODO: ajax
                 $.ajax("/account/cart/change/quantity",
                     {
                         type: 'POST',

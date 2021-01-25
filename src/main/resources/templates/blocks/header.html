@@ -28,6 +28,7 @@
 
                 <div th:if="${role} == 'client'" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" href="/account/cart">Shopping Cart</a>
+                    <a class="dropdown-item" href="/account/orders">My orders</a>
                     <a class="dropdown-item" onclick="return confirm('Are you sure you want to delete your client Account?')"
                        href="/deleteClient">Delete Account</a>
                 </div>
