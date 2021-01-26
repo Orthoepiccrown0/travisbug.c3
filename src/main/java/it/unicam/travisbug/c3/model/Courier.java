@@ -17,4 +17,5 @@ public class Courier extends RegisteredUser {
     public void setShipping(Set<Shipping> shipping) {
         this.shipping = shipping;
     }
+
 }

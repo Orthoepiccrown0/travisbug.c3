@@ -32,12 +32,23 @@ public class MerchantArea {
                                    @CookieValue(value = "user_id", defaultValue = "") String userid,
                                    @CookieValue(value = "role", defaultValue = "") String role){
         appCookies.checkLogged(model, userid, role);
+
         Merchant m = dbManager.getMerchantService().findById(userid).orElseThrow();
         List<Product> products = dbManager.getProductService().findAllByMerchant(m);
         if (products.size() != 0) {
             model.addAttribute("products", products);
         }
         return "products/myProductsArea";
+    }
+
+    @PostMapping("/myProductsArea")
+    public String addDiscount(Model model,
+                              Integer productDiscount,
+                              Integer productId){
+        Product p = dbManager.getProductService().findById(productId);
+        p.setDiscount(productDiscount);
+        dbManager.getProductService().saveProduct(p);
+        return "redirect:/myProductsArea";
     }
 
     @GetMapping("/addProduct")

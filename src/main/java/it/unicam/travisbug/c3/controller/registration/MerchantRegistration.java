@@ -121,7 +121,8 @@ public class MerchantRegistration {
         Client client = dbManager.getClientService().findByEmail(email);
         Courier courier = dbManager.getCourierService().findByEmail(email);
         Merchant merchant = dbManager.getMerchantService().findByEmail(email);
-        return merchant != null || client != null || courier != null;
+        Employee employee = dbManager.getEmployeeService().findByEmail(email);
+        return client != null || courier != null || merchant != null || employee != null;
     }
 
 }

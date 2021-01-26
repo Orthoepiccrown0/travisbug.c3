@@ -1,6 +1,9 @@
 package it.unicam.travisbug.c3.model;
 
+import org.decimal4j.util.DoubleRounder;
+
 import javax.persistence.*;
+import java.text.DecimalFormat;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,6 +29,8 @@ public class Product {
     @Column(nullable = false)
     private Integer supply;
 
+    private Integer discount;
+
     @ManyToOne
     @JoinColumn(name = "merchant_id", referencedColumnName = "ID")
     private Merchant merchant;
@@ -44,7 +49,6 @@ public class Product {
             inverseJoinColumns = @JoinColumn(name = "promotion_id", referencedColumnName = "ID")
     )
     private Set<Promotion> promotion;
-
 
     public Integer getId() {
         return id;
@@ -124,6 +128,23 @@ public class Product {
 
     public void setPromotion(Set<Promotion> promotion) {
         this.promotion = promotion;
+    }
+
+    public Integer getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Integer discount) {
+        this.discount = discount;
+    }
+
+    public Double getDiscountedPrice(){
+        if(this.getDiscount()==null || this.getDiscount()==0){
+            return this.getPrice();
+        }else {
+            double discountedPrice = (1.0 - (this.getDiscount() / 100.0)) * this.getPrice();
+            return DoubleRounder.round(discountedPrice, 2);
+        }
     }
 
     public void addOrderDetails(OrderDetails order) {

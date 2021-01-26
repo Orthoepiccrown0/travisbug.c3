@@ -20,19 +20,6 @@ public class MerchantServiceImpl implements MerchantService {
         this.merchantRepository = merchantRepository;
     }
 
-    private static MerchantServiceImpl merchantService;
-
-    private MerchantServiceImpl() {
-
-    }
-
-    
-    public static MerchantService getServiceInstance() {
-        if (merchantService == null)
-            merchantService = new MerchantServiceImpl();
-        return merchantService;
-    }
-
     @Override
     public void saveMerchant(Merchant merchant) {
         merchantRepository.save(merchant);

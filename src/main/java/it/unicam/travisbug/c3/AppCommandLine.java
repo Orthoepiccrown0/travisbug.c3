@@ -33,10 +33,10 @@ public class AppCommandLine implements CommandLineRunner {
     private void addMerchant() {
         Merchant merchant = new Merchant();
         merchant.setId(UUID.randomUUID().toString());
-        merchant.setName("Francesco");
-        merchant.setSurname("Totti");
-        merchant.setEmail("merchant@gmail.com");
-        merchant.setPassword(PasswordTool.getMD5String("124578"));
+        merchant.setName("m");
+        merchant.setSurname("m");
+        merchant.setEmail("m@m");
+        merchant.setPassword(PasswordTool.getMD5String("m"));
 
         merchant.setShop(addShop(merchant));
         addProducts(merchant);

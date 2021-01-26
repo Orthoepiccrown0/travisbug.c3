@@ -26,18 +26,6 @@ public class ClientServiceImpl implements ClientService, ApplicationContextAware
         this.clientRepository = clientRepository;
     }
 
-    private static ClientServiceImpl clientService;
-
-    private ClientServiceImpl() {
-
-    }
-
-    public static ClientService getServiceInstance() {
-        if (clientService == null)
-            clientService = new ClientServiceImpl();
-        return clientService;
-    }
-
     @Override
     public void saveClient(Client client) {
         clientRepository.save(client);

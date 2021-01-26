@@ -4,7 +4,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Merchant Registration</title>
+    <title>Employee Registration</title>
 </head>
 
 <!--custom css-->
@@ -19,35 +19,46 @@
 <!--content space-->
 <form class="form-signin" method=post
       oninput='password2.setCustomValidity(password2.value != password.value ? "Passwords do not match." : "")'>
-    <h3 class="h3 mb-3 font-weight-normal">Please sign up</h3>
-    <label for="inputName" class="sr-only">Name</label>
-    <input th:required="true" type="text" id="inputName" name="name" autocomplete="given-name" class="form-control"
+
+    <h2 class="h2 mb-3 font-weight-normal">Employee Registration</h2>
+    <h4 class="h4 mb-3 font-weight-normal text-muted">Please sign up</h4>
+
+    <label for="inputNameE" class="sr-only">Name</label>
+    <input th:required="true" type="text" id="inputNameE" name="nameE" autocomplete="given-name" class="form-control"
            placeholder="Name" required
            autofocus>
 
     <label for="family-name" class="sr-only">Surname</label>
-    <input th:required="true" type="text" id="family-name" name="surname" autocomplete="family-name"
+    <input th:required="true" type="text" id="family-name" name="surnameE" autocomplete="family-name"
            class="form-control" placeholder="Surname"
            required
            autofocus>
 
     <label for="inputEmail" class="sr-only">Email address</label>
-    <input th:required="true" type="email" id="inputEmail" name="email" class="form-control" placeholder="Email address"
-           required
-           autofocus>
+    <input type="email" class="form-control" name="emailE" id="inputEmail" th:required="true"
+           placeholder="Email address" required autofocus>
 
     <label for="inputPassword" class="sr-only">Password</label>
-    <input th:required="true" type="password" id="inputPassword" name="password" class="form-control"
+    <input th:required="true" type="password" id="inputPassword" name="passwordE" class="form-control"
            placeholder="Password" required>
 
     <label for="inputPassword2" class="sr-only">Retype password</label>
-    <input th:required="true" type="password" id="inputPassword2" name="password2" class="form-control"
+    <input th:required="true" type="password" id="inputPassword2" name="password2E" class="form-control"
            placeholder="Retype password"
            required>
 
     <label for="inputPhone" class="sr-only">Phone number</label>
-    <input type="tel" id="inputPhone" name="phone" class="form-control" placeholder="Phone number">
+    <input type="tel" id="inputPhone" name="phoneE" class="form-control" placeholder="Phone number">
     <p class="font-italic" style="font-size: small">*Optional</p>
+
+    <div class="form-group">
+        <label for="sel2">Select your Shop: </label>
+        <select class="form-control" id="sel2" name="shopE">
+            <div th:if="${shops != null}" th:each="shop : ${shops}">
+                <option th:value="${shop.getId()}" th:text="${shop.getShopName()}"></option>
+            </div>
+        </select>
+    </div>
 
     <!--/*@thymesVar id="used_email" type="java.lang.String"*/-->
     <div class="alert alert-danger mb-2" th:if="${used_email} == 'used'">

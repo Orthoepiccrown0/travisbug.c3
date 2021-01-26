@@ -29,14 +29,23 @@
                 <div th:if="${role} == 'client'" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" href="/account/cart">Shopping Cart</a>
                     <a class="dropdown-item" href="/account/orders">My orders</a>
-                    <a class="dropdown-item" onclick="return confirm('Are you sure you want to delete your client Account?')"
+                    <a class="dropdown-item"
+                       onclick="return confirm('Are you sure you want to delete your client Account?')"
                        href="/deleteClient">Delete Account</a>
                 </div>
 
                 <div th:if="${role} == 'courier'" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" href="">Qualcosa</a>
-                    <a class="dropdown-item" onclick="return confirm('Are you sure you want to delete your courier Account?')"
+                    <a class="dropdown-item"
+                       onclick="return confirm('Are you sure you want to delete your courier Account?')"
                        href="/deleteCourier">Delete Account</a>
+                </div>
+
+                <div th:if="${role} == 'employee'" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="">Cosa?</a>
+                    <a class="dropdown-item"
+                       onclick="return confirm('Are you sure you want to delete your employee Account?')"
+                       href="/deleteEmployee">Delete Employee</a>
                 </div>
             </div>
         </div>

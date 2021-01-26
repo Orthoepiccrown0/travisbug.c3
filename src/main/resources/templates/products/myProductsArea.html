@@ -4,10 +4,10 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title>MyProducts Area</title>
 </head>
 
-<link th:href="@{/assets/css/home.css}" rel="stylesheet">
+<link th:href="@{/assets/css/myProductsArea.css}" rel="stylesheet">
 
 <body>
 <header th:insert="blocks/header :: header"></header>
@@ -30,9 +30,34 @@
         <div th:if="${products != null}" th:each="product : ${products}">
             <div class="col-auto mb-3">
                 <div class="card " style="width: 18rem;">
-                    <div class="card-body clickable">
-                        <h5 class="card-title" th:text="${product.getName()}"></h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Category</h6>
+                    <div class="card-header text-left">
+                        <h5 class="card-title mb-3" th:text="${product.getName()}"></h5>
+                        <h6 class="card-subtitle mb-2 text-muted" th:text="${product.getCategory().getName()}"></h6>
+                        <div class="row text-left">
+                            <h5 class="ml-3 mr-3 text-muted"
+                                th:text="'$'+${product.getDiscountedPrice()}"></h5>
+                            <del th:if="${product.getDiscount() != null and product.getDiscount() != 0}"
+                                 class="text-muted"
+                                 th:text="'$'+${product.getPrice()}"></del>
+                        </div>
+                    </div>
+                    <div class="card-body text-left clickable">
+                        <form action="/myProductsArea" method="post">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Discount</span>
+                                </div>
+                                <input type="number" name="productDiscount" max="100" min="0"
+                                       th:placeholder="${product.getDiscount()} ?: '0'" class="inputBox form-control"/>
+                                <div class="input-group-append">
+                                    <span class="input-group-text">%</span>
+                                </div>
+                                <input style="visibility:hidden; display: none" name="productId"
+                                       th:value="${product.getId()}"/>
+                            </div>
+                            <input value="Save" type="submit" class="btn btn-block btn-outline-dark mt-2"/>
+                        </form>
+
                     </div>
                 </div>
             </div>
@@ -52,5 +77,14 @@
     </div>
     <div th:insert="blocks/footer :: footer"></div>
 </div>
+<script>
+    $(".inputBox").each(function (i, el){
+        $(this).on("keypress", function (evt) {
+            if (evt.which != 8 && evt.which != 0 && evt.which < 48 || evt.which > 57) {
+                evt.preventDefault();
+            }
+        });
+    });
+</script>
 </body>
 </html>

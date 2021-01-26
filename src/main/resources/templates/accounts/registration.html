@@ -44,9 +44,13 @@
     <input type="tel" id="inputPhone" name="phone" class="form-control" placeholder="Phone number">
     <p class="font-italic" style="font-size: small">*Optional</p>
 
-    <div class="mb-3">
-        <label for="typeClient"> Client</label> <input id="typeClient" type="radio" name="type" value="Client"/>
-        <label for="typeCourier">Courier</label> <input id="typeCourier" type="radio" name="type" value="Courier"/>
+    <div class="btn-group btn-group-toggle mb-2" data-toggle="buttons">
+        <label class="btn btn-secondary active">
+            <input type="radio" name="type" value="Client" id="typeClient" autocomplete="off" checked> Client
+        </label>
+        <label class="btn btn-secondary">
+            <input type="radio" name="type" value="Courier" id="typeCourier" autocomplete="off"> Courier
+        </label>
     </div>
 
     <!--/*@thymesVar id="used_email" type="java.lang.String"*/-->
@@ -55,7 +59,6 @@
     </div>
 
     <button class="btn btn-lg btn-success btn-block" type="submit">Sign up</button>
-    <a class="btn btn-lg btn-secondary btn-block" href="/register/merchant">Register as merchant</a>
     <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
 </form>
 
