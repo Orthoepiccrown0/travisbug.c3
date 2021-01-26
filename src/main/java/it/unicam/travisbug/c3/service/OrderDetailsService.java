@@ -14,4 +14,7 @@ public interface OrderDetailsService {
 
     OrderDetails findByProductAndOrder(Product product, Order order);
 
+    OrderDetails findById(String id);
+
+    void delete(OrderDetails orderDetails);
 }

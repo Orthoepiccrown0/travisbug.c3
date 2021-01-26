@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service("employeeService")
 public class EmployeeServiceImpl implements EmployeeService {
+
     @Qualifier("employeeRepository")
     private EmployeeRepository employeeRepository;
 
@@ -25,7 +27,28 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    public Optional<Employee> findById(String id) {
+        return employeeRepository.findById(id);
+    }
+
+    @Override
+    public Employee findByEmailAndPass(String email, String password) {
+        return employeeRepository.findByEmailAndPassword(email, password);
+    }
+
+    @Override
+    public void deleteEmployee(Employee employee){
+        employeeRepository.delete(employee);
+    }
+
+    @Override
+    public Employee findByEmail(String email) {
+        return employeeRepository.findByEmail(email);
+    }
+
+    @Override
     public List<Employee> getAll() {
         return employeeRepository.findAll();
     }
+
 }

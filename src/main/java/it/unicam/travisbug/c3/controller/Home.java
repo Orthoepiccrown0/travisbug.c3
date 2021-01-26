@@ -1,9 +1,7 @@
 package it.unicam.travisbug.c3.controller;
 
-import it.unicam.travisbug.c3.model.Client;
-import it.unicam.travisbug.c3.model.Courier;
-import it.unicam.travisbug.c3.model.Merchant;
-import it.unicam.travisbug.c3.model.Shop;
+import it.unicam.travisbug.c3.AppCommandLine;
+import it.unicam.travisbug.c3.model.*;
 import it.unicam.travisbug.c3.utils.AppCookies;
 import it.unicam.travisbug.c3.utils.DBManager;
 import it.unicam.travisbug.c3.utils.PasswordTool;
@@ -25,6 +23,13 @@ public class Home {
     private DBManager dbManager;
 
     private final AppCookies appCookies = new AppCookies();
+
+    private AppCommandLine appCommandLine;
+
+    @Autowired
+    public void setAppCommandLine(AppCommandLine appCommandLine) {
+        this.appCommandLine = appCommandLine;
+    }
 
     @Autowired
     public void setDbManager(DBManager dbManager) {
@@ -63,6 +68,7 @@ public class Home {
         Client client = dbManager.getClientService().findByEmailAndPass(email, PasswordTool.getMD5String(password));
         Courier courier = dbManager.getCourierService().findByEmailAndPass(email, PasswordTool.getMD5String(password));
         Merchant merchant = dbManager.getMerchantService().findByEmailAndPass(email, PasswordTool.getMD5String(password));
+        Employee employee = dbManager.getEmployeeService().findByEmailAndPass(email, PasswordTool.getMD5String(password));
         if (client != null) {
             appCookies.setRoleCookie("client", response);
             appCookies.setUserIDCookie(client.getId(), response, rememberState);
@@ -72,6 +78,9 @@ public class Home {
         }else if(merchant != null){
             appCookies.setRoleCookie("merchant", response);
             appCookies.setUserIDCookie(merchant.getId(), response, rememberState);
+        }else if(employee != null){
+            appCookies.setRoleCookie("employee", response);
+            appCookies.setUserIDCookie(employee.getId(), response, rememberState);
         }
         return "redirect:/";
     }

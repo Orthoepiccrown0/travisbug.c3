@@ -10,9 +10,6 @@ public class Shipping {
     private Integer id;
 
     @Column(nullable = false)
-    private Double shipCharge;
-
-    @Column(nullable = false)
     private String shipStatus;
 
     @ManyToOne
@@ -32,14 +29,6 @@ public class Shipping {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Double getShipCharge() {
-        return shipCharge;
-    }
-
-    public void setShipCharge(Double shipCharge) {
-        this.shipCharge = shipCharge;
     }
 
     public String getShipStatus() {

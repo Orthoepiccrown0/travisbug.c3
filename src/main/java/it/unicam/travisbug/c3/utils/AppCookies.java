@@ -1,7 +1,6 @@
 package it.unicam.travisbug.c3.utils;
 
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -21,13 +20,14 @@ public class AppCookies {
         response.addCookie(cookie);
     }
 
-    public void checkLogged(Model model, String userid, String role) {
-        String logged = "guest";
+    public boolean checkLogged(Model model, String userid, String role) {
+        boolean logged = false;
         if (!userid.equals("") && !role.equals("")) {
-            logged = "logged";
+            logged = true;
         }
         model.addAttribute("logged", logged);
         checkRole(model, role);
+        return logged;
     }
 
     private void checkRole(Model model, String role) {

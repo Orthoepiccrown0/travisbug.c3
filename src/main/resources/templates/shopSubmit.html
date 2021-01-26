@@ -31,10 +31,9 @@
     <div class="form-group">
         <label for="sel1">Select shop category:</label>
         <select class="form-control" id="sel1" name="shopCategory">
-            <option value="Games">Games</option>
-            <option value="Electronics">Electronics</option>
-            <option value="Restaurant">Restaurant</option>
-            <option value="Jewelery">Jewelery</option>
+            <div th:if="${shopCategories != null}" th:each="shopCategory : ${shopCategories}">
+                <option th:value="${shopCategory.getId()}" th:text="${shopCategory.getNameCategory()}" ></option>
+            </div>
         </select>
     </div>
 

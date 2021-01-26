@@ -13,7 +13,7 @@ public class ShopCategory {
     @Column(nullable = false)
     private String nameCategory;
 
-    @Column(nullable = false)
+    @Column
     private String categoryDescription;
 
     @OneToMany(mappedBy = "shopCategory", cascade = CascadeType.ALL)
@@ -50,4 +50,5 @@ public class ShopCategory {
     public void setShop(Set<Shop> shop) {
         this.shop = shop;
     }
+
 }

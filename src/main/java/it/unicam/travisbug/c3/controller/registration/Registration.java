@@ -1,7 +1,8 @@
-package it.unicam.travisbug.c3.controller;
+package it.unicam.travisbug.c3.controller.registration;
 
 import it.unicam.travisbug.c3.model.Client;
 import it.unicam.travisbug.c3.model.Courier;
+import it.unicam.travisbug.c3.model.Employee;
 import it.unicam.travisbug.c3.model.Merchant;
 import it.unicam.travisbug.c3.utils.AppCookies;
 import it.unicam.travisbug.c3.utils.DBManager;
@@ -60,7 +61,8 @@ public class Registration {
         Client client = dbManager.getClientService().findByEmail(email);
         Courier courier = dbManager.getCourierService().findByEmail(email);
         Merchant merchant = dbManager.getMerchantService().findByEmail(email);
-        return client != null || courier != null || merchant != null;
+        Employee employee = dbManager.getEmployeeService().findByEmail(email);
+        return client != null || courier != null || merchant != null || employee != null;
     }
 
     private void registerClient(String name, String surname, String email, String password, String phone, HttpServletResponse response) {

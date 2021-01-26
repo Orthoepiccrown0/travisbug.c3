@@ -1,6 +1,7 @@
-package it.unicam.travisbug.c3.controller;
+package it.unicam.travisbug.c3.controller.personal.area;
 
-import it.unicam.travisbug.c3.model.Client;
+import it.unicam.travisbug.c3.model.Courier;
+import it.unicam.travisbug.c3.model.Employee;
 import it.unicam.travisbug.c3.utils.AppCookies;
 import it.unicam.travisbug.c3.utils.DBManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class ClientArea {
+public class EmployeeArea {
 
     private DBManager dbManager;
 
@@ -20,10 +21,10 @@ public class ClientArea {
         this.dbManager = dbManager;
     }
 
-    @GetMapping("/deleteClient")
-    public String deleteClient(@CookieValue(value = "user_id", defaultValue = "") String userid){
-        Client c = dbManager.getClientService().findById(userid).orElseThrow();
-        dbManager.getClientService().deleteClient(c);
+    @GetMapping("/deleteEmployee")
+    public String deleteEmployee(@CookieValue(value = "user_id", defaultValue = "") String userid){
+        Employee e = dbManager.getEmployeeService().findById(userid).orElseThrow();
+        dbManager.getEmployeeService().deleteEmployee(e);
         return "redirect:/user_logout";
     }
 

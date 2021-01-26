@@ -1,9 +1,7 @@
 package it.unicam.travisbug.c3.model;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "user_order")
@@ -25,16 +23,12 @@ public class Order {
     @JoinColumn(name = "client_id", referencedColumnName = "ID")
     private Client client;
 
-    @OneToOne
+    @OneToOne()
     @JoinColumn(name = "shipping_id", referencedColumnName = "ID")
     private Shipping shipping;
 
     @OneToMany(mappedBy = "order")
-    private Set<OrderDetails> orderDetails;
-
-    //TODO: billing address table?
-//    private BillingAddress billingAddress;
-
+    private List<OrderDetails> orderDetails;
 
     public String getId() {
         return id;
@@ -84,17 +78,17 @@ public class Order {
         this.shipping = shipping;
     }
 
-    public Set<OrderDetails> getOrderDetails() {
+    public List<OrderDetails> getOrderDetails() {
         return orderDetails;
     }
 
-    public void setOrderDetails(Set<OrderDetails> orderDetails) {
+    public void setOrderDetails(List<OrderDetails> orderDetails) {
         this.orderDetails = orderDetails;
     }
 
     public void addOrderDetails(OrderDetails order) {
         if (orderDetails == null)
-            orderDetails = new HashSet<>();
+            orderDetails = new ArrayList<>();
         orderDetails.add(order);
     }
 
@@ -105,6 +99,17 @@ public class Order {
                 double price = order.getProduct().getPrice() * order.getQuantity();
                 amount += price;
             }
+            if (getShipping().getAddress() != null)
+                amount += getShipping().getAddress().getShipCharge();
         }
+    }
+
+    public void removeItem(OrderDetails item) {
+        orderDetails.remove(item);
+    }
+
+    public void changeItem(OrderDetails item) {
+        orderDetails.remove(item);
+        orderDetails.add(item);
     }
 }

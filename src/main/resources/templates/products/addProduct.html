@@ -18,7 +18,8 @@
     <h3 class="h3 mb-4 font-weight-normal">Insert product details</h3>
 
     <label for="inputProductName" class="sr-only">Name</label>
-    <input type="text" maxlength="20" id="inputProductName" th:required="true" name="productName" class="form-control" placeholder="Product name"
+    <input type="text" id="inputProductName" th:required="true" name="productName" class="form-control"
+           placeholder="Product name"
            required autofocus>
 
     <label for="inputPrice" class="sr-only">Price</label>
@@ -26,7 +27,7 @@
            placeholder="Product price" required>
 
     <label for="inputDescription" class="sr-only">Description</label>
-    <textarea id="inputDescription" maxlength="150" th:required="true" name="productDescription" class="form-control"
+    <textarea id="inputDescription" th:required="true" name="productDescription" class="form-control"
               placeholder="Product description" required></textarea>
 
     <label for="inputSupply" class="sr-only">Supply</label>
@@ -40,11 +41,9 @@
     <div class="mt-2 form-group">
         <label for="sel2">Select product category:</label>
         <select class="form-control" id="sel2" name="productCategory">
-            <option value="VideoGame">VideoGame</option>
-            <option value="Computer">Computer</option>
-            <option value="Food">Food</option>
-            <option value="Jewel">Jewel</option>
-            <option value="Smartphone">Smartphone</option>
+            <div th:if="${categories != null}" th:each="category : ${categories}">
+                <option th:value="${category.getId()}" th:text="${category.getName()}" ></option>
+            </div>
         </select>
     </div>
 

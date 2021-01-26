@@ -1,7 +1,7 @@
-package it.unicam.travisbug.c3.controller;
+package it.unicam.travisbug.c3.controller.registration;
 
-import it.unicam.travisbug.c3.model.Shop;
 import it.unicam.travisbug.c3.model.*;
+import it.unicam.travisbug.c3.service.ShopCategoryService;
 import it.unicam.travisbug.c3.utils.AppCookies;
 import it.unicam.travisbug.c3.utils.DBManager;
 import it.unicam.travisbug.c3.utils.PasswordTool;
@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -75,18 +76,25 @@ public class MerchantRegistration {
     @GetMapping("/register/merchant/shop")
     public String shopRegister(Model model, String merchant) {
         model.addAttribute("merchant", merchant);
+        List<ShopCategory> shopCategories = dbManager.getShopCategoryService().getAll();
+        if (shopCategories.size() != 0) {
+            model.addAttribute("shopCategories", shopCategories);
+        }
         return "shopSubmit";
     }
 
     @PostMapping("/register/merchant/shop")
     public String saveShop(Model model,
-                               String shopName,
-                               String comment,
-                               Merchant merchant,
-                               HttpServletResponse response) {
+                           String shopName,
+                           String comment,
+                           Merchant merchant,
+                           Integer shopCategory,
+                           HttpServletResponse response) {
+        ShopCategory sc = dbManager.getShopCategoryService().findById(shopCategory).orElseThrow();
         Shop shop = new Shop();
         shop.setMerchant(merchant);
         shop.setShopName(shopName);
+        shop.setShopCategory(sc);
         shop.setApproved(false);
         merchant.setShop(shop);
         dbManager.getShopService().saveShop(shop);
@@ -113,7 +121,8 @@ public class MerchantRegistration {
         Client client = dbManager.getClientService().findByEmail(email);
         Courier courier = dbManager.getCourierService().findByEmail(email);
         Merchant merchant = dbManager.getMerchantService().findByEmail(email);
-        return merchant != null || client !=null || courier!=null;
+        Employee employee = dbManager.getEmployeeService().findByEmail(email);
+        return client != null || courier != null || merchant != null || employee != null;
     }
 
 }
