@@ -1,5 +1,7 @@
 package it.unicam.travisbug.c3.model;
 
+import it.unicam.travisbug.c3.utils.ShippingStatus;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,7 +12,7 @@ public class Shipping {
     private Integer id;
 
     @Column(nullable = false)
-    private String shipStatus;
+    private ShippingStatus shippingStatus;
 
     @ManyToOne
     @JoinColumn(name = "courier_id", referencedColumnName = "ID")
@@ -31,12 +33,12 @@ public class Shipping {
         this.id = id;
     }
 
-    public String getShipStatus() {
-        return shipStatus;
+    public ShippingStatus getShippingStatus() {
+        return shippingStatus;
     }
 
-    public void setShipStatus(String shipStatus) {
-        this.shipStatus = shipStatus;
+    public void setShippingStatus(ShippingStatus shippingStatus) {
+        this.shippingStatus = shippingStatus;
     }
 
     public Courier getCourier() {

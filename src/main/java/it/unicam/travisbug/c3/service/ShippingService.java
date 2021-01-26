@@ -1,6 +1,7 @@
 package it.unicam.travisbug.c3.service;
 
 import it.unicam.travisbug.c3.model.Shipping;
+import it.unicam.travisbug.c3.utils.ShippingStatus;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ public interface ShippingService{
 
     List<Shipping> getAll();
 
-    void updateStatus(String status, Shipping s);
+    List<Shipping> getAll(ShippingStatus shippingStatus);
 
-    public Shipping getShippingById(int id);
+    Shipping findById(Integer id);
 }

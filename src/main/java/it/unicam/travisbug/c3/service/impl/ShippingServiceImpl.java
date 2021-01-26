@@ -3,6 +3,7 @@ package it.unicam.travisbug.c3.service.impl;
 import it.unicam.travisbug.c3.model.Shipping;
 import it.unicam.travisbug.c3.repository.ShippingRepository;
 import it.unicam.travisbug.c3.service.ShippingService;
+import it.unicam.travisbug.c3.utils.ShippingStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -31,16 +32,13 @@ public class ShippingServiceImpl implements ShippingService {
     }
 
     @Override
-    public Shipping getShippingById(int id){
-        return shippingRepository.findById(id).get();
+    public List<Shipping> getAll(ShippingStatus shippingStatus) {
+        return shippingRepository.findAllByShippingStatus(shippingStatus);
     }
 
     @Override
-    public void updateStatus(String status, Shipping s) {
-        s = shippingRepository.findById(s.getId()).get();
-        s.setShipStatus(status);
-        shippingRepository.save(s);
-
+    public Shipping findById(Integer id) {
+        return shippingRepository.findById(id).orElseThrow();
     }
 
 }

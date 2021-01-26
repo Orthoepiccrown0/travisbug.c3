@@ -3,6 +3,7 @@ package it.unicam.travisbug.c3.controller.personal.area.client;
 import it.unicam.travisbug.c3.model.*;
 import it.unicam.travisbug.c3.utils.AppCookies;
 import it.unicam.travisbug.c3.utils.DBManager;
+import it.unicam.travisbug.c3.utils.ShippingStatus;
 import org.aspectj.weaver.ast.Or;
 import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -141,7 +142,7 @@ public class ShoppingCart {
 
             Shipping shipping = new Shipping();
             shipping.setShipping_order(order);
-            shipping.setShipStatus("Pending");
+            shipping.setShippingStatus(ShippingStatus.Pending);
             dbManager.getShippingService().saveShipping(shipping);
             order.setShipping(shipping);
             dbManager.getOrderService().saveOrder(order);
