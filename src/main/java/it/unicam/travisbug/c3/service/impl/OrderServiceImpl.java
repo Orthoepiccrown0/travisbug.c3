@@ -27,6 +27,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public void deleteOrder(Order o) {
+        orderRepository.delete(o);
+    }
+
+    @Override
     public List<Order> getAll() {
         return orderRepository.findAll();
     }

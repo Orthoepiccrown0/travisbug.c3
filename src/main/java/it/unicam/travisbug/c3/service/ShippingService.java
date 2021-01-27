@@ -8,6 +8,8 @@ public interface ShippingService{
 
     void saveShipping(Shipping s);
 
+    void deleteShipping(Shipping s);
+
     List<Shipping> getAll();
 
     void updateStatus(String status, Shipping s);

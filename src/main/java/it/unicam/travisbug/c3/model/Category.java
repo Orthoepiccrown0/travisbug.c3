@@ -1,6 +1,7 @@
 package it.unicam.travisbug.c3.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -49,5 +50,11 @@ public class Category {
 
     public void setProduct(Set<Product> product) {
         this.product = product;
+    }
+
+    public void addProduct(Product p) {
+        if (product == null)
+            product = new HashSet<>();
+        product.add(p);
     }
 }

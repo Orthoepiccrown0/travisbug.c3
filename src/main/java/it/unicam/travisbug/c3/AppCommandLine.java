@@ -54,6 +54,7 @@ public class AppCommandLine implements CommandLineRunner {
             product.setPrice(i + 1.0);
             product.setSupply(5);
             product.setWeight(1.0);
+            product.setPromoted(false);
             dbManager.getProductService().saveProduct(product);
         }
     }

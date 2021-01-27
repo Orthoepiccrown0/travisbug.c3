@@ -76,7 +76,7 @@ public class Registration {
             client.setPhone(phone);
         dbManager.getClientService().saveClient(client);
 
-        appCookies.setUserIDCookie(client.getId(), response, true);
+        appCookies.setUserIDCookie(client.getId(), response);
         appCookies.setRoleCookie("client", response);
     }
 
@@ -91,7 +91,7 @@ public class Registration {
             courier.setPhone(phone);
         dbManager.getCourierService().saveCourier(courier);
 
-        appCookies.setUserIDCookie(courier.getId(), response, true);
+        appCookies.setUserIDCookie(courier.getId(), response);
         appCookies.setRoleCookie("courier", response);
     }
 

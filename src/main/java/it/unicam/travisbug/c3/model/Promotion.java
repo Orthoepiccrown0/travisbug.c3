@@ -8,18 +8,14 @@ import java.util.Set;
 public class Promotion {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
 
     private Boolean approved;
 
-    @Column(nullable = false)
     private Date start;
 
-    @Column(nullable = false)
     private Date end;
 
-    @Column(nullable = false)
     private Integer discount;
 
     @ManyToMany(mappedBy = "promotion")

@@ -2,6 +2,7 @@ package it.unicam.travisbug.c3.controller.personal.area.client;
 
 import it.unicam.travisbug.c3.model.Client;
 import it.unicam.travisbug.c3.model.Order;
+import it.unicam.travisbug.c3.model.Shipping;
 import it.unicam.travisbug.c3.utils.AppCookies;
 import it.unicam.travisbug.c3.utils.DBManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -44,6 +46,17 @@ public class ClientArea {
             orders = null;
         model.addAttribute("orders", orders);
         return "client/orders";
+    }
+
+    @GetMapping("/account/orders/delete/{id}")
+    public String deleteOrder(@PathVariable String id){
+        Order order = dbManager.getOrderService().findById(id);
+        Shipping shipping = order.getShipping();
+        order.setShipping(null);
+        dbManager.getOrderService().saveOrder(order);
+        dbManager.getOrderService().deleteOrder(order);
+        dbManager.getShippingService().deleteShipping(shipping);
+        return "redirect:/account/orders";
     }
 
 

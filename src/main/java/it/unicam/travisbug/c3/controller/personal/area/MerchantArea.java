@@ -1,9 +1,6 @@
 package it.unicam.travisbug.c3.controller.personal.area;
 
-import it.unicam.travisbug.c3.model.Category;
-import it.unicam.travisbug.c3.model.Merchant;
-import it.unicam.travisbug.c3.model.Product;
-import it.unicam.travisbug.c3.model.Shop;
+import it.unicam.travisbug.c3.model.*;
 import it.unicam.travisbug.c3.utils.AppCookies;
 import it.unicam.travisbug.c3.utils.DBManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +10,10 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.List;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Controller
 public class MerchantArea {
@@ -29,30 +29,73 @@ public class MerchantArea {
 
     @GetMapping("/myProductsArea")
     public String showMyProductArea(Model model,
-                                   @CookieValue(value = "user_id", defaultValue = "") String userid,
-                                   @CookieValue(value = "role", defaultValue = "") String role){
+                                    @CookieValue(value = "user_id", defaultValue = "") String userid,
+                                    @CookieValue(value = "role", defaultValue = "") String role) {
         appCookies.checkLogged(model, userid, role);
 
         Merchant m = dbManager.getMerchantService().findById(userid).orElseThrow();
         List<Product> products = dbManager.getProductService().findAllByMerchant(m);
-        if (products.size() != 0) {
-            model.addAttribute("products", products);
+        List<Category> categories = new ArrayList<>();
+        for (Product product : products) {
+            categories.add(product.getCategory());
         }
+
+        model.addAttribute("products", products);
+        model.addAttribute("categories", categories);
+
         return "products/myProductsArea";
     }
 
     @PostMapping("/myProductsArea")
     public String addDiscount(Model model,
                               Integer productDiscount,
-                              Integer productId){
+                              Integer productId) {
         Product p = dbManager.getProductService().findById(productId);
         p.setDiscount(productDiscount);
         dbManager.getProductService().saveProduct(p);
         return "redirect:/myProductsArea";
     }
 
+    @PostMapping("/addPromotion")
+    public String createPromotion(Model model,
+                                  @CookieValue(value = "user_id", defaultValue = "") String userid,
+                                  Integer category_id, Integer discount, String startDate, String endDate) throws ParseException {
+        Promotion promotion = new Promotion();
+        promotion.setId(UUID.randomUUID().toString());
+        Merchant merchant = dbManager.getMerchantService().findById(userid).orElseThrow();
+        Set<Product> merchant_products = merchant.getProduct();
+        promotion.setDiscount(discount);
+        dbManager.getPromotionService().savePromotion(promotion);
+        Set<Product> products = new HashSet<>();
+        if (category_id == null)
+            category_id = dbManager.getCategoryService().getAll().get(0).getId();
+        Category category = dbManager.getCategoryService().findById(category_id).orElseThrow();
+        for (Product product : category.getProduct()) {
+            if (merchant_products.contains(product)) {
+                product.addPromotion(promotion);
+                product.setPromoted(true);
+                dbManager.getProductService().saveProduct(product);
+                products.add(product);
+            }
+        }
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        promotion.setStart(format.parse(startDate));
+        promotion.setEnd(format.parse(endDate));
+        promotion.setProduct(products);
+        dbManager.getPromotionService().savePromotion(promotion);
+
+        AdminRequests request = new AdminRequests();
+        request.setId(UUID.randomUUID().toString());
+        request.setDate(new Date());
+        request.setTitle(merchant.getShop().getShopName());
+        request.setComment("Comment");
+        request.setPromotion(promotion);
+        dbManager.getAdminRequestsService().saveAdminRequests(request);
+        return "redirect:/myProductsArea";
+    }
+
     @GetMapping("/addProduct")
-    public String showAddProduct(Model model){
+    public String showAddProduct(Model model) {
         List<Category> categories = dbManager.getCategoryService().getAll();
         if (categories.size() != 0) {
             model.addAttribute("categories", categories);
@@ -68,9 +111,9 @@ public class MerchantArea {
                                 String productDescription,
                                 Integer productSupply,
                                 Double productWeight,
-                                Integer productCategory){
+                                Integer productCategory) {
         Category c = dbManager.getCategoryService().findById(productCategory).orElseThrow();
-        return addProduct(productName,userid,productPrice,productDescription,productSupply,productWeight,c);
+        return addProduct(productName, userid, productPrice, productDescription, productSupply, productWeight, c);
     }
 
     private String addProduct(String productName,
@@ -79,7 +122,7 @@ public class MerchantArea {
                               String productDescription,
                               Integer productSupply,
                               Double productWeight,
-                              Category productCategory){
+                              Category productCategory) {
         Product product = new Product();
         Merchant m = dbManager.getMerchantService().findById(userid).orElseThrow();
         product.setMerchant(m);
@@ -96,7 +139,7 @@ public class MerchantArea {
     }
 
     @GetMapping("/deleteShop")
-    public String deleteShop(@CookieValue(value = "user_id", defaultValue = "") String userid){
+    public String deleteShop(@CookieValue(value = "user_id", defaultValue = "") String userid) {
         Merchant m = dbManager.getMerchantService().findById(userid).orElseThrow();
         Shop s = m.getShop();
         dbManager.getShopService().deleteShop(s);

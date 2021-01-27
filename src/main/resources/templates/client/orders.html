@@ -36,7 +36,7 @@
                                 Order №
                                 <span th:text="${order.getId()}"></span>
                             </h6>
-                            <a class="btn btn-danger" href="#">
+                            <a class="btn btn-danger" th:href="@{/account/orders/delete/{id}(id=${order.getId()})}">
                                 Delete
                                 <i class="fas fa-trash-alt"></i>
                             </a>

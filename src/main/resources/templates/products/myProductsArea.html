@@ -17,8 +17,85 @@
         <div class="col-auto">
             <h1 class="display-4">My Products Area</h1>
         </div>
+    </div>
+
+    <div class="row justify-content-center">
         <div class="col-auto align-self-center">
             <a class="center m-auto btn btn-outline-dark" href="/addProduct">Add Product</a>
+        </div>
+
+        <!-- Button trigger modal -->
+        <button th:if="${products.size()!=0}" type="button" class="btn btn-outline-dark col-auto align-self-center"
+                data-toggle="modal" data-target="#exampleModal">
+            Create promotion
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">New promotion</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div th:if="${products.size()!=0}">
+                        <div class="modal-body">
+
+                            <form action="/addPromotion" method="post">
+                                <label for="sel1">Select category of products to promote</label>
+                                <select class="form-control mb-2" id="sel1" name="category_id">
+                                    <div th:if="${categories.size()!=0}" th:each="category : ${categories}">
+                                        <!--/*@thymesVar id="category" type="it.unicam.travisbug.c3.model.Category"*/-->
+                                        <option th:value="${category.getId()}" th:text="${category.getName()}"></option>
+                                    </div>
+                                </select>
+
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Discount</span>
+                                    </div>
+                                    <input th:required="true" type="number" name="discount" max="100" min="0"
+                                           placeholder="0" class="inputBox form-control"/>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">%</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="start-date-input" class="col col-form-label">Start date</label>
+                                    <div class="col-8">
+                                        <input th:required="true"
+                                               th:attr="min=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"
+                                               class="form-control" type="date" id="start-date-input" name="startDate">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="end-date-input" class="col col-form-label">End date</label>
+                                    <div class="col-8">
+                                        <input th:required="true"
+                                               th:attr="min=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"
+                                               class="form-control" type="date" id="end-date-input" name="endDate">
+                                    </div>
+                                </div>
+
+                                <div class="d-flex justify-content-between">
+                                    <button type="button" class="btn btn-block btn-secondary mr-1 mt-2"
+                                            data-dismiss="modal">
+                                        Close
+                                    </button>
+                                    <input value="Create promotion" type="submit"
+                                           class="btn btn-block btn-outline-dark ml-1 mt-2"/>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -27,7 +104,7 @@
 
     <div class="row justify-content-center">
 
-        <div th:if="${products != null}" th:each="product : ${products}">
+        <div th:if="${products.size() !=0}" th:each="product : ${products}">
             <div class="col-auto mb-3">
                 <div class="card " style="width: 18rem;">
                     <div class="card-header text-left">
@@ -62,7 +139,7 @@
                 </div>
             </div>
         </div>
-        <div th:if="${products == null}">
+        <div th:if="${products.size() == 0}">
             <div class="col-auto mb-3">
                 <div class="card " style="width: 18rem;">
                     <div class="card-body clickable">
@@ -78,7 +155,7 @@
     <div th:insert="blocks/footer :: footer"></div>
 </div>
 <script>
-    $(".inputBox").each(function (i, el){
+    $(".inputBox").each(function (i, el) {
         $(this).on("keypress", function (evt) {
             if (evt.which != 8 && evt.which != 0 && evt.which < 48 || evt.which > 57) {
                 evt.preventDefault();

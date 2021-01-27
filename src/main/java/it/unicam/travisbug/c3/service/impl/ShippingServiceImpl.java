@@ -26,6 +26,11 @@ public class ShippingServiceImpl implements ShippingService {
     }
 
     @Override
+    public void deleteShipping(Shipping s) {
+        shippingRepository.delete(s);
+    }
+
+    @Override
     public List<Shipping> getAll() {
         return shippingRepository.findAll();
     }

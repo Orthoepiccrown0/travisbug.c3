@@ -31,6 +31,9 @@ public class Product {
 
     private Integer discount;
 
+    private Boolean promoted;
+
+
     @ManyToOne
     @JoinColumn(name = "merchant_id", referencedColumnName = "ID")
     private Merchant merchant;
@@ -41,6 +44,14 @@ public class Product {
 
     @OneToMany(mappedBy = "product")
     private Set<OrderDetails> orderDetails;
+
+    public Boolean isPromoted() {
+        return promoted;
+    }
+
+    public void setPromoted(Boolean promoted) {
+        this.promoted = promoted;
+    }
 
     @ManyToMany
     @JoinTable(
@@ -151,5 +162,11 @@ public class Product {
         if (orderDetails == null)
             orderDetails = new HashSet<>();
         orderDetails.add(order);
+    }
+
+    public void addPromotion(Promotion p){
+        if(promotion==null)
+            promotion = new HashSet<>();
+        promotion.add(p);
     }
 }

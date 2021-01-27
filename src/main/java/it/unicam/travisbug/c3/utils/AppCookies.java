@@ -13,10 +13,9 @@ public class AppCookies {
         response.addCookie(cookie);
     }
 
-    public void setUserIDCookie(String id, HttpServletResponse response, Boolean remember) {
+    public void setUserIDCookie(String id, HttpServletResponse response) {
         Cookie cookie = new Cookie("user_id", id);
-        if (remember)
-            cookie.setMaxAge(7 * 24 * 60 * 60);
+        cookie.setMaxAge(7 * 24 * 60 * 60);
         response.addCookie(cookie);
     }
 

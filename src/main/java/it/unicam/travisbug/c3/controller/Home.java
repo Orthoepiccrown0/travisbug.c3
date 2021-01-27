@@ -60,27 +60,24 @@ public class Home {
     public String login(Model model,
                         String email,
                         String password,
-                        @RequestParam(value = "checkboxName", required = false) String remember,
                         HttpServletResponse response) {
-        boolean rememberState = false;
-        if (remember != null)
-            rememberState = true;
+
         Client client = dbManager.getClientService().findByEmailAndPass(email, PasswordTool.getMD5String(password));
         Courier courier = dbManager.getCourierService().findByEmailAndPass(email, PasswordTool.getMD5String(password));
         Merchant merchant = dbManager.getMerchantService().findByEmailAndPass(email, PasswordTool.getMD5String(password));
         Employee employee = dbManager.getEmployeeService().findByEmailAndPass(email, PasswordTool.getMD5String(password));
         if (client != null) {
             appCookies.setRoleCookie("client", response);
-            appCookies.setUserIDCookie(client.getId(), response, rememberState);
+            appCookies.setUserIDCookie(client.getId(), response);
         }else if(courier != null){
             appCookies.setRoleCookie("courier", response);
-            appCookies.setUserIDCookie(courier.getId(), response, rememberState);
+            appCookies.setUserIDCookie(courier.getId(), response);
         }else if(merchant != null){
             appCookies.setRoleCookie("merchant", response);
-            appCookies.setUserIDCookie(merchant.getId(), response, rememberState);
+            appCookies.setUserIDCookie(merchant.getId(), response);
         }else if(employee != null){
             appCookies.setRoleCookie("employee", response);
-            appCookies.setUserIDCookie(employee.getId(), response, rememberState);
+            appCookies.setUserIDCookie(employee.getId(), response);
         }
         return "redirect:/";
     }

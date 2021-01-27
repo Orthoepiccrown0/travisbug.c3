@@ -1,5 +1,8 @@
 package it.unicam.travisbug.c3.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.util.*;
 
@@ -20,14 +23,17 @@ public class Order {
     private String status;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "client_id", referencedColumnName = "ID")
     private Client client;
 
-    @OneToOne()
+    @OneToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "shipping_id", referencedColumnName = "ID")
     private Shipping shipping;
 
     @OneToMany(mappedBy = "order")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<OrderDetails> orderDetails;
 
     public String getId() {

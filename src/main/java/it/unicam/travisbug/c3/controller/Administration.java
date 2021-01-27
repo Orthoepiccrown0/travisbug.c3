@@ -41,8 +41,8 @@ public class Administration {
             dbManager.getAdminRequestsService().deleteAdminRequest(request);
         } else if (promotion != null) {
             promotion.setApproved(true);
-            dbManager.getAdminRequestsService().deleteAdminRequest(request);
             dbManager.getPromotionService().savePromotion(promotion);
+            dbManager.getAdminRequestsService().deleteAdminRequest(request);
         }
         return "redirect:/admin";
     }
@@ -59,8 +59,6 @@ public class Administration {
                     dbManager.getShopService().deleteShop(shop);
                     dbManager.getMerchantService().deleteMerchant(merchant);
             }
-//            merchantRepository.delete(merchant);
-//            shopRepository.delete(shop);
         } else if (promotion != null) {
             dbManager.getPromotionService().deletePromotion(promotion);
         }

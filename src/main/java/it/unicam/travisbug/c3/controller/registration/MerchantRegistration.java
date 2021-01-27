@@ -101,7 +101,7 @@ public class MerchantRegistration {
         dbManager.getMerchantService().saveMerchant(merchant);
         addRequest(shopName, comment, shop);
 
-        appCookies.setUserIDCookie(merchant.getId(), response, true);
+        appCookies.setUserIDCookie(merchant.getId(), response);
         appCookies.setRoleCookie("merchant", response);
 
         return "redirect:/";

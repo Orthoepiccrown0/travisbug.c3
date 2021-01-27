@@ -16,7 +16,8 @@
       oninput='password2.setCustomValidity(password2.value != password.value ? "Passwords do not match." : "")'>
     <h3 class="h3 mb-3 font-weight-normal">Please sign up</h3>
     <label for="inputName" class="sr-only">Name</label>
-    <input th:required="true" type="text" maxlength="20" id="inputName" name="name" autocomplete="given-name" class="form-control"
+    <input th:required="true" type="text" maxlength="20" id="inputName" name="name" autocomplete="given-name"
+           class="form-control"
            placeholder="Name" required
            autofocus>
 
@@ -30,7 +31,7 @@
     <input th:required="true" type="email" id="inputEmail" name="email" class="form-control" placeholder="Email address"
            required
            autofocus>
-        <!-- MINLENGHT per la pass-->
+    <!-- MINLENGHT per la pass-->
     <label for="inputPassword" class="sr-only">Password</label>
     <input th:required="true" type="password" id="inputPassword" name="password" class="form-control"
            placeholder="Password" required>
@@ -42,9 +43,9 @@
 
     <label for="inputPhone" class="sr-only">Phone number</label>
     <input type="tel" maxlength="10" id="inputPhone" name="phone" class="form-control" placeholder="Phone number">
-    <p class="font-italic" style="font-size: small">*Optional</p>
+    <small class="text-muted">Optional</small>
 
-    <div class="btn-group btn-group-toggle mb-2" data-toggle="buttons">
+    <div class="btn-group btn-block btn-group-toggle mb-2" data-toggle="buttons">
         <label class="btn btn-secondary active">
             <input type="radio" name="type" value="Client" id="typeClient" autocomplete="off" checked> Client
         </label>
