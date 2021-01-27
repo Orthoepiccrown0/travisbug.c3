@@ -8,9 +8,9 @@ import it.unicam.travisbug.c3.utils.ShippingStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class CourierArea {
@@ -36,7 +36,7 @@ public class CourierArea {
                                   @CookieValue(value = "user_id", defaultValue = "") String userid,
                                   @CookieValue(value = "role", defaultValue = "") String role) {
         appCookies.checkLogged(model, userid, role);
-        model.addAttribute("pendingShipments", dbManager.getShippingService().getAll(ShippingStatus.Pending));
+        model.addAttribute("readyShipments", dbManager.getShippingService().getAll(ShippingStatus.ReadyForPickup));
         model.addAttribute("takenShipments", dbManager.getShippingService().getAll(ShippingStatus.Shipping));
         model.addAttribute("deliveredShipments", dbManager.getShippingService().getAll(ShippingStatus.Delivered));
         return "courierArea";

@@ -1,6 +1,8 @@
 package it.unicam.travisbug.c3.model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import java.util.Date;
 import java.util.Set;
 

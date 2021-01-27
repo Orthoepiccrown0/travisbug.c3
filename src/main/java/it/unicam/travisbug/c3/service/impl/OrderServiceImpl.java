@@ -42,8 +42,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order findByClientAndStatus(Client client, String status) {
-        return orderRepository.findByClientAndStatus(client, status);
+    public List<Order> findByClient(Client client) {
+        return orderRepository.findByClient(client);
     }
 
     @Override

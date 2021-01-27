@@ -4,8 +4,6 @@ import it.unicam.travisbug.c3.model.*;
 import it.unicam.travisbug.c3.utils.AppCookies;
 import it.unicam.travisbug.c3.utils.DBManager;
 import it.unicam.travisbug.c3.utils.ShippingStatus;
-import org.aspectj.weaver.ast.Or;
-import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,7 +37,8 @@ public class ShoppingCart {
             redirectAttributes.addAttribute("shipping_error", true);
             return "redirect:/account/cart";
         }
-        order.setStatus("Confirmed");
+        order.getShipping().setShippingStatus(ShippingStatus.Confirmed);
+        dbManager.getShippingService().saveShipping(order.getShipping());
         dbManager.getOrderService().saveOrder(order);
         return "redirect:/account/orders";
     }
@@ -52,8 +51,7 @@ public class ShoppingCart {
                                    boolean shipping_error) {
         appCookies.checkLogged(model, userid, role);
 
-        Client client = dbManager.getClientService().findById(userid).orElseThrow();
-        Order cart_order = dbManager.getOrderService().findByClientAndStatus(client, "Pending");
+        Order cart_order = getCart(userid);
         List<Address> addresses = dbManager.getAddressService().getAll();
 
         if (cart_order !=null && cart_order.getOrderDetails().size() != 0) {
@@ -76,6 +74,19 @@ public class ShoppingCart {
                 model.addAttribute("selected_shipping", "null");
         }
         return "client/shoppingCart";
+    }
+
+    private Order getCart(String userid) {
+        Client client = dbManager.getClientService().findById(userid).orElseThrow();
+
+        List<Order> orders = dbManager.getOrderService().findByClient(client);
+        Order cart_order = null;
+        for (Order o : orders) {
+            if(o.getShipping().getShippingStatus()==ShippingStatus.Pending){
+                cart_order = o;
+            }
+        }
+        return cart_order;
     }
 
     @GetMapping("account/cart/add/{product_id}/{shop_id}")
@@ -129,13 +140,12 @@ public class ShoppingCart {
     }
 
     private Order getOrder(Client client) {
-        Order order = dbManager.getOrderService().findByClientAndStatus(client, "Pending");
+        Order order = getCart(client.getId());
         if (order == null) {
             order = new Order();
             order.setId(UUID.randomUUID().toString());
             order.setClient(client);
             order.setDate(new Date());
-            order.setStatus("Pending");
             order.setAmount(0.0);
             dbManager.getOrderService().saveOrder(order);
 

@@ -9,7 +9,9 @@ import java.util.List;
 
 @Repository
 public interface OrderRepository extends JpaRepository<Order, String> {
-    Order findByClientAndStatus(Client client, String status);
+
+    List<Order> findByClient(Client client);
 
     List<Order> findAllByClientOrderByDateDesc(Client client);
+
 }

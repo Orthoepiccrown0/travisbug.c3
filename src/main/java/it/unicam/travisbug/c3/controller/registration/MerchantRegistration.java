@@ -1,7 +1,9 @@
 package it.unicam.travisbug.c3.controller.registration;
 
-import it.unicam.travisbug.c3.model.*;
-import it.unicam.travisbug.c3.service.ShopCategoryService;
+import it.unicam.travisbug.c3.model.AdminRequests;
+import it.unicam.travisbug.c3.model.Merchant;
+import it.unicam.travisbug.c3.model.Shop;
+import it.unicam.travisbug.c3.model.ShopCategory;
 import it.unicam.travisbug.c3.utils.AppCookies;
 import it.unicam.travisbug.c3.utils.DBManager;
 import it.unicam.travisbug.c3.utils.PasswordTool;

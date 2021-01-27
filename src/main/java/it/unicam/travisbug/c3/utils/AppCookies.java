@@ -4,7 +4,6 @@ import it.unicam.travisbug.c3.model.Client;
 import it.unicam.travisbug.c3.model.Courier;
 import it.unicam.travisbug.c3.model.Employee;
 import it.unicam.travisbug.c3.model.Merchant;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 
 import javax.servlet.http.Cookie;

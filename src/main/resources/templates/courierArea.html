@@ -101,8 +101,8 @@
             <h5 class="mb-2 ml-2 text-right">Available Shipments</h5>
             <!-- Card -->
             <!--Section: Block Content-->
-            <section th:if="${pendingShipments != null && pendingShipments.size() > 0}">
-                <div th:each="shipment : ${pendingShipments}" class="card wish-list mb-3">
+            <section th:if="${readyShipments != null && readyShipments.size() > 0}">
+                <div th:each="shipment : ${readyShipments}" class="card wish-list mb-3">
                     <div class="card-header">
                         <div class="align-items-center mb-2">
                             <h5>Shipment ID:
@@ -135,7 +135,7 @@
                     </div>
                 </div>
             </section>
-            <div th:if="${pendingShipments.size() == 0}">
+            <div th:if="${readyShipments.size() == 0}">
                 <div class="card wish-list mb-3">
                     <div class="card-header">
                         <div class="align-items-center mb-3">

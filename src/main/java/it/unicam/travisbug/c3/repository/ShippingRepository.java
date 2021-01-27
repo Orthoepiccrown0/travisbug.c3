@@ -11,4 +11,5 @@ import java.util.List;
 public interface ShippingRepository extends JpaRepository<Shipping, Integer> {
 
     List<Shipping> findAllByShippingStatus(ShippingStatus shippingStatus);
+
 }

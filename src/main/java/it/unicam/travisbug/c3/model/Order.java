@@ -4,7 +4,9 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "user_order")
@@ -18,9 +20,6 @@ public class Order {
 
     @Column(nullable = false)
     private Date date;
-
-    @Column(nullable = false)
-    private String status;
 
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -58,14 +57,6 @@ public class Order {
 
     public void setDate(Date date) {
         this.date = date;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     public Client getClient() {
