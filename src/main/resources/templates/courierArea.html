@@ -20,17 +20,18 @@
     <div class="row my-3 justify-content-center">
         <!-- Grid column -->
         <div class="col-lg-6 col-md-10 col">
-            <h5 class="mb-2 ml-2 text-left">Spedizioni Prese</h5>
+            <h5 class="mb-2 ml-2 text-left">Taken Shipments</h5>
             <!-- Card -->
             <!--Section: Block Content-->
-            <section th:if="${takenShipments != null && takenShipments.size() > 0}">
+            <section
+                    th:if="${(takenShipments != null && takenShipments.size() > 0) || (deliveredShipments != null && deliveredShipments.size() > 0) }">
                 <div th:each="shipment : ${takenShipments}" class="card wish-list mb-3">
                     <div class="card-header">
                         <div class="align-items-center mb-2">
                             <h5>Shipment ID:
                                 <span th:text="${shipment.getId()}"></span>
                             </h5>
-                            <h6>Indirizzo:
+                            <h6>Address:
                                 <span th:text="${shipment.getAddress().toString()}"></span>
                             </h6>
                         </div>
@@ -56,8 +57,35 @@
                         </div>
                     </div>
                 </div>
+                <div th:each="shipment : ${deliveredShipments}" class="card wish-list mb-3">
+                    <div class="card-header">
+                        <div class="align-items-center mb-2">
+                            <h5>Shipment ID:
+                                <span th:text="${shipment.getId()}"></span>
+                            </h5>
+                            <h6>Address:
+                                <span th:text="${shipment.getAddress().toString()}"></span>
+                            </h6>
+                        </div>
+                    </div>
+                    <!--Card Body -->
+                    <div class="card-body">
+                        <div class="row mb-2">
+                            <div class="col">
+                                <div>
+                                    <div class="align-items-center">
+                                        <div>Status: <kbd style="background-color: dodgerblue "th:text="${shipment.getShippingStatus()}"></kbd></div>
+                                        <div class="mb-2">Weight: <span
+                                                th:text="${shipment.getShipping_order().getTotalWeight()} + 'kg'"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
-            <div th:if="${takenShipments.size() == 0}">
+            <div th:if="${takenShipments.size() == 0 && deliveredShipments.size() == 0}">
                 <div class="card wish-list mb-3">
                     <div class="card-header">
                         <div class="align-items-center mb-3">
@@ -69,7 +97,7 @@
         </div>
         <!-- Grid column -->
         <div class="col-lg-6 col-md-10 col">
-            <h5 class="mb-2 ml-2 text-right">Spedizioni Disponibili</h5>
+            <h5 class="mb-2 ml-2 text-right">Available Shipments</h5>
             <!-- Card -->
             <!--Section: Block Content-->
             <section th:if="${pendingShipments != null && pendingShipments.size() > 0}">
@@ -79,7 +107,7 @@
                             <h5>Shipment ID:
                                 <span th:text="${shipment.getId()}"></span>
                             </h5>
-                            <h6>Indirizzo:
+                            <h6>Address:
                                 <span th:text="${shipment.getAddress().toString()}"></span>
                             </h6>
                         </div>
