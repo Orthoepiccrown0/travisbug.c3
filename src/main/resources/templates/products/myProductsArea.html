@@ -108,7 +108,10 @@
             <div class="col-auto mb-3">
                 <div class="card " style="width: 18rem;">
                     <div class="card-header text-left">
-                        <h5 class="card-title mb-3" th:text="${product.getName()}"></h5>
+                        <div class="d-flex justify-content-between mb-4">
+                            <h5 th:text="${product.getName()}"></h5>
+                            <kbd class="align-self-center" th:if="${product.promoted}" style="background-color: darkred">Promo</kbd>
+                        </div>
                         <h6 class="card-subtitle mb-2 text-muted" th:text="${product.getCategory().getName()}"></h6>
                         <div class="row text-left">
                             <h5 class="ml-3 mr-3 text-muted"

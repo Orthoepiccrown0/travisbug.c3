@@ -4,8 +4,7 @@ import org.decimal4j.util.DoubleRounder;
 
 import javax.persistence.*;
 import java.text.DecimalFormat;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class Product {
@@ -31,8 +30,7 @@ public class Product {
 
     private Integer discount;
 
-    private Boolean promoted;
-
+    public boolean promoted;
 
     @ManyToOne
     @JoinColumn(name = "merchant_id", referencedColumnName = "ID")
@@ -45,11 +43,11 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private Set<OrderDetails> orderDetails;
 
-    public Boolean isPromoted() {
+    public boolean isPromoted() {
         return promoted;
     }
 
-    public void setPromoted(Boolean promoted) {
+    public void setPromoted(boolean promoted) {
         this.promoted = promoted;
     }
 
@@ -149,13 +147,48 @@ public class Product {
         this.discount = discount;
     }
 
-    public Double getDiscountedPrice(){
-        if(this.getDiscount()==null || this.getDiscount()==0){
+    public Double getDiscountedPrice() {
+        if (this.getDiscount() == null || this.getDiscount() == 0) {
+            if (promoted)
+                return applyPromotion(price);
             return this.getPrice();
-        }else {
+        } else {
             double discountedPrice = (1.0 - (this.getDiscount() / 100.0)) * this.getPrice();
+            if (promoted)
+                discountedPrice = applyPromotion(discountedPrice);
             return DoubleRounder.round(discountedPrice, 2);
         }
+    }
+
+    double applyPromotion(double price) {
+        Date today = new Date();
+        if (promotion != null && !promotion.isEmpty()) {
+            for (Promotion pr : promotion) {
+                if (isWithinRange(today, pr.getStart(), pr.getEnd())) {
+                    double discount = price - ((1.0 - (pr.getDiscount() / 100.0)) * price);
+                    price -= discount;
+                } else {
+                    promotion.remove(pr);
+                }
+            }
+            if (promotion.isEmpty())
+                promoted = false;
+        }
+        return price;
+    }
+
+
+    boolean isWithinRange(Date today, Date startDate, Date endDate) {
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
+        cal.setTime(today);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        cal.setTime(startDate);
+        int startDay = cal.get(Calendar.DAY_OF_MONTH);
+        cal.setTime(endDate);
+        int endDay = cal.get(Calendar.DAY_OF_MONTH);
+        if(day == startDay && day == endDay)
+            return true;
+        return !(today.before(startDate) || today.after(endDate));
     }
 
     public void addOrderDetails(OrderDetails order) {
@@ -164,8 +197,8 @@ public class Product {
         orderDetails.add(order);
     }
 
-    public void addPromotion(Promotion p){
-        if(promotion==null)
+    public void addPromotion(Promotion p) {
+        if (promotion == null)
             promotion = new HashSet<>();
         promotion.add(p);
     }

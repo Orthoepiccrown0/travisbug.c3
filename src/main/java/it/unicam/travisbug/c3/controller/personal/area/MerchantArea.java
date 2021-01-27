@@ -74,7 +74,6 @@ public class MerchantArea {
         for (Product product : category.getProduct()) {
             if (merchant_products.contains(product)) {
                 product.addPromotion(promotion);
-                product.setPromoted(true);
                 dbManager.getProductService().saveProduct(product);
                 products.add(product);
             }
