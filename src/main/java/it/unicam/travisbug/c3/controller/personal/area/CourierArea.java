@@ -32,7 +32,10 @@ public class CourierArea {
     }
 
     @GetMapping("/courierArea")
-    public String showCourierArea(Model model) {
+    public String showCourierArea(Model model,
+                                  @CookieValue(value = "user_id", defaultValue = "") String userid,
+                                  @CookieValue(value = "role", defaultValue = "") String role) {
+        appCookies.checkLogged(model, userid, role);
         model.addAttribute("pendingShipments", dbManager.getShippingService().getAll(ShippingStatus.Pending));
         model.addAttribute("takenShipments", dbManager.getShippingService().getAll(ShippingStatus.Shipping));
         model.addAttribute("deliveredShipments", dbManager.getShippingService().getAll(ShippingStatus.Delivered));
