@@ -118,4 +118,12 @@ public class Order {
         orderDetails.remove(item);
         orderDetails.add(item);
     }
+
+    public double getTotalWeight() {
+        double totalWeight = 0;
+        for (OrderDetails order : orderDetails) {
+            totalWeight += order.getProduct().getWeight() * order.getQuantity();
+        }
+        return totalWeight;
+    }
 }

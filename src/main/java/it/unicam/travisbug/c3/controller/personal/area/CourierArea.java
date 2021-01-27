@@ -4,12 +4,13 @@ import it.unicam.travisbug.c3.model.Courier;
 import it.unicam.travisbug.c3.model.Shipping;
 import it.unicam.travisbug.c3.utils.AppCookies;
 import it.unicam.travisbug.c3.utils.DBManager;
+import it.unicam.travisbug.c3.utils.ShippingStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @Controller
 public class CourierArea {
@@ -30,21 +31,26 @@ public class CourierArea {
         return "redirect:/user_logout";
     }
 
-
     @GetMapping("/courierArea")
     public String showCourierArea(Model model) {
-        model.addAttribute("shipments", dbManager.getShippingService().getAll());
+        model.addAttribute("pendingShipments", dbManager.getShippingService().getAll(ShippingStatus.Pending));
+        model.addAttribute("takenShipments", dbManager.getShippingService().getAll(ShippingStatus.Shipping));
         return "courierArea";
     }
 
-    @PostMapping("/courierArea")
-    public String submitNewStatus(
-            @RequestParam("id") int id,
-            @RequestParam("newStatus") String status) {
+    @GetMapping("/courierArea/take/{id}")
+    public String takeShipment(@PathVariable Integer id) {
+        Shipping s = dbManager.getShippingService().findById(id);
+        s.setShippingStatus(ShippingStatus.Shipping);
+        dbManager.getShippingService().saveShipping(s);
+        return "redirect:/courierArea";
+    }
 
-        Shipping s = dbManager.getShippingService().getShippingById(id);
-        dbManager.getShippingService().updateStatus(status, s);
-
+    @GetMapping("/courierArea/update/{id}")
+    public String deliveredShipment(@PathVariable Integer id) {
+        Shipping s = dbManager.getShippingService().findById(id);
+        s.setShippingStatus(ShippingStatus.Delivered);
+        dbManager.getShippingService().saveShipping(s);
         return "redirect:/courierArea";
     }
 }
