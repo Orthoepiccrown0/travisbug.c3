@@ -35,6 +35,7 @@ public class CourierArea {
     public String showCourierArea(Model model) {
         model.addAttribute("pendingShipments", dbManager.getShippingService().getAll(ShippingStatus.Pending));
         model.addAttribute("takenShipments", dbManager.getShippingService().getAll(ShippingStatus.Shipping));
+        model.addAttribute("deliveredShipments", dbManager.getShippingService().getAll(ShippingStatus.Delivered));
         return "courierArea";
     }
 
