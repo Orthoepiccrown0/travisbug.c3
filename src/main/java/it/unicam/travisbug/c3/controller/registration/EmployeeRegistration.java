@@ -80,7 +80,7 @@ public class EmployeeRegistration {
         redirectAttrs.addAttribute("employee", employee);
         addRequest(employee, shop);
 
-        appCookies.setUserIDCookie(employee.getId(), response, true);
+        appCookies.setUserIDCookie(employee.getId(), response);
         appCookies.setRoleCookie("employee", response);
 
         return "redirect:/";

@@ -74,7 +74,8 @@
                             <div class="col">
                                 <div>
                                     <div class="align-items-center">
-                                        <div>Status: <kbd style="background-color: dodgerblue "th:text="${shipment.getShippingStatus()}"></kbd></div>
+                                        <div>Status: <kbd style="background-color: dodgerblue "
+                                                          th:text="${shipment.getShippingStatus()}"></kbd></div>
                                         <div class="mb-2">Weight: <span
                                                 th:text="${shipment.getShipping_order().getTotalWeight()} + 'kg'"></span>
                                         </div>
