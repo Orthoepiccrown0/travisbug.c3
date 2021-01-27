@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Notification Centre</title>
+</head>
+
+<link th:href="@{/assets/css/notificationCentre.css}" rel="stylesheet">
+
+<body>
+<header th:insert="blocks/header :: header"></header>
+
+
+<div class="container">
+
+    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+        <h1 class="display-4">Notification Centre</h1>
+    </div>
+    <!--/*@thymesVar id="employeeRequest" type="it.unicam.travisbug.c3.model.EmployeeRequests"*/-->
+    <div th:each="employeeRequest: ${employeeRequests}">
+        <div class="row justify-content-center m-2">
+            <div class="col-lg-6 col-md-8">
+                <div id="request" class="collapsible">
+                    <div class="row">
+                        <h4 th:text="${employeeRequest.getEmployee().getName()}+' '+${employeeRequest.getEmployee().getSurname()}"
+                            class="col-6 pl-4 m-auto"></h4>
+                        <div class="col-6 d-flex justify-content-end">
+                            <a th:href="@{/notificationCentre/accept/{id}(id=${employeeRequest.getId()})}"
+                               class="btn btn-outline-success">Approve
+                                <i class="fas fa-check"></i>
+                            </a>
+                            <a class="btn btn-outline-danger ml-1 mr-2"
+                               th:href="@{/notificationCentre/decline/{id}(id=${employeeRequest.getId()})}">
+                                Decline
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="content">
+                    <p th:text="'Employee Id: '+${employeeRequest.getEmployee().getId()}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:insert="blocks/footer :: footer"></div>
+</div>
+<script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        });
+    }
+</script>
+</body>
+</html>

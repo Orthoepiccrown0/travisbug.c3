@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -47,7 +48,7 @@ public class EmployeeRegistration {
                                    HttpServletResponse response,
                                    RedirectAttributes redirectAttrs) {
         Shop s = dbManager.getShopService().findById(shopE);
-        if (!isUsedEmail(emailE)) {
+        if (!appCookies.isUsedEmail(emailE, dbManager)) {
             return registerEmployee(nameE, surnameE, emailE, passwordE, phoneE, s, response, redirectAttrs);
         }
         redirectAttrs.addAttribute("used_email", "used");
@@ -77,15 +78,20 @@ public class EmployeeRegistration {
         dbManager.getEmployeeService().saveEmployee(employee);
 
         redirectAttrs.addAttribute("employee", employee);
+        addRequest(employee, shop);
+
+        appCookies.setUserIDCookie(employee.getId(), response, true);
+        appCookies.setRoleCookie("employee", response);
+
         return "redirect:/";
     }
 
-    private boolean isUsedEmail(String email) {
-        Client client = dbManager.getClientService().findByEmail(email);
-        Courier courier = dbManager.getCourierService().findByEmail(email);
-        Merchant merchant = dbManager.getMerchantService().findByEmail(email);
-        Employee employee = dbManager.getEmployeeService().findByEmail(email);
-        return client != null || courier != null || merchant != null || employee != null;
+    private void addRequest(Employee employee, Shop shop) {
+        EmployeeRequests employeeRequests = new EmployeeRequests();
+        employeeRequests.setEmployee(employee);
+        employeeRequests.setDate(new Date());
+        employeeRequests.setShop(shop);
+        dbManager.getEmployeeRequestsService().saveEmployeeRequests(employeeRequests);
     }
 
 }

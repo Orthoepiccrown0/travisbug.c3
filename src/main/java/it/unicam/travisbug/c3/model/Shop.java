@@ -18,7 +18,7 @@ public class Shop {
     @OneToOne(mappedBy = "shop", cascade = CascadeType.ALL)
     private Merchant merchant;
 
-    @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL) //si puo fare 2 volte mappedBy ="shop" ??
+    @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL)
     private Set<Employee> employee;
 
     @ManyToOne

@@ -39,7 +39,7 @@ public class Registration {
                            String type,
                            HttpServletResponse response,
                            RedirectAttributes redirectAttrs) {
-        if (!isUsedEmail(email)) {
+        if (!appCookies.isUsedEmail(email, dbManager)) {
             if (type.equals("Client")) {
                 registerClient(name, surname, email, password, phone, response);
             } else {
@@ -55,14 +55,6 @@ public class Registration {
     public String registerUser(Model model, String used_email) {
         model.addAttribute("used_email", used_email);
         return "accounts/registration";
-    }
-
-    private boolean isUsedEmail(String email) {
-        Client client = dbManager.getClientService().findByEmail(email);
-        Courier courier = dbManager.getCourierService().findByEmail(email);
-        Merchant merchant = dbManager.getMerchantService().findByEmail(email);
-        Employee employee = dbManager.getEmployeeService().findByEmail(email);
-        return client != null || courier != null || merchant != null || employee != null;
     }
 
     private void registerClient(String name, String surname, String email, String password, String phone, HttpServletResponse response) {

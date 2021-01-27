@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.text.DateFormat;
@@ -136,6 +137,43 @@ public class MerchantArea {
         }
         dbManager.getProductService().saveProduct(product);
         return "redirect:/myProductsArea";
+    }
+
+    @GetMapping("/notificationCentre")
+    public String showNotificationCentre(Model model,
+                                         @CookieValue(value = "user_id", defaultValue = "") String userid,
+                                         @CookieValue(value = "role", defaultValue = "") String role) {
+        appCookies.checkLogged(model, userid, role);
+
+        Merchant merchant = dbManager.getMerchantService().findById(userid).orElseThrow();
+        List<EmployeeRequests> employeeRequests = dbManager.getEmployeeRequestsService().findAllByShopOrderByDateDesc(merchant.getShop());
+
+        model.addAttribute("employeeRequests", employeeRequests);
+        return "notificationCentre";
+    }
+
+    @GetMapping("/notificationCentre/accept/{id}")
+    public String accept(@PathVariable Integer id) {
+        EmployeeRequests employeeRequests = dbManager.getEmployeeRequestsService().findById(id).orElseThrow();
+        Employee employee = employeeRequests.getEmployee();
+        employee.setStatus("Approved");
+
+        dbManager.getEmployeeService().saveEmployee(employee);
+        dbManager.getEmployeeRequestsService().deleteEmployeeRequest(employeeRequests);
+
+        return "redirect:/notificationCentre";
+    }
+
+    @GetMapping("/notificationCentre/decline/{id}")
+    public String decline(@PathVariable Integer id) {
+        EmployeeRequests employeeRequests = dbManager.getEmployeeRequestsService().findById(id).orElseThrow();
+        Employee employee = employeeRequests.getEmployee();
+        employee.setStatus("Declined");
+
+        dbManager.getEmployeeRequestsService().deleteEmployeeRequest(employeeRequests);
+        dbManager.getEmployeeService().deleteEmployee(employee);
+
+        return "redirect:/notificationCentre";
     }
 
     @GetMapping("/deleteShop")

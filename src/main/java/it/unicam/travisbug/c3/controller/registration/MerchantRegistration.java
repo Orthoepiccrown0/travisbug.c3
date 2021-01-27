@@ -43,7 +43,7 @@ public class MerchantRegistration {
                                    String phone,
                                    HttpServletResponse response,
                                    RedirectAttributes redirectAttrs) {
-        if (!isUsedEmail(email)) {
+        if (!appCookies.isUsedEmail(email, dbManager)) {
             return registerMerchant(name, surname, email, password, phone, response, redirectAttrs);
 //            return "redirect:/";
         }
@@ -115,14 +115,6 @@ public class MerchantRegistration {
         adminRequests.setComment(comment);
         adminRequests.setDate(new Date());
         dbManager.getAdminRequestsService().saveAdminRequests(adminRequests);
-    }
-
-    private boolean isUsedEmail(String email) {
-        Client client = dbManager.getClientService().findByEmail(email);
-        Courier courier = dbManager.getCourierService().findByEmail(email);
-        Merchant merchant = dbManager.getMerchantService().findByEmail(email);
-        Employee employee = dbManager.getEmployeeService().findByEmail(email);
-        return client != null || courier != null || merchant != null || employee != null;
     }
 
 }

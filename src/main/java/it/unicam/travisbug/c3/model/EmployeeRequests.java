@@ -1,22 +1,46 @@
 package it.unicam.travisbug.c3.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 public class EmployeeRequests {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
 
     private Date date;
 
-    public String getId() {
+    @OneToOne
+    @JoinColumn(name = "employee_id", referencedColumnName = "ID")
+    private Employee employee;
+
+    @OneToOne
+    @JoinColumn(name = "shop_id", referencedColumnName = "ID")
+    private Shop shop;
+
+    public Shop getShop() {
+        return shop;
+    }
+
+    public void setShop(Shop shop) {
+        this.shop = shop;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

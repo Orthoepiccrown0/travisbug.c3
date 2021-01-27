@@ -31,7 +31,6 @@ public class AdminRequestsServiceImpl implements AdminRequestsService {
         return adminRequestsRepository.findAll();
     }
 
-
     public List<AdminRequests> findAllByOrderByDateDesc() {
         return adminRequestsRepository.findAllByOrderByDateDesc();
     }

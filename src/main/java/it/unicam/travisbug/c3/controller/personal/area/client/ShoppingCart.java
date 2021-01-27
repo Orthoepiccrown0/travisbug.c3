@@ -32,8 +32,7 @@ public class ShoppingCart {
     }
 
     @GetMapping("account/orders/process/{id}")
-    public String process(Model model, @PathVariable String id,
-                          RedirectAttributes redirectAttributes) {
+    public String process(Model model, @PathVariable String id, RedirectAttributes redirectAttributes) {
         model.addAttribute("id", id);
         Order order = dbManager.getOrderService().findById(id);
         if(order.getShipping().getAddress()==null){

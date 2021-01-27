@@ -30,10 +30,14 @@
                     <div class="col-lg-6 col-md-8">
                         <div id="request" class="collapsible">
                             <div class="row">
-                                <h4 th:text="${request.title}" class="col-8 pl-4 m-auto"></h4>
-                                <div class="col-4 d-flex justify-content-end">
-                                    <a th:href="@{/admin/accept/{id}(id=${request.id})}" class="btn btn-outline-success">Approve</a>
-                                    <a th:href="@{/admin/decline/{id}(id=${request.id})}" class="btn btn-outline-danger ml-1 mr-2">Decline</a>
+                                <h4 th:text="${request.title}" class="col-7 pl-4 m-auto"></h4>
+                                <div class="col-5 d-flex justify-content-end">
+                                    <a th:href="@{/admin/accept/{id}(id=${request.id})}" class="btn btn-outline-success">
+                                        Approve
+                                    </a>
+                                    <a th:href="@{/admin/decline/{id}(id=${request.id})}" class="btn btn-outline-danger ml-1 mr-2">
+                                        Decline
+                                    </a>
                                 </div>
                             </div>
                         </div>

@@ -17,6 +17,8 @@ public class DBManager {
 
     private CourierServiceImpl courierService;
 
+    private EmployeeRequestsServiceImpl employeeRequestsService;
+
     private EmployeeServiceImpl employeeService;
 
     private MerchantServiceImpl merchantService;
@@ -53,6 +55,10 @@ public class DBManager {
 
     public CourierServiceImpl getCourierService() {
         return courierService;
+    }
+
+    public EmployeeRequestsServiceImpl getEmployeeRequestsService() {
+        return employeeRequestsService;
     }
 
     public EmployeeServiceImpl getEmployeeService() {
@@ -114,6 +120,11 @@ public class DBManager {
     @Autowired
     public void setCourierService(CourierServiceImpl courierService) {
         this.courierService = courierService;
+    }
+
+    @Autowired
+    public void setEmployeeRequestsService(EmployeeRequestsServiceImpl employeeRequestsService) {
+        this.employeeRequestsService = employeeRequestsService;
     }
 
     @Autowired

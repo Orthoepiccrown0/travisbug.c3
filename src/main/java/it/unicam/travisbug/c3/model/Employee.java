@@ -12,6 +12,17 @@ public class Employee extends RegisteredUser{
     @JoinColumn(name = "shop_id", referencedColumnName = "ID")
     private Shop shop;
 
+    @OneToOne(mappedBy = "employee")
+    private EmployeeRequests employeeRequests;
+
+    public EmployeeRequests getEmployeeRequests() {
+        return employeeRequests;
+    }
+
+    public void setEmployeeRequests(EmployeeRequests employeeRequests) {
+        this.employeeRequests = employeeRequests;
+    }
+
     public String getStatus() {
         return status;
     }

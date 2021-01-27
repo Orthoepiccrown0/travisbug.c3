@@ -1,5 +1,10 @@
 package it.unicam.travisbug.c3.utils;
 
+import it.unicam.travisbug.c3.model.Client;
+import it.unicam.travisbug.c3.model.Courier;
+import it.unicam.travisbug.c3.model.Employee;
+import it.unicam.travisbug.c3.model.Merchant;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 
 import javax.servlet.http.Cookie;
@@ -33,6 +38,14 @@ public class AppCookies {
         if (role != null && !role.equals("")) {
             model.addAttribute("role", role);
         }
+    }
+
+    public boolean isUsedEmail(String email, DBManager dbManager) {
+        Client client = dbManager.getClientService().findByEmail(email);
+        Courier courier = dbManager.getCourierService().findByEmail(email);
+        Merchant merchant = dbManager.getMerchantService().findByEmail(email);
+        Employee employee = dbManager.getEmployeeService().findByEmail(email);
+        return client != null || courier != null || merchant != null || employee != null;
     }
 
 }
