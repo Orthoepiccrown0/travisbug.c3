@@ -13,10 +13,10 @@ public class Address {
     @Column(nullable = false)
     private String city;
 
-    @Column(nullable = false)
+    @Column
     private String street;
 
-    @Column(nullable = false)
+    @Column
     private Integer number;
 
     private Double shipCharge;
@@ -78,6 +78,10 @@ public class Address {
 
     @Override
     public String toString() {
-        return String.format("%s, %s %d", city, street, number);
+        if(street==null) {
+            return String.format("%s", city);
+        }else{
+            return String.format("%s, %s %d", city, street, number);
+        }
     }
 }

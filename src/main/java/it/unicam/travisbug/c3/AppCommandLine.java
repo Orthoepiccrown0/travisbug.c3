@@ -71,6 +71,12 @@ public class AppCommandLine implements CommandLineRunner {
     }
 
     private void addAddresses() {
+
+        Address a = new Address();
+        a.setCity("Send to Shop");
+        a.setShipCharge(0.0);
+        dbManager.getAddressService().saveAddress(a);
+
         String[] address_cities = {"Camerino"};
         String[] address_streets = {"Via Roma", "Via Napoli", "Via Milano", "Via Dante"};
 

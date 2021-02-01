@@ -124,6 +124,7 @@
                                     <label for="sel">Select shipping address:</label>
                                     <select onchange="changeShipping()" class="form-control" id="sel"
                                             name="shippingAddress">
+                                            <option value="" disabled selected>Select your option</option>
                                         <div th:if="${addresses != null}"
                                              th:each="address : ${addresses}">
                                             <!--/*@thymesVar id="address" type="it.unicam.travisbug.c3.model.Address"*/-->

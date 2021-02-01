@@ -87,7 +87,7 @@
 
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <div>Status: <kbd th:text="${order.getShipping().getShippingStatus()}"></kbd></div>
-                            <div>
+                            <div th:if="${order.getShipping().getAddress().getStreet()!=null}">
                                 <span>Shipment charge:
                                     <strong th:text="'$'+${order.getShipping().getAddress().getShippingChargeString()}"></strong></span>
                             </div>

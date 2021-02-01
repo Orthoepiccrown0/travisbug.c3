@@ -16,21 +16,21 @@
 <div class="container">
 
     <!--Section: Block Content-->
-    <section th:if="${user_orders != null}">
+    <section th:if="${user_orders != null || confirmedShopOrders != null}">
 
         <!--Grid row-->
         <div class="row my-3 justify-content-center">
 
             <!--Grid column-->
             <div class="col-lg-6 col-md-10 col">
-                <h2 class="mb-2 ml-2 text-center my-3">Confirmed Orders</h2>
+                <h2 class="mb-2 ml-2 text-center mt-3 mb-4">Confirmed Orders</h2>
                 <!-- Card -->
 
-                <!--/*@thymesVar id="orders" type="java.util.List"*/-->
-                <!--/*@thymesVar id="order" type="it.unicam.travisbug.c3.model.Order"*/-->
+                <!--/*@thymesVar id="user_orders" type="java.util.List"*/-->
+                <!--/*@thymesVar id="user_order" type="it.unicam.travisbug.c3.model.Order"*/-->
                 <div th:each="user_order:${user_orders}" class="card wish-list mb-3">
 
-                    <div class="card-header">
+                    <div class="card-header mb-1">
                         <div class="row d-flex justify-content-between">
                             <div class="col-sm-7 align-items-center">
                                 <h6>
@@ -41,7 +41,7 @@
 
                             <div class="col-sm-5 text-right">
                                 <a class="btn btn-success"
-                                   th:href="@{/employeeArea/update/{id}(id=${user_order.getId()})}">
+                                   th:href="@{/employeeArea/update/{status}/{id}(status=${user_order.getShipping().getShippingStatus()}, id=${user_order.getId()})}">
                                     Update Status
                                     <i class="far fa-edit"></i>
                                 </a>
@@ -53,40 +53,36 @@
                         </p>
                     </div>
                     <div class="card-body">
-
-
                         <div th:each="item : ${user_order.getOrderDetails()}">
                             <div class="row mb-4">
-
                                 <div class="col">
-                                    <div>
-                                        <div class="d-flex justify-content-between">
-                                            <p id="itemID" style="display: none" th:text="${item.getId()}"></p>
-                                            <div id="item-description">
-                                                <h6 th:text="${item.getProduct().getName()}"
-                                                    class="card-title"></h6>
 
-                                            </div>
-
-                                            <div>
-                                                <p>Quantity: <strong th:text="'x'+${item.getQuantity()}"></strong></p>
-                                            </div>
+                                    <div class="d-flex justify-content-between">
+                                        <p id="itemID" style="display: none" th:text="${item.getId()}"></p>
+                                        <div id="item-description">
+                                            <h6 th:text="${item.getProduct().getName()}"
+                                                class="card-title"></h6>
                                         </div>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div>
-                                                <p class="card-subtitle text-muted"
-                                                   th:text="${item.getProduct().getCategory().getName()}"></p>
-                                            </div>
 
-                                            <div>
-                                                <span>
-                                                    Price for item:
-                                                    <strong id="price"
-                                                            th:text="${'$' + item.getProduct().getPrice()}"></strong>
-                                                </span>
-                                            </div>
+                                        <div>
+                                            <p>Quantity: <strong th:text="'x'+${item.getQuantity()}"></strong></p>
                                         </div>
                                     </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <p class="card-subtitle text-muted"
+                                               th:text="${item.getProduct().getCategory().getName()}"></p>
+                                        </div>
+
+                                        <div>
+                                            <span>
+                                                Price for item:
+                                                <strong id="price"
+                                                        th:text="${'$' + item.getProduct().getPrice()}"></strong>
+                                            </span>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                             <hr>
@@ -94,6 +90,7 @@
 
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <div>Status: <kbd th:text="${user_order.getShipping().getShippingStatus()}"></kbd></div>
+
                             <div>
                                 <span>Shipment charge:
                                     <strong th:text="'$'+${user_order.getShipping().getAddress().getShippingChargeString()}"></strong></span>
@@ -113,6 +110,87 @@
                 </div>
                 <!-- Card -->
 
+                <!-- Card for orders that will be retired on the shop-->
+                <!--/*@thymesVar id="confirmedShopOrders" type="java.util.List"*/-->
+                <!--/*@thymesVar id="confirmedShopOrder" type="it.unicam.travisbug.c3.model.Order"*/-->
+                <div th:each="confirmedShopOrder:${confirmedShopOrders}" class="card wish-list mb-3">
+                    <div class="card-header mb-1">
+                        <div class="row d-flex justify-content-between">
+                            <div class="col-sm-7 align-items-center">
+                                <h6>
+                                    Order №:
+                                    <span th:text="${confirmedShopOrder.getId()}"></span>
+                                </h6>
+                            </div>
+
+                            <div class="col-sm-5 text-right">
+                                <a class="btn btn-primary"
+                                   th:href="@{/employeeArea/update/{status}/{id}(status=${confirmedShopOrder.getShipping().getShippingStatus()}, id=${confirmedShopOrder.getId()})}">
+                                    Ready in shop
+                                    <i class="fas fa-store"></i>
+                                </a>
+                            </div>
+
+                        </div>
+                        <p>
+                            <span th:text="${confirmedShopOrder.getOrderDetails().size()}"></span> product(s)
+                        </p>
+                    </div>
+                    <div class="card-body">
+                        <div th:each="item : ${confirmedShopOrder.getOrderDetails()}">
+                            <div class="row mb-4">
+                                <div class="col">
+                                    <div class="d-flex justify-content-between">
+                                        <p id="itemID1" style="display: none" th:text="${item.getId()}"></p>
+
+                                        <div id="item-description1">
+                                            <h6 th:text="${item.getProduct().getName()}"
+                                                class="card-title"></h6>
+                                        </div>
+
+                                        <div>
+                                            <p>Quantity: <strong th:text="'x'+${item.getQuantity()}"></strong></p>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <p class="card-subtitle text-muted"
+                                               th:text="${item.getProduct().getCategory().getName()}"></p>
+                                        </div>
+
+                                        <div>
+                                            <span>
+                                                Price for item:
+                                                <strong id="price1"
+                                                        th:text="${'$' + item.getProduct().getPrice()}"></strong>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <div>Status:
+                                <kbd th:text="${confirmedShopOrder.getShipping().getShippingStatus()}"></kbd>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <div class="mb-2">Order date:
+                                <span class="text-muted" th:text="${confirmedShopOrder.getDate()}"></span>
+                            </div>
+
+                            <div>
+                                Total amount:
+                                <strong th:text="'$'+${confirmedShopOrder.getAmount()}"></strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card -->
+
             </div>
             <!--Grid column-->
 
@@ -122,7 +200,8 @@
     </section>
     <!--Section: Block Content-->
 
-    <div th:if="${user_orders == null}" class="row justify-content-center">
+
+    <div th:if="${user_orders == null && confirmedShopOrders == null}" class="row justify-content-center">
         <div class="col-auto mb-3 text-center">
             <div class="card my-3">
                 <div class="card-body">

@@ -38,7 +38,11 @@ public class ShoppingCart {
             redirectAttributes.addAttribute("shipping_error", true);
             return "redirect:/account/cart";
         }
-        order.getShipping().setShippingStatus(ShippingStatus.Confirmed);
+        if(order.getShipping().getAddress().getStreet()==null){
+            order.getShipping().setShippingStatus(ShippingStatus.ConfirmedShop);
+        }else {
+            order.getShipping().setShippingStatus(ShippingStatus.Confirmed);
+        }
         dbManager.getShippingService().saveShipping(order.getShipping());
         dbManager.getOrderService().saveOrder(order);
         return "redirect:/account/orders";

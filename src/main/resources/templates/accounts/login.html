@@ -5,6 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
 </head>
 
 <!--custom css-->
@@ -15,23 +17,29 @@
 <link th:href="@{/assets/css/login.css}" rel="stylesheet">
 
 <body>
-<header th:insert="blocks/header :: style"></header>
+<!--<header th:insert="blocks/header :: style"></header>-->
 <!--content space-->
 <form class="form-signin" action="/user_login" method=post>
-    <h1 class="h3 logo-text">TravisBug.c3</h1>
+
+    <h1 class="logo-text"><strong>TravisBug.c3</strong></h1>
     <h3 class="h3 mb-3 font-weight-normal">Please sign in</h3>
 
-    <label for="inputEmail" class="sr-only">Email address</label>
-    <input id="inputEmail" type="email" class="form-control" th:required="true" name="email" placeholder="Email address"
-           required autofocus>
+    <div class="input-group margin-top-3">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+        <input id="inputEmail" type="email" class="form-control" th:required="true" name="email"
+               placeholder="Email address"
+               required autofocus>
+    </div>
 
-    <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password" id="inputPassword" th:required="true" name="password" class="form-control"
-           placeholder="Password" required>
+    <div class="input-group mb-3">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+        <input type="password" id="inputPassword" th:required="true" name="password" class="form-control"
+               placeholder="Password" required>
+    </div>
 
-    <button class="btn btn-lg btn-success btn-block mt-3" type="submit">Login</button>
+    <button class="btn btn-lg btn-success btn-block margin-top-3" type="submit">Login</button>
     <a class="btn btn-lg btn-primary btn-block" href="/register">Sign up</a>
-    <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
+    <p class="margin-top-3 mb-3 text-muted">&copy; 2021</p>
 </form>
 
 <div th:insert="blocks/footer :: script"></div>

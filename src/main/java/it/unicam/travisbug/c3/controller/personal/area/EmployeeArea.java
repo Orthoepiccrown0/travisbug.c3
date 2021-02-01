@@ -41,26 +41,37 @@ public class EmployeeArea {
                                    @CookieValue(value = "role", defaultValue = "") String role){
         appCookies.checkLogged(model, userid, role);
 
-        List<Order> user_orders = new ArrayList<>();
-
-        Set<Product> products = dbManager.getEmployeeService().findById(userid).orElseThrow().getShop().getMerchant().getProduct();
-        for (Product p: products) {
-            for(OrderDetails od : p.getOrderDetails()){
-                if(od.getOrder().getShipping().getShippingStatus().equals(ShippingStatus.Confirmed)) {
-                    user_orders.add(od.getOrder());
-                }
-            }
-        }
+        List<Order> user_orders = getOrdersByShippingStatus(userid, ShippingStatus.Confirmed);
+        List<Order> confirmedShopOrders = getOrdersByShippingStatus(userid, ShippingStatus.ConfirmedShop);
 
         model.addAttribute("user_orders", user_orders);
+        model.addAttribute("confirmedShopOrders", confirmedShopOrders);
         return "employeeArea";
     }
 
-    @GetMapping("/employeeArea/update/{id}")
-    public String updateOrder(@PathVariable String id){
+    private List<Order> getOrdersByShippingStatus(String userid, ShippingStatus shippingStatus) {
+        List<Order> confirmedOrders = new ArrayList<>();
+        Set<Product> productShop = dbManager.getEmployeeService().findById(userid).orElseThrow().getShop().getMerchant().getProduct();
+        for (Product p: productShop) {
+            for(OrderDetails od : p.getOrderDetails()){
+                if(od.getOrder().getShipping().getShippingStatus().equals(shippingStatus)) {
+                    confirmedOrders.add(od.getOrder());
+                }
+            }
+        }
+        return confirmedOrders;
+    }
+
+    @GetMapping("/employeeArea/update/{status}/{id}")
+    public String updateOrder(@PathVariable String status,
+                              @PathVariable String id){
         Order order = dbManager.getOrderService().findById(id);
         Shipping shipping = order.getShipping();
-        shipping.setShippingStatus(ShippingStatus.ReadyForPickup);
+        if(status.equals(ShippingStatus.Confirmed.toString())) {
+            shipping.setShippingStatus(ShippingStatus.ReadyForPickup);
+        }else if(status.equals(ShippingStatus.ConfirmedShop.toString())) {
+            shipping.setShippingStatus(ShippingStatus.ReadyForClientPickup);
+        }
         dbManager.getShippingService().saveShipping(shipping);
         return "redirect:/employeeArea";
     }

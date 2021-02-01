@@ -96,8 +96,10 @@ public class Order {
                 double price = order.getProduct().getPrice() * order.getQuantity();
                 amount += price;
             }
-            if (getShipping().getAddress() != null)
+            if (getShipping().getAddress() != null) {
                 amount += getShipping().getAddress().getShipCharge();
+            }
+
         }
     }
 
