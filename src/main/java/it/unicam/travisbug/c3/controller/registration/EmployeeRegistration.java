@@ -6,6 +6,7 @@ import it.unicam.travisbug.c3.model.Shop;
 import it.unicam.travisbug.c3.utils.AppCookies;
 import it.unicam.travisbug.c3.utils.DBManager;
 import it.unicam.travisbug.c3.utils.PasswordTool;
+import it.unicam.travisbug.c3.utils.Roles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -83,7 +84,7 @@ public class EmployeeRegistration {
         addRequest(employee, shop);
 
         appCookies.setUserIDCookie(employee.getId(), response);
-        appCookies.setRoleCookie("employee", response);
+        appCookies.setRoleCookie(Roles.EMPLOYEE, response);
 
         return "redirect:/";
     }

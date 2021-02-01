@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 public class AppCookies {
 
-    public void setRoleCookie(String role, HttpServletResponse response) {
-        Cookie cookie = new Cookie("role", role);
+    public void setRoleCookie(Roles role, HttpServletResponse response) {
+        Cookie cookie = new Cookie("role", String.valueOf(role));
         cookie.setMaxAge(7 * 24 * 60 * 60);
         response.addCookie(cookie);
     }
@@ -26,15 +26,16 @@ public class AppCookies {
     public boolean checkLogged(Model model, String userid, String role) {
         boolean logged = false;
         if (!userid.equals("") && !role.equals("")) {
+            Roles roleEnum = Roles.valueOf(role);
+            checkRole(model, roleEnum);
             logged = true;
         }
         model.addAttribute("logged", logged);
-        checkRole(model, role);
         return logged;
     }
 
-    private void checkRole(Model model, String role) {
-        if (role != null && !role.equals("")) {
+    private void checkRole(Model model, Roles role) {
+        if (role != null) {
             model.addAttribute("role", role);
         }
     }

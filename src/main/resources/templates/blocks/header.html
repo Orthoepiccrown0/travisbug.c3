@@ -19,7 +19,9 @@
                     Personal Area
                 </button>
 
-                <div th:if="${role} == 'merchant'" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <!--/*@thymesVar id="role" type="it.unicam.travisbug.c3.utils.Roles"*/-->
+                <div th:if="${role.name()} == 'MERCHANT'" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="/account">My profile</a>
                     <a class="dropdown-item" href="/myProductsArea">My products</a>
                     <a class="dropdown-item" href="/notificationCentre">Notification Centre</a>
                     <a class="dropdown-item"
@@ -27,7 +29,8 @@
                        href="/deleteShop">Delete Account and Shop</a>
                 </div>
 
-                <div th:if="${role} == 'client'" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <div th:if="${role.name()} == 'CLIENT'" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="/account">My profile</a>
                     <a class="dropdown-item" href="/account/cart">Shopping Cart</a>
                     <a class="dropdown-item" href="/account/orders">My orders</a>
                     <a class="dropdown-item"
@@ -35,14 +38,16 @@
                        href="/deleteClient">Delete Account</a>
                 </div>
 
-                <div th:if="${role} == 'courier'" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <div th:if="${role.name()} == 'COURIER'" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="/account">My profile</a>
                     <a class="dropdown-item" href="/courierArea">Qualcosa</a>
                     <a class="dropdown-item"
                        onclick="return confirm('Are you sure you want to delete your courier Account?')"
                        href="/deleteCourier">Delete Account</a>
                 </div>
 
-                <div th:if="${role} == 'employee'" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <div th:if="${role.name()} == 'EMPLOYEE'" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="/account">My profile</a>
                     <a class="dropdown-item" href="/employeeArea">Shop Orders</a>
                     <a class="dropdown-item"
                        onclick="return confirm('Are you sure you want to delete your employee Account?')"

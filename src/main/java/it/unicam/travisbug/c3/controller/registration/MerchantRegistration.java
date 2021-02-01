@@ -7,6 +7,7 @@ import it.unicam.travisbug.c3.model.ShopCategory;
 import it.unicam.travisbug.c3.utils.AppCookies;
 import it.unicam.travisbug.c3.utils.DBManager;
 import it.unicam.travisbug.c3.utils.PasswordTool;
+import it.unicam.travisbug.c3.utils.Roles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -104,7 +105,7 @@ public class MerchantRegistration {
         addRequest(shopName, comment, shop);
 
         appCookies.setUserIDCookie(merchant.getId(), response);
-        appCookies.setRoleCookie("merchant", response);
+        appCookies.setRoleCookie(Roles.MERCHANT, response);
 
         return "redirect:/";
     }

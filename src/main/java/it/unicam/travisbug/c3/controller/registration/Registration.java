@@ -5,6 +5,7 @@ import it.unicam.travisbug.c3.model.Courier;
 import it.unicam.travisbug.c3.utils.AppCookies;
 import it.unicam.travisbug.c3.utils.DBManager;
 import it.unicam.travisbug.c3.utils.PasswordTool;
+import it.unicam.travisbug.c3.utils.Roles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -67,7 +68,7 @@ public class Registration {
         dbManager.getClientService().saveClient(client);
 
         appCookies.setUserIDCookie(client.getId(), response);
-        appCookies.setRoleCookie("client", response);
+        appCookies.setRoleCookie(Roles.CLIENT, response);
     }
 
     private void registerCourier(String name, String surname, String email, String password, String phone, HttpServletResponse response) {
@@ -82,7 +83,7 @@ public class Registration {
         dbManager.getCourierService().saveCourier(courier);
 
         appCookies.setUserIDCookie(courier.getId(), response);
-        appCookies.setRoleCookie("courier", response);
+        appCookies.setRoleCookie(Roles.COURIER, response);
     }
 
 }
