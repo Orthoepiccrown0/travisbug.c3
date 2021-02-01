@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Account</title>
+</head>
+
+<!--custom css-->
+<link rel="stylesheet" th:href="@{/assets/css/account.css}">
+<body>
+<header th:insert="blocks/header :: header"></header>
+<div class="container">
+    <div class="row my-5 d-flex justify-content-center">
+        <div class="col-xl-8 col-md-12">
+            <div class="card">
+                <div class="row">
+                    <div class="col-sm-4 user-profile">
+                        <div class="card-block text-center text-white">
+                            <div th:if="${role.name()} == 'CLIENT'" class="mt-2">
+                                <img src="https://img.icons8.com/bubbles/100/000000/user.png"
+                                     class="img-radius" alt="User-Profile-Image"/></div>
+                            <div th:if="${role.name()} == 'COURIER'" class="mt-2">
+                                <img src="https://img.icons8.com/bubbles/100/000000/in-transit.png"
+                                     class="img-radius" alt="User-Profile-Image"/></div>
+                            <div th:if="${role.name()} == 'MERCHANT'" class="mt-2">
+                                <img src="https://img.icons8.com/bubbles/100/000000/shop--v2.png"
+                                     class="img-radius" alt="User-Profile-Image"/></div>
+                            <div th:if="${role.name()} == 'EMPLOYEE'" class="mt-2">
+                                <img src="https://img.icons8.com/bubbles/10/000000/worker-male.png"
+                                     class="img-radius" alt="User-Profile-Image"/></div>
+                            <h6 th:text="${generic.getName() + ' ' + generic.getSurname()}"></h6>
+                            <p th:if="${role.name()} == 'CLIENT'">Client</p>
+                            <p th:if="${role.name()} == 'COURIER'">Courier</p>
+                            <p th:if="${role.name()} == 'MERCHANT'">Merchant</p>
+                            <p th:if="${role.name()} == 'EMPLOYEE'">Employee</p>
+                            <i class="mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="card-block">
+                            <h6 class="mt-3">Information</h6>
+                            <hr class="mb-3">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <p class="">Email</p>
+                                    <h6 class="text-muted f-w-400" th:text="${generic.getEmail()}"></h6>
+                                </div>
+                                <div class="col-sm-6">
+                                    <p class="">Phone</p>
+                                    <h6 class="text-muted" th:if="${generic.getPhone()} != null"
+                                        th:text="${generic.getPhone()}"></h6>
+                                    <h6 class="text-muted f-w-400" th:if="${generic.getPhone()} == null">No
+                                        phone number</h6>
+                                </div>
+                            </div>
+                            <div th:if="${role.name()} == 'MERCHANT'">
+                                <h6 class="mt-3">Activity</h6>
+                                <hr class="mb-3">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <p class="">Owned shop</p>
+                                        <h6 class="text-muted"
+                                            th:text="${merchant.getShop().getShopName()}"></h6>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div th:if="${role.name()} == 'EMPLOYEE'">
+                                <h6 class="mt-3">Working place</h6>
+                                <hr class="mb-3">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <p class="">Shop</p>
+                                        <h6 class="text-muted"
+                                            th:text="${employee.getShop().getShopName()}"></h6>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:insert="blocks/footer :: footer"></div>
+</div>
+</body>
+</html>
