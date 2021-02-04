@@ -1,5 +1,6 @@
 package it.unicam.travisbug.c3.repository;
 
+import it.unicam.travisbug.c3.model.Category;
 import it.unicam.travisbug.c3.model.Merchant;
 import it.unicam.travisbug.c3.model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,4 +11,6 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
     List<Product> findAllByMerchantOrderByNameAsc(Merchant merchant);
+
+    List<Product> findAllByCategory(Category category);
 }

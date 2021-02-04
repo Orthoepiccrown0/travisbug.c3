@@ -26,7 +26,7 @@ public class Registration {
         this.dbManager = dbManager;
     }
 
-    private final AppCookies appCookies = new AppCookies();
+    private final AppCookies appCookies = AppCookies.getInstance();
 
     @PostMapping("/register")
     public String register(Model model,

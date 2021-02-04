@@ -1,5 +1,6 @@
 package it.unicam.travisbug.c3.service.impl;
 
+import it.unicam.travisbug.c3.model.Category;
 import it.unicam.travisbug.c3.model.Merchant;
 import it.unicam.travisbug.c3.model.Product;
 import it.unicam.travisbug.c3.repository.ProductRepository;
@@ -34,6 +35,11 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> findAllByMerchant(Merchant merchant) {
         return productRepository.findAllByMerchantOrderByNameAsc(merchant);
+    }
+
+    @Override
+    public List<Product> findAllByCategory(Category category) {
+        return productRepository.findAllByCategory(category);
     }
 
     @Override

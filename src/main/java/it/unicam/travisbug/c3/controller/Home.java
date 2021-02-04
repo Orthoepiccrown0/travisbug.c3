@@ -23,7 +23,7 @@ public class Home {
 
     private DBManager dbManager;
 
-    private final AppCookies appCookies = new AppCookies();
+    private final AppCookies appCookies = AppCookies.getInstance();
 
     private AppCommandLine appCommandLine;
 
@@ -52,12 +52,12 @@ public class Home {
         return "index";
     }
 
-    @GetMapping("/user_login")
+    @GetMapping("/account/login")
     public String showLogin() {
         return "accounts/login";
     }
 
-    @PostMapping("/user_login")
+    @PostMapping("/account/login")
     public String login(Model model,
                         String email,
                         String password,
@@ -83,12 +83,15 @@ public class Home {
         return "redirect:/";
     }
 
-    @GetMapping("/user_logout")
+    @GetMapping("/account/logout")
     public String logout(HttpServletResponse response){
         Cookie user_cookie = new Cookie("user_id", "");
         Cookie role_cookie = new Cookie("role", "");
+        user_cookie.setPath("/");
+        role_cookie.setPath("/");
         user_cookie.setMaxAge(0);
         role_cookie.setMaxAge(0);
+
         response.addCookie(user_cookie);
         response.addCookie(role_cookie);
         return "redirect:/";

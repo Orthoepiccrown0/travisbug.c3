@@ -23,12 +23,13 @@
     <div class="row justify-content-center">
         <div th:if="${products != null}" th:each="product : ${products}">
             <!--/*@thymesVar id="product" type="it.unicam.travisbug.c3.model.Product"*/-->
-            <div class="col-auto mb-3">
+            <div th:if="${product.getSupply()!=0}" class="col-auto mb-3">
                 <div class="card " style="width: 18rem;">
                     <div class="card-body text-left">
                         <div class="d-flex justify-content-between mb-4">
                             <h5 th:text="${product.getName()}"></h5>
-                            <kbd class="align-self-center" th:if="${product.promoted}" style="background-color: darkred">Promo</kbd>
+                            <kbd class="align-self-center" th:if="${product.promoted}"
+                                 style="background-color: darkred">Promo</kbd>
                         </div>
 
                         <h6 class="card-subtitle mb-2 text-muted"
@@ -40,10 +41,11 @@
                                  class="text-muted"
                                  th:text="'$'+${product.getPrice()}"></del>
                         </div>
-                        <a th:if="${logged == true}"
-                           th:href="@{/account/cart/add/{product_id}/{shop_id}(product_id=${product.getId()},shop_id=${shop.getId()})}"
+                        <div th:if="${logged == true and role.name()=='CLIENT'}">
+                        <a th:href="@{/account/cart/add/{product_id}/{shop_id}(product_id=${product.getId()},shop_id=${shop.getId()})}"
                            class="card-link"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Add to
                             cart</a>
+                        </div>
                     </div>
                 </div>
             </div>

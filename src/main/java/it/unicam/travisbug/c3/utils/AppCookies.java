@@ -11,14 +11,27 @@ import javax.servlet.http.HttpServletResponse;
 
 public class AppCookies {
 
+    private static AppCookies appCookies;
+
+    private AppCookies() {
+    }
+
+    public static AppCookies getInstance() {
+        if (appCookies == null)
+            appCookies = new AppCookies();
+        return appCookies;
+    }
+
     public void setRoleCookie(Roles role, HttpServletResponse response) {
         Cookie cookie = new Cookie("role", String.valueOf(role));
+        cookie.setPath("/");
         cookie.setMaxAge(7 * 24 * 60 * 60);
         response.addCookie(cookie);
     }
 
     public void setUserIDCookie(String id, HttpServletResponse response) {
         Cookie cookie = new Cookie("user_id", id);
+        cookie.setPath("/");
         cookie.setMaxAge(7 * 24 * 60 * 60);
         response.addCookie(cookie);
     }

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promotions</title>
+</head>
+
+<!--custom css-->
+
+<body>
+<header th:insert="blocks/header :: header"></header>
+<!--content space-->
+<div class="container">
+    <!--/*@thymesVar id="products" type="java.util.List"*/-->
+    <div th:if="${products!=null}" class="row">
+        <div class="col-lg-4 my-3">
+            <h4 class="ml-2">Categories</h4>
+            <div class="list-group">
+                <!--/*@thymesVar id="category" type="it.unicam.travisbug.c3.container.CategoryDetails"*/-->
+                <div th:if="${categories!=null}" th:each="category : ${categories}">
+                    <a th:href="@{/promo/{category}(category=${category.getCategory().getName()})}"
+                       class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">
+                        <span th:text="${category.getName()}"></span>
+                        <span class="badge badge-primary badge-pill" th:text="${category.getPromotions()}"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8 my-3">
+            <div id="products">
+                <div class="row justify-content-center">
+                    <!--/*@thymesVar id="products" type="java.util.List"*/-->
+                    <div th:each="product : ${products}" class="col-auto mb-3">
+                        <div th:if="${product.getSupply()!=0 and product.promoted}" class="card " style="width: 18rem;">
+                            <div class="card-body text-left">
+                                <div class="d-flex justify-content-between mb-4">
+                                    <h5 th:text="${product.getName()}"></h5>
+                                    <kbd class="align-self-center" th:if="${product.promoted}"
+                                         style="background-color: darkred">Promo</kbd>
+                                </div>
+
+                                <h6 class="card-subtitle mb-2 text-muted"
+                                    th:text="${product.getCategory().getName()}"></h6>
+                                <div class="row mb-3">
+                                    <h5 class="ml-3 mr-2 text-muted"
+                                        th:text="'$'+${product.getDiscountedPrice()}"></h5>
+                                    <del th:if="${product.getDiscount() != null and product.getDiscount() != 0 or product.promoted}"
+                                         class="text-muted"
+                                         th:text="'$'+${product.getPrice()}"></del>
+                                </div>
+                                <div th:if="${logged == true and role.name()=='CLIENT'}">
+                                    <a th:href="@{/account/cart/add/{product_id}/{shop_id}(product_id=${product.getId()},
+                                   shop_id=${product.getMerchant().getShop().getId()})}"
+                                       class="card-link"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Add to
+                                        cart</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:if="${products==null}" class="row justify-content-center">
+        <div class="col-auto mb-3 text-center">
+            <div class="card my-3">
+                <div class="card-body">
+                    <h2 class="m-5">There is no active promotions now.</h2>
+                    <a class="btn btn-primary mb-4 mx-auto" href="/">Go shopping</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:insert="blocks/footer :: footer"></div>
+</div>
+</body>
+</html>

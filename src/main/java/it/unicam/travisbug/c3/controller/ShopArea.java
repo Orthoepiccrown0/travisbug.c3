@@ -24,7 +24,7 @@ public class ShopArea {
 
     private DBManager dbManager;
 
-    private final AppCookies appCookies = new AppCookies();
+    private final AppCookies appCookies = AppCookies.getInstance();
 
     @Autowired
     public void setDbManager(DBManager dbManager) {
@@ -39,6 +39,15 @@ public class ShopArea {
         if (shop == null)
             return "redirect:/";
         Merchant merchant = shop.getMerchant();
+        setProducts(model, shop, merchant);
+        model.addAttribute("logged", logged);
+
+        model.addAttribute("greeting", "Welcome to " + shop.getShopName());
+        model.addAttribute("shopname", shop.getShopName());
+        return "shop";
+    }
+
+    private void setProducts(Model model, Shop shop, Merchant merchant) {
         List<Product> products = dbManager.getProductService().findAllByMerchant(merchant);
         if (products.size() != 0) {
             Date today = new Date();
@@ -53,11 +62,6 @@ public class ShopArea {
             model.addAttribute("products", products);
             model.addAttribute("shop", shop);
         }
-        model.addAttribute("logged", logged);
-
-        model.addAttribute("greeting", "Welcome to " + shop.getShopName());
-        model.addAttribute("shopname", shop.getShopName());
-        return "shop";
     }
 
     boolean isWithinRange(Date today, Date startDate, Date endDate) {

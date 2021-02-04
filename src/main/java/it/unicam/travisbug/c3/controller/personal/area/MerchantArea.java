@@ -22,7 +22,7 @@ public class MerchantArea {
 
     private DBManager dbManager;
 
-    private final AppCookies appCookies = new AppCookies();
+    private final AppCookies appCookies = AppCookies.getInstance();
 
     @Autowired
     public void setDbManager(DBManager dbManager) {
@@ -89,7 +89,7 @@ public class MerchantArea {
         request.setId(UUID.randomUUID().toString());
         request.setDate(new Date());
         request.setTitle(merchant.getShop().getShopName());
-        request.setComment("Comment");
+        request.setComment("This promotion is used in my shop");
         request.setPromotion(promotion);
         dbManager.getAdminRequestsService().saveAdminRequests(request);
         return "redirect:/myProductsArea";

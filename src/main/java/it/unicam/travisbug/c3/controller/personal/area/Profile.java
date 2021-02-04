@@ -24,7 +24,7 @@ public class Profile {
     public String showAccount(Model model,
                               @CookieValue(value = "user_id", defaultValue = "") String userid,
                               @CookieValue(value = "role", defaultValue = "") String roleCookie) {
-        AppCookies appCookies = new AppCookies();
+        AppCookies appCookies = AppCookies.getInstance();
         appCookies.checkLogged(model, userid, roleCookie);
         if (roleCookie != null) {
             Roles role = Roles.valueOf(roleCookie);

@@ -3,7 +3,6 @@ package it.unicam.travisbug.c3.controller.personal.area.client;
 import it.unicam.travisbug.c3.model.*;
 import it.unicam.travisbug.c3.utils.AppCookies;
 import it.unicam.travisbug.c3.utils.DBManager;
-import it.unicam.travisbug.c3.utils.Roles;
 import it.unicam.travisbug.c3.utils.ShippingStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +20,7 @@ import java.util.UUID;
 @Controller
 public class ShoppingCart {
 
-    private final AppCookies appCookies = new AppCookies();
+    private final AppCookies appCookies = AppCookies.getInstance();
 
     private DBManager dbManager;
 
@@ -31,21 +30,36 @@ public class ShoppingCart {
     }
 
     @GetMapping("account/orders/process/{id}")
-    public String process(Model model, @PathVariable String id, RedirectAttributes redirectAttributes) {
+    public String process(Model model, @PathVariable String id, RedirectAttributes redirectAttributes) throws Exception {
         model.addAttribute("id", id);
         Order order = dbManager.getOrderService().findById(id);
-        if(order.getShipping().getAddress()==null){
+        if (order.getShipping().getAddress() == null) {
             redirectAttributes.addAttribute("shipping_error", true);
             return "redirect:/account/cart";
         }
-        if(order.getShipping().getAddress().getStreet()==null){
+        if (order.getShipping().getAddress().getStreet() == null) {
             order.getShipping().setShippingStatus(ShippingStatus.ConfirmedShop);
-        }else {
+        } else {
             order.getShipping().setShippingStatus(ShippingStatus.Confirmed);
         }
+
+        updateProductSupply(order);
+
         dbManager.getShippingService().saveShipping(order.getShipping());
         dbManager.getOrderService().saveOrder(order);
         return "redirect:/account/orders";
+    }
+
+    private void updateProductSupply(Order order) throws Exception {
+        for (OrderDetails orderDetails : order.getOrderDetails()) {
+            int x = orderDetails.getQuantity();
+            boolean ok = orderDetails.getProduct().decreaseSupplyBy(x);
+            if (ok) {
+                dbManager.getProductService().saveProduct(orderDetails.getProduct());
+                dbManager.getOrderDetailsService().saveOrderDetails(orderDetails);
+            } else
+                throw new Exception("Supply is 0");
+        }
     }
 
     @GetMapping("account/cart")
@@ -59,7 +73,7 @@ public class ShoppingCart {
         Order cart_order = getCart(userid);
         List<Address> addresses = dbManager.getAddressService().getAll();
 
-        if (cart_order !=null && cart_order.getOrderDetails().size() != 0) {
+        if (cart_order != null && cart_order.getOrderDetails().size() != 0) {
             List<OrderDetails> cart = new ArrayList<>(cart_order.getOrderDetails());
             double amount = 0;
             for (OrderDetails tmp : cart) {
@@ -71,7 +85,7 @@ public class ShoppingCart {
             model.addAttribute("order_id", cart_order.getId());
             model.addAttribute("shop_id", shop_id);
             model.addAttribute("addresses", addresses);
-            if(shipping_error)
+            if (shipping_error)
                 model.addAttribute("shipping_error", shipping_error);
             if (cart_order.getShipping().getAddress() != null)
                 model.addAttribute("selected_shipping", cart_order.getShipping().getAddress().getId());
@@ -87,7 +101,7 @@ public class ShoppingCart {
         List<Order> orders = dbManager.getOrderService().findByClient(client);
         Order cart_order = null;
         for (Order o : orders) {
-            if(o.getShipping().getShippingStatus()==ShippingStatus.Pending){
+            if (o.getShipping().getShippingStatus() == ShippingStatus.Pending) {
                 cart_order = o;
             }
         }
@@ -164,8 +178,6 @@ public class ShoppingCart {
         }
         return order;
     }
-
-
 
 
 }

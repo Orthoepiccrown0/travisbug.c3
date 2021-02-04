@@ -20,7 +20,7 @@ public class ClientArea {
 
     private DBManager dbManager;
 
-    private final AppCookies appCookies = new AppCookies();
+    private final AppCookies appCookies = AppCookies.getInstance();
 
     @Autowired
     public void setDbManager(DBManager dbManager) {

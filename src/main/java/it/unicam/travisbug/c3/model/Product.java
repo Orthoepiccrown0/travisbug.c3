@@ -186,7 +186,7 @@ public class Product {
         int startDay = cal.get(Calendar.DAY_OF_MONTH);
         cal.setTime(endDate);
         int endDay = cal.get(Calendar.DAY_OF_MONTH);
-        if(day == startDay && day == endDay)
+        if (day == startDay && day == endDay)
             return true;
         return !(today.before(startDate) || today.after(endDate));
     }
@@ -201,5 +201,14 @@ public class Product {
         if (promotion == null)
             promotion = new HashSet<>();
         promotion.add(p);
+    }
+
+    public boolean decreaseSupplyBy(int x) {
+        if(x<=supply) {
+            supply-=x;
+            return true;
+        }else{
+            return false;
+        }
     }
 }
