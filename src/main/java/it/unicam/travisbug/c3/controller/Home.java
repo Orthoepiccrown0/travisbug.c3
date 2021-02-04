@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.management.relation.Role;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -24,13 +23,6 @@ public class Home {
     private DBManager dbManager;
 
     private final AppCookies appCookies = AppCookies.getInstance();
-
-    private AppCommandLine appCommandLine;
-
-    @Autowired
-    public void setAppCommandLine(AppCommandLine appCommandLine) {
-        this.appCommandLine = appCommandLine;
-    }
 
     @Autowired
     public void setDbManager(DBManager dbManager) {
@@ -105,5 +97,12 @@ public class Home {
         return "contacts";
     }
 
+    @GetMapping("/support")
+    public String showSupport(Model model,
+                               @CookieValue(value = "user_id", defaultValue = "") String userid,
+                               @CookieValue(value = "role", defaultValue = "") String role) {
+        appCookies.checkLogged(model, userid, role);
+        return "support";
+    }
 
 }

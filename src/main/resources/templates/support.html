@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Support</title>
+</head>
+
+<link th:href="@{/assets/css/support.css}" rel="stylesheet">
+
+<body>
+<header th:insert="blocks/header :: header"></header>
+
+<div class="pricing-header px-3 py-3 mb-2 mx-auto text-center">
+
+</div>
+
+<div class="mb-3 container">
+
+    <div class="container1">
+        <div style="text-align:center">
+            <h1 class="display-4">Support Area</h1>
+        </div>
+        <div class="row">
+            <div class="column">
+                <img class="rounded2 img-fluid"
+                     src="https://image.freepik.com/free-vector/call-center-abstract-concept_335657-3001.jpg"
+                     style="width:100%">
+            </div>
+            <div class="column">
+                <form id="myForm" action="javascript: showLabel()">
+
+                    <label for="inputName">Name:</label>
+                    <input type="text" id="inputName" minlength="4" maxlength="40" class="form-control mb-3"
+                           th:required="true" name="nameSurname"
+                           placeholder="Name and last name..." required autofocus>
+
+
+                    <label for="inputEmail">Email:</label>
+                    <input id="inputEmail" type="email" minlength="4" maxlength="40" class="form-control mb-3"
+                           placeholder="Email" required>
+
+
+                    <label for="problem">What's your problem?</label>
+                    <select class="mb-3" id="problem" name="country" required>
+                        <option value="" disabled selected>Select your option</option>
+                        <option value="australia">Problems with order</option>
+                        <option value="canada">Problems with shipping</option>
+                        <option value="usa">Other...</option>
+                    </select>
+
+                    <label for="subject">Subject</label>
+                    <textarea id="subject" name="subject" class="mb-4" minlength="5" maxlength="200" placeholder="Write something.."
+                              style="height:170px" rows="3" required></textarea>
+
+                    <div class="row align-self-baseline">
+                        <div class="col">
+                            <button type="submit" id="submitButton" class="btn btn-success mr-1">Submit</button>
+                            <button type="button" id="clearForm" onclick="clearAll()" style="color: white"
+                                    class="btn btn-primary">Clear
+                            </button>
+                        </div>
+                        <div id="hiddenLbl" class="col alert alert-success mr-4" style="visibility: hidden" role="alert">
+                            Email inviata con successo!
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <div th:insert="blocks/footer :: footer"></div>
+</div>
+
+<script>
+
+    function clearAll() {
+        document.getElementById("myForm").reset();
+        document.getElementById("hiddenLbl").style = "visibility: hidden";
+    }
+
+    function showLabel() {
+        document.getElementById("hiddenLbl").style = "visibility: visible";
+    }
+
+</script>
+
+</body>
+</html>
