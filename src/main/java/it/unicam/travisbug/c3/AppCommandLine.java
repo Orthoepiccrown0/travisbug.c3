@@ -44,7 +44,7 @@ public class AppCommandLine implements CommandLineRunner {
             merchant.setName(minfo);
             merchant.setSurname(minfo);
             merchant.setEmail(minfo);
-            merchant.setPassword(PasswordTool.getMD5String(minfo.substring(0,0)));
+            merchant.setPassword(PasswordTool.getMD5String(minfo.substring(0,1)));
             merchant.setShop(addShop(merchant, minfo, count));
             addProducts(merchant, minfo, count);
             dbManager.getMerchantService().saveMerchant(merchant);
@@ -140,7 +140,7 @@ public class AppCommandLine implements CommandLineRunner {
             client.setName(cinfo);
             client.setSurname(cinfo);
             client.setEmail(cinfo);
-            client.setPassword(PasswordTool.getMD5String(cinfo.substring(0,0)));
+            client.setPassword(PasswordTool.getMD5String(cinfo.substring(0,1)));
             dbManager.getClientService().saveClient(client);
         }
     }
@@ -153,7 +153,7 @@ public class AppCommandLine implements CommandLineRunner {
             courier.setName(cinfo);
             courier.setSurname(cinfo);
             courier.setEmail(cinfo);
-            courier.setPassword(PasswordTool.getMD5String(cinfo.substring(0,0)));
+            courier.setPassword(PasswordTool.getMD5String(cinfo.substring(0,1)));
             dbManager.getCourierService().saveCourier(courier);
         }
     }
@@ -170,7 +170,7 @@ public class AppCommandLine implements CommandLineRunner {
             employee.setEmail(einfo);
             employee.setStatus("Approved");
             employee.setShop(shops.get(count));
-            employee.setPassword(PasswordTool.getMD5String(einfo.substring(0,0)));
+            employee.setPassword(PasswordTool.getMD5String(einfo.substring(0,1)));
             dbManager.getEmployeeService().saveEmployee(employee);
             count++;
         }
