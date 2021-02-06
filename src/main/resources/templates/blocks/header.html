@@ -16,42 +16,99 @@
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownPersonalArea"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Personal Area
+                    Personal Area&nbsp
+                    <i class="fas fa-user-circle"></i>
                 </button>
 
                 <!--/*@thymesVar id="role" type="it.unicam.travisbug.c3.utils.Roles"*/-->
                 <div th:if="${role.name()} == 'MERCHANT'" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="/account">My profile</a>
-                    <a class="dropdown-item" href="/myProductsArea">My products</a>
-                    <a class="dropdown-item" href="/notificationCentre">Notification Centre</a>
-                    <a class="dropdown-item"
-                       onclick="return confirm('Are you sure you want to delete your Account and your Shop?')"
-                       href="/deleteShop">Delete Account and Shop</a>
+                    <a class="dropdown-item" href="/account">
+                        <i class="fas fa-user"></i>
+                        &nbsp&nbspMy profile
+                    </a>
+
+                    <a class="dropdown-item" href="/myProductsArea">
+                        <i class="fas fa-store"></i>
+                        &nbspMy products
+                    </a>
+
+                    <a class="dropdown-item" href="/notificationCentre">
+                        <i class="fas fa-bell"></i>
+                        &nbsp&nbspNotification Centre
+                    </a>
+
+                    <div class="dropdown-divider"></div>
+
+                    <a class="dropdown-item" href="/deleteShop"
+                       onclick="return confirm('Are you sure you want to delete your Account and your Shop from the website?')">
+                        <i class="fas fa-trash"></i>
+                        &nbsp&nbspDelete Account and Shop
+                    </a>
                 </div>
 
                 <div th:if="${role.name()} == 'CLIENT'" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="/account">My profile</a>
-                    <a class="dropdown-item" href="/account/cart">Shopping Cart</a>
-                    <a class="dropdown-item" href="/account/orders">My orders</a>
+                    <a class="dropdown-item" href="/account">
+                        <i class="fas fa-user"></i>
+                        &nbsp&nbspMy profile
+                    </a>
+
+                    <a class="dropdown-item" href="/account/cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        &nbspShopping Cart
+                    </a>
+
+                    <a class="dropdown-item" href="/account/orders">
+                        <i class="fas fa-book"></i>
+                        &nbsp&nbspMy orders
+                    </a>
+
+                    <div class="dropdown-divider"></div>
+
                     <a class="dropdown-item"
                        onclick="return confirm('Are you sure you want to delete your client Account?')"
-                       href="/deleteClient">Delete Account</a>
+                       href="/deleteClient">
+                        <i class="fas fa-trash"></i>
+                        &nbsp&nbspDelete Account
+                    </a>
                 </div>
 
                 <div th:if="${role.name()} == 'COURIER'" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="/account">My profile</a>
-                    <a class="dropdown-item" href="/courierArea">Qualcosa</a>
+                    <a class="dropdown-item" href="/account">
+                        <i class="fas fa-user"></i>
+                        &nbsp&nbspMy profile
+                    </a>
+
+                    <a class="dropdown-item" href="/courierArea">
+                        <i class="fas fa-shipping-fast"></i>
+                        &nbspAvailable Shippings
+                    </a>
+
+                    <div class="dropdown-divider"></div>
+
                     <a class="dropdown-item"
                        onclick="return confirm('Are you sure you want to delete your courier Account?')"
-                       href="/deleteCourier">Delete Account</a>
+                       href="/deleteCourier">
+                        <i class="fas fa-trash"></i>
+                        &nbsp&nbspDelete Account
+                    </a>
                 </div>
 
                 <div th:if="${role.name()} == 'EMPLOYEE'" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="/account">My profile</a>
-                    <a class="dropdown-item" href="/employeeArea">Shop Orders</a>
-                    <a class="dropdown-item"
-                       onclick="return confirm('Are you sure you want to delete your employee Account?')"
-                       href="/deleteEmployee">Delete Employee</a>
+                    <a class="dropdown-item" href="/account">
+                        <i class="fas fa-user"></i>
+                        &nbsp&nbspMy profile
+                    </a>
+
+                    <a class="dropdown-item" href="/employeeArea">
+                        <i class="fas fa-store"></i>
+                        &nbspShop Orders
+                    </a>
+
+                    <a class="dropdown-item" href="/deleteEmployee"
+                       onclick="return confirm('Are you sure you want to delete your employee Account?')">
+                        <i class="fas fa-trash"></i>
+                        &nbsp&nbspDelete Account
+                    </a>
                 </div>
             </div>
         </div>

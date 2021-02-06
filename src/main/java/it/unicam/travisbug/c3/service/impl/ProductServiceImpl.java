@@ -2,6 +2,7 @@ package it.unicam.travisbug.c3.service.impl;
 
 import it.unicam.travisbug.c3.model.Category;
 import it.unicam.travisbug.c3.model.Merchant;
+import it.unicam.travisbug.c3.model.Order;
 import it.unicam.travisbug.c3.model.Product;
 import it.unicam.travisbug.c3.repository.ProductRepository;
 import it.unicam.travisbug.c3.service.ProductService;
@@ -25,6 +26,11 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void saveProduct(Product p) {
         productRepository.save(p);
+    }
+
+    @Override
+    public void deleteProduct(Product p) {
+        productRepository.delete(p);
     }
 
     @Override

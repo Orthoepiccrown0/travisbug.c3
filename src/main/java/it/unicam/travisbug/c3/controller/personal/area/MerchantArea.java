@@ -58,6 +58,16 @@ public class MerchantArea {
         return "redirect:/myProductsArea";
     }
 
+    @GetMapping("/myProductsArea/remove/{id}")
+    public String removeProduct(Model model,
+                                @PathVariable Integer id){
+
+        Product p = dbManager.getProductService().findById(id);
+        dbManager.getProductService().deleteProduct(p);
+
+        return "redirect:/myProductsArea";
+    }
+
     @PostMapping("/addPromotion")
     public String createPromotion(Model model,
                                   @CookieValue(value = "user_id", defaultValue = "") String userid,
