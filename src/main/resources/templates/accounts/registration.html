@@ -14,6 +14,7 @@
 <!--content space-->
 <form class="form-signin" action="/register" method=post
       oninput='password2.setCustomValidity(password2.value != password.value ? "Passwords do not match." : "")'>
+
     <h3 class="h3 mb-3 font-weight-normal">Please sign up</h3>
     <label for="inputName" class="sr-only">Name</label>
     <input th:required="true" type="text" maxlength="20" id="inputName" name="name" autocomplete="given-name"
