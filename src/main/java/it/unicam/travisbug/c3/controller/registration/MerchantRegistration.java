@@ -33,7 +33,8 @@ public class MerchantRegistration {
     }
 
     @GetMapping("/register/merchant")
-    public String merchantRegister(Model model) {
+    public String merchantRegister(Model model, String used_email) {
+        model.addAttribute("used_email", used_email);
         return "accounts/merchantRegistration";
     }
 
@@ -48,7 +49,6 @@ public class MerchantRegistration {
                                    RedirectAttributes redirectAttrs) {
         if (!appCookies.isUsedEmail(email, dbManager)) {
             return registerMerchant(name, surname, email, password, phone, response, redirectAttrs);
-//            return "redirect:/";
         }
         redirectAttrs.addAttribute("used_email", "used");
         return "redirect:/register/merchant";

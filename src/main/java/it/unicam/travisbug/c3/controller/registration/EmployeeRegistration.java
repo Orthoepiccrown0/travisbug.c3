@@ -32,11 +32,12 @@ public class EmployeeRegistration {
     }
 
     @GetMapping("/register/employee")
-    public String employeeRegister(Model model) {
+    public String employeeRegister(Model model, String used_email) {
         List<Shop> shops = dbManager.getShopService().getAll();
         if (shops.size() != 0) {
             model.addAttribute("shops", shops);
         }
+        model.addAttribute("used_email", used_email);
         return "accounts/employeeRegistration";
     }
 

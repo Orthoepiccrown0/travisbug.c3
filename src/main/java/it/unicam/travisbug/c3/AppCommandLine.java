@@ -7,9 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.ThreadLocalRandom;
 
 @Component
 public class AppCommandLine implements CommandLineRunner {
@@ -27,59 +28,58 @@ public class AppCommandLine implements CommandLineRunner {
             addCategories();
             addShopCategories();
             addAddresses();
-            for (int i = 0; i < 3; i++) {
-                addMerchant(i);
-            }
+            addMerchant();
+            addCouriers();
+            addClients();
+            addEmployee();
         }
     }
 
-    private void addMerchant(int cat) {
-        Merchant merchant = new Merchant();
-        merchant.setId(UUID.randomUUID().toString());
-        merchant.setName("merchant test");
-        merchant.setSurname("merchant test");
-        merchant.setEmail("m@m" + cat);
-        merchant.setPassword(PasswordTool.getMD5String("m"));
-
-        merchant.setShop(addShop(merchant, cat));
-        addProducts(merchant, cat);
-        dbManager.getMerchantService().saveMerchant(merchant);
+    private void addMerchant() {
+        List<String> merchantInfos = new ArrayList<>(Arrays.asList("m@m", "n@n", "b@b", "v@v"));
+        int count = 0;
+        for (String minfo : merchantInfos) {
+            Merchant merchant = new Merchant();
+            merchant.setId(UUID.randomUUID().toString());
+            merchant.setName(minfo);
+            merchant.setSurname(minfo);
+            merchant.setEmail(minfo);
+            merchant.setPassword(PasswordTool.getMD5String(minfo.substring(0,1)));
+            merchant.setShop(addShop(merchant, minfo, count));
+            addProducts(merchant, minfo, count);
+            dbManager.getMerchantService().saveMerchant(merchant);
+            count++;
+        }
     }
 
-    private void addProducts(Merchant merchant, int cat) {
+    private void addProducts(Merchant merchant, String minfo, int count) {
         List<Category> categories = dbManager.getCategoryService().getAll();
-        int promoted = ThreadLocalRandom.current().nextInt(0, 5 + 1);
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 3; i++) {
             Product product = new Product();
-            product.setCategory(categories.get(cat));
-            product.setName("Test product" + i);
-            product.setDescription("Lorem ipsum");
+            product.setCategory(categories.get(i));
+            product.setName("Test " + i + count);
+            product.setDescription("prodotto di " + minfo);
             product.setMerchant(merchant);
-            product.setPrice(i + 1.0);
-            product.setSupply(5);
-            product.setWeight(1.0);
+            product.setPrice(i + 1.0 + count);
+            product.setSupply(5 * (i+1) + count);
+            product.setWeight(1.0 + i + count);
             product.setPromoted(false);
-            if(promoted == i){
-                product.setDiscount(5);
-            }
             dbManager.getProductService().saveProduct(product);
         }
     }
 
-    private Shop addShop(Merchant merchant, int cat) {
-        String[] names = {"Fresco", "Upper", "Highstone"};
+    private Shop addShop(Merchant merchant, String minfo, int count) {
         List<ShopCategory> categories = dbManager.getShopCategoryService().getAll();
         Shop shop = new Shop();
         shop.setApproved(true);
         shop.setMerchant(merchant);
-        shop.setShopName(names[cat]);
-        shop.setShopCategory(categories.get(cat));
+        shop.setShopName("Shop "+ minfo);
+        shop.setShopCategory(categories.get(count));
         dbManager.getShopService().saveShop(shop);
         return shop;
     }
 
     private void addAddresses() {
-
         Address a = new Address();
         a.setCity("Send to Shop");
         a.setShipCharge(0.0);
@@ -118,8 +118,7 @@ public class AppCommandLine implements CommandLineRunner {
     }
 
     private void addCategories() {
-        String[] categories = {
-                "Video games",
+        String[] categories = {"Video games",
                 "Food",
                 "Films",
                 "Flowers",
@@ -130,6 +129,50 @@ public class AppCommandLine implements CommandLineRunner {
             Category category = new Category();
             category.setName(cat);
             dbManager.getCategoryService().saveCategory(category);
+        }
+    }
+
+    private void addClients(){
+        List<String> clientsInfo = new ArrayList<>(Arrays.asList("z@z", "x@x", "c@c"));
+        for (String cinfo : clientsInfo) {
+            Client client = new Client();
+            client.setId(UUID.randomUUID().toString());
+            client.setName(cinfo);
+            client.setSurname(cinfo);
+            client.setEmail(cinfo);
+            client.setPassword(PasswordTool.getMD5String(cinfo.substring(0,1)));
+            dbManager.getClientService().saveClient(client);
+        }
+    }
+
+    private void addCouriers(){
+        List<String> couriersInfo = new ArrayList<>(Arrays.asList("a@a", "s@s", "d@d", "f@f"));
+        for (String cinfo : couriersInfo) {
+            Courier courier = new Courier();
+            courier.setId(UUID.randomUUID().toString());
+            courier.setName(cinfo);
+            courier.setSurname(cinfo);
+            courier.setEmail(cinfo);
+            courier.setPassword(PasswordTool.getMD5String(cinfo.substring(0,1)));
+            dbManager.getCourierService().saveCourier(courier);
+        }
+    }
+
+    private void addEmployee(){
+        List<Shop> shops = dbManager.getShopService().getAll();
+        List<String> employeeInfo = new ArrayList<>(Arrays.asList("g@g", "h@h", "j@j", "k@k"));
+        int count = 0;
+        for (String einfo : employeeInfo) {
+            Employee employee = new Employee();
+            employee.setId(UUID.randomUUID().toString());
+            employee.setName(einfo);
+            employee.setSurname(einfo);
+            employee.setEmail(einfo);
+            employee.setStatus("Approved");
+            employee.setShop(shops.get(count));
+            employee.setPassword(PasswordTool.getMD5String(einfo.substring(0,1)));
+            dbManager.getEmployeeService().saveEmployee(employee);
+            count++;
         }
     }
 

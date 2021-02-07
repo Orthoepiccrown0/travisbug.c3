@@ -21,13 +21,17 @@
 
     <div class="row justify-content-center">
         <div class="col-auto align-self-center">
-            <a class="center m-auto btn btn-outline-dark" href="/addProduct">Add Product</a>
+            <a class="center m-auto btn btn-outline-dark" href="/addProduct">
+                Add Product&nbsp
+                <i class="fas fa-plus-square"></i>
+            </a>
         </div>
 
         <!-- Button trigger modal -->
         <button th:if="${products.size()!=0}" type="button" class="btn btn-outline-dark col-auto align-self-center"
                 data-toggle="modal" data-target="#exampleModal">
-            Create promotion
+            Create promotion&nbsp
+            <i class="fas fa-tag"></i>
         </button>
 
         <!-- Modal -->
@@ -135,9 +139,20 @@
                                 <input style="visibility:hidden; display: none" name="productId"
                                        th:value="${product.getId()}"/>
                             </div>
-                            <input value="Save" type="submit" class="btn btn-block btn-outline-dark mt-2"/>
+
+                            <button type="submit" class="btn btn-block btn-outline-dark mt-2">
+                                Save Discount&nbsp
+                                <i class="far fa-save"></i>
+                            </button>
+
                         </form>
 
+                    </div>
+                    <div class="card-footer text-muted">
+                        <a class="btn btn-block btn-outline-danger" th:href="@{/myProductsArea/remove/{id}(id=${product.getId()})}">
+                            Delete Product&nbsp
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
                     </div>
                 </div>
             </div>
