@@ -24,6 +24,10 @@
     <h1 class="logo-text"><strong>TravisBug.c3</strong></h1>
     <h3 class="h3 mb-3 font-weight-normal">Please sign in</h3>
 
+    <div th:if="${error=='true'}" class="alert alert-danger my-3" role="alert">
+        Your email or password is incorrect
+    </div>
+
     <div class="input-group margin-top-3">
         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
         <input id="inputEmail" type="email" class="form-control" th:required="true" name="email"

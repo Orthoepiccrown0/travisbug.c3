@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Component
 public class AppCommandLine implements CommandLineRunner {
@@ -26,46 +27,53 @@ public class AppCommandLine implements CommandLineRunner {
             addCategories();
             addShopCategories();
             addAddresses();
-            addMerchant();
+            for (int i = 0; i < 3; i++) {
+                addMerchant(i);
+            }
         }
     }
 
-    private void addMerchant() {
+    private void addMerchant(int cat) {
         Merchant merchant = new Merchant();
         merchant.setId(UUID.randomUUID().toString());
-        merchant.setName("m");
-        merchant.setSurname("m");
-        merchant.setEmail("m@m");
+        merchant.setName("merchant test");
+        merchant.setSurname("merchant test");
+        merchant.setEmail("m@m" + cat);
         merchant.setPassword(PasswordTool.getMD5String("m"));
 
-        merchant.setShop(addShop(merchant));
-        addProducts(merchant);
+        merchant.setShop(addShop(merchant, cat));
+        addProducts(merchant, cat);
         dbManager.getMerchantService().saveMerchant(merchant);
     }
 
-    private void addProducts(Merchant merchant) {
+    private void addProducts(Merchant merchant, int cat) {
         List<Category> categories = dbManager.getCategoryService().getAll();
-        for (int i = 0; i < 2; i++) {
+        int promoted = ThreadLocalRandom.current().nextInt(0, 5 + 1);
+        for (int i = 0; i < 5; i++) {
             Product product = new Product();
-            product.setCategory(categories.get(i));
-            product.setName("Test " + i);
+            product.setCategory(categories.get(cat));
+            product.setName("Test product" + i);
             product.setDescription("Lorem ipsum");
             product.setMerchant(merchant);
             product.setPrice(i + 1.0);
             product.setSupply(5);
             product.setWeight(1.0);
             product.setPromoted(false);
+            if(promoted == i){
+                product.setDiscount(5);
+            }
             dbManager.getProductService().saveProduct(product);
         }
     }
 
-    private Shop addShop(Merchant merchant) {
+    private Shop addShop(Merchant merchant, int cat) {
+        String[] names = {"Fresco", "Upper", "Highstone"};
         List<ShopCategory> categories = dbManager.getShopCategoryService().getAll();
         Shop shop = new Shop();
         shop.setApproved(true);
         shop.setMerchant(merchant);
-        shop.setShopName("Tottis");
-        shop.setShopCategory(categories.get(0));
+        shop.setShopName(names[cat]);
+        shop.setShopCategory(categories.get(cat));
         dbManager.getShopService().saveShop(shop);
         return shop;
     }
@@ -110,7 +118,8 @@ public class AppCommandLine implements CommandLineRunner {
     }
 
     private void addCategories() {
-        String[] categories = {"Video games",
+        String[] categories = {
+                "Video games",
                 "Food",
                 "Films",
                 "Flowers",

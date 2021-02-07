@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -37,7 +38,7 @@ public class Home {
         List<Shop> shops = dbManager.getShopService().getAll();
         if (shops.size() != 0) {
             shops.removeIf(shop -> !shop.isApproved());
-            if(shops.size() != 0) {
+            if (shops.size() != 0) {
                 model.addAttribute("shops", shops);
             }
         }
@@ -45,7 +46,9 @@ public class Home {
     }
 
     @GetMapping("/account/login")
-    public String showLogin() {
+    public String showLogin(Model model, String error) {
+        if (error != null)
+            model.addAttribute("error",error);
         return "accounts/login";
     }
 
@@ -53,30 +56,41 @@ public class Home {
     public String login(Model model,
                         String email,
                         String password,
-                        HttpServletResponse response) {
+                        HttpServletResponse response,
+                        RedirectAttributes redirectAttributes) {
 
         Client client = dbManager.getClientService().findByEmailAndPass(email, PasswordTool.getMD5String(password));
         Courier courier = dbManager.getCourierService().findByEmailAndPass(email, PasswordTool.getMD5String(password));
         Merchant merchant = dbManager.getMerchantService().findByEmailAndPass(email, PasswordTool.getMD5String(password));
         Employee employee = dbManager.getEmployeeService().findByEmailAndPass(email, PasswordTool.getMD5String(password));
+        boolean logged = false;
         if (client != null) {
+            logged = true;
             appCookies.setRoleCookie(Roles.CLIENT, response);
             appCookies.setUserIDCookie(client.getId(), response);
-        }else if(courier != null){
+        } else if (courier != null) {
+            logged = true;
             appCookies.setRoleCookie(Roles.COURIER, response);
             appCookies.setUserIDCookie(courier.getId(), response);
-        }else if(merchant != null){
+        } else if (merchant != null) {
+            logged = true;
             appCookies.setRoleCookie(Roles.MERCHANT, response);
             appCookies.setUserIDCookie(merchant.getId(), response);
-        }else if(employee != null){
+        } else if (employee != null) {
+            logged = true;
             appCookies.setRoleCookie(Roles.EMPLOYEE, response);
             appCookies.setUserIDCookie(employee.getId(), response);
         }
-        return "redirect:/";
+        if (!logged) {
+            redirectAttributes.addAttribute("error", true);
+            return "redirect:/account/login";
+        } else {
+            return "redirect:/";
+        }
     }
 
     @GetMapping("/account/logout")
-    public String logout(HttpServletResponse response){
+    public String logout(HttpServletResponse response) {
         Cookie user_cookie = new Cookie("user_id", "");
         Cookie role_cookie = new Cookie("role", "");
         user_cookie.setPath("/");
@@ -99,8 +113,8 @@ public class Home {
 
     @GetMapping("/support")
     public String showSupport(Model model,
-                               @CookieValue(value = "user_id", defaultValue = "") String userid,
-                               @CookieValue(value = "role", defaultValue = "") String role) {
+                              @CookieValue(value = "user_id", defaultValue = "") String userid,
+                              @CookieValue(value = "role", defaultValue = "") String role) {
         appCookies.checkLogged(model, userid, role);
         return "support";
     }
