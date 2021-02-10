@@ -36,7 +36,7 @@ public class CourierArea {
     public String showCourierArea(Model model,
                                   @CookieValue(value = "user_id", defaultValue = "") String userid,
                                   @CookieValue(value = "role", defaultValue = "") String role) {
-        appCookies.checkLogged(model, userid, role);
+        appCookies.checkLogged(model, userid, role, dbManager);
         model.addAttribute("readyShipments", dbManager.getShippingService().getAll(ShippingStatus.ReadyForPickup));
         model.addAttribute("takenShipments", dbManager.getShippingService().getAll(ShippingStatus.Shipping));
         model.addAttribute("deliveredShipments", dbManager.getShippingService().getAll(ShippingStatus.Delivered));

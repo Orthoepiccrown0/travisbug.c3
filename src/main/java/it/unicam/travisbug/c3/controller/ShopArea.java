@@ -34,7 +34,7 @@ public class ShopArea {
     @GetMapping("/shop/{id}")
     public String showShop(Model model, @PathVariable Integer id, @CookieValue(value = "user_id", defaultValue = "") String userid,
                            @CookieValue(value = "role", defaultValue = "") String role) {
-        boolean logged = appCookies.checkLogged(model, userid, role);
+        boolean logged = appCookies.checkLogged(model, userid, role, dbManager);
         Shop shop = dbManager.getShopService().findById(id);
         if (shop == null)
             return "redirect:/";

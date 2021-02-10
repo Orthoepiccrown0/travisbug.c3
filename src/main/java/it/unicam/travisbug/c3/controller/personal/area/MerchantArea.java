@@ -33,7 +33,7 @@ public class MerchantArea {
     public String showMyProductArea(Model model,
                                     @CookieValue(value = "user_id", defaultValue = "") String userid,
                                     @CookieValue(value = "role", defaultValue = "") String role) {
-        appCookies.checkLogged(model, userid, role);
+        appCookies.checkLogged(model, userid, role, dbManager);
 
         Merchant m = dbManager.getMerchantService().findById(userid).orElseThrow();
         List<Product> products = dbManager.getProductService().findAllByMerchant(m);
@@ -153,7 +153,7 @@ public class MerchantArea {
     public String showNotificationCentre(Model model,
                                          @CookieValue(value = "user_id", defaultValue = "") String userid,
                                          @CookieValue(value = "role", defaultValue = "") String role) {
-        appCookies.checkLogged(model, userid, role);
+        appCookies.checkLogged(model, userid, role, dbManager);
 
         Merchant merchant = dbManager.getMerchantService().findById(userid).orElseThrow();
         List<EmployeeRequests> employeeRequests = dbManager.getEmployeeRequestsService().findAllByShopOrderByDateDesc(merchant.getShop());

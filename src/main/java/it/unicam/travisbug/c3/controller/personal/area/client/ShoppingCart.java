@@ -68,7 +68,7 @@ public class ShoppingCart {
                                    @CookieValue(value = "role", defaultValue = "") String role,
                                    String shop_id,
                                    boolean shipping_error) {
-        appCookies.checkLogged(model, userid, role);
+        appCookies.checkLogged(model, userid, role,dbManager);
 
         Order cart_order = getCart(userid);
         List<Address> addresses = dbManager.getAddressService().getAll();

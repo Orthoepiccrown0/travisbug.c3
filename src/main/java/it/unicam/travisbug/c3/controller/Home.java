@@ -34,7 +34,7 @@ public class Home {
     public String showHome(Model model,
                            @CookieValue(value = "user_id", defaultValue = "") String userid,
                            @CookieValue(value = "role", defaultValue = "") String role) {
-        appCookies.checkLogged(model, userid, role);
+        appCookies.checkLogged(model, userid, role, dbManager);
         List<Shop> shops = dbManager.getShopService().getAll();
         if (shops.size() != 0) {
             shops.removeIf(shop -> !shop.isApproved());
@@ -107,7 +107,7 @@ public class Home {
     public String showContacts(Model model,
                                @CookieValue(value = "user_id", defaultValue = "") String userid,
                                @CookieValue(value = "role", defaultValue = "") String role) {
-        appCookies.checkLogged(model, userid, role);
+        appCookies.checkLogged(model, userid, role, dbManager);
         return "contacts";
     }
 
@@ -115,7 +115,7 @@ public class Home {
     public String showSupport(Model model,
                               @CookieValue(value = "user_id", defaultValue = "") String userid,
                               @CookieValue(value = "role", defaultValue = "") String role) {
-        appCookies.checkLogged(model, userid, role);
+        appCookies.checkLogged(model, userid, role, dbManager);
         return "support";
     }
 

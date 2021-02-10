@@ -30,7 +30,7 @@ public class Promotions {
                                            @CookieValue(value = "user_id", defaultValue = "") String userid,
                                            @CookieValue(value = "role", defaultValue = "") String role,
                                            @PathVariable String category) {
-        appCookies.checkLogged(model, userid, role);
+        appCookies.checkLogged(model, userid, role, dbManager);
         Set<CategoryDetails> categoriesSet = findPromotedCategories();
         setCategoriesAndProducts(model, categoriesSet, category);
         return "promotions";
@@ -40,7 +40,7 @@ public class Promotions {
     public String showPromotions(Model model,
                                  @CookieValue(value = "user_id", defaultValue = "") String userid,
                                  @CookieValue(value = "role", defaultValue = "") String role) {
-        appCookies.checkLogged(model, userid, role);
+        appCookies.checkLogged(model, userid, role, dbManager);
         Set<CategoryDetails> categoriesSet = findPromotedCategories();
         setCategoriesAndProducts(model, categoriesSet);
         return "promotions";

@@ -39,7 +39,7 @@ public class EmployeeArea {
     public String showEmployeeArea(Model model,
                                    @CookieValue(value = "user_id", defaultValue = "") String userid,
                                    @CookieValue(value = "role", defaultValue = "") String role){
-        appCookies.checkLogged(model, userid, role);
+        appCookies.checkLogged(model, userid, role, dbManager);
 
         List<Order> user_orders = getOrdersByShippingStatus(userid, ShippingStatus.Confirmed);
         List<Order> confirmedShopOrders = getOrdersByShippingStatus(userid, ShippingStatus.ConfirmedShop);
@@ -51,7 +51,12 @@ public class EmployeeArea {
 
     private List<Order> getOrdersByShippingStatus(String userid, ShippingStatus shippingStatus) {
         List<Order> confirmedOrders = new ArrayList<>();
-        Set<Product> productShop = dbManager.getEmployeeService().findById(userid).orElseThrow().getShop().getMerchant().getProduct();
+        Set<Product> productShop = dbManager.getEmployeeService().
+                findById(userid).
+                orElseThrow().
+                getShop().
+                getMerchant().
+                getProduct();
         for (Product p: productShop) {
             for(OrderDetails od : p.getOrderDetails()){
                 if(od.getOrder().getShipping().getShippingStatus().equals(shippingStatus)) {

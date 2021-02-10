@@ -38,7 +38,7 @@ public class ClientArea {
     public String showOrders(Model model,
                              @CookieValue(value = "user_id", defaultValue = "") String userid,
                              @CookieValue(value = "role", defaultValue = "") String role) {
-        appCookies.checkLogged(model, userid, role);
+        appCookies.checkLogged(model, userid, role, dbManager);
 
         Client client = dbManager.getClientService().findById(userid).orElseThrow();
         List<Order> orders = dbManager.getOrderService().getAll(client);
