@@ -110,21 +110,88 @@
 
         <div th:if="${products.size() !=0}" th:each="product : ${products}">
             <div class="col-auto mb-3">
+
                 <div class="card " style="width: 18rem;">
                     <div class="card-header text-left">
                         <div class="d-flex justify-content-between mb-4">
                             <h5 th:text="${product.getName()}"></h5>
-                            <kbd class="align-self-center" th:if="${product.promoted}" style="background-color: darkred">Promo</kbd>
+                            <kbd class="align-self-center" th:if="${product.promoted}"
+                                 style="background-color: darkred">Promo</kbd>
                         </div>
-                        <h6 class="card-subtitle mb-2 text-muted" th:text="${product.getCategory().getName()}"></h6>
-                        <div class="row text-left">
-                            <h5 class="ml-3 mr-3 text-muted"
-                                th:text="'$'+${product.getDiscountedPrice()}"></h5>
-                            <del th:if="${product.getDiscount() != null and product.getDiscount() != 0}"
-                                 class="text-muted"
-                                 th:text="'$'+${product.getPrice()}"></del>
+
+                        <div class="row">
+                            <div class="col-7">
+                                <h5 class="card-subtitle mb-2 text-muted"
+                                    th:text="${product.getCategory().getName()}"></h5>
+
+                                <div class="row text-left">
+                                    <h5 class="ml-3 mr-3 text-muted"
+                                        th:text="'$'+${product.getDiscountedPrice()}"></h5>
+                                    <del th:if="${product.getDiscount() != null and product.getDiscount() != 0}"
+                                         class="text-muted"
+                                         th:text="'$'+${product.getPrice()}"></del>
+                                </div>
+                            </div>
+
+                            <div class="col-5 text-right">
+                                <h6 class="card-subtitle mb-2 text-muted" th:text="'Qty='+${product.getSupply()}"></h6>
+                                <button type="button" th:data-id="${product.getId()}"
+                                        class="open-AddSupplyDialog btn btn-outline-dark col-auto"
+                                        data-toggle="modal" data-target="#exampleModal1">
+                                    Add&nbsp
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                                <!--Modal-->
+                                <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog"
+                                     aria-labelledby="exampleModalLabel"
+                                     aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel1">Add supply</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="/addSupply" method="post">
+                                                    <label for="inputGroup1">Select number of supply to add:</label>
+                                                    <div class="input-group" id="inputGroup1">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">Qty</span>
+                                                        </div>
+                                                        <input th:required="true" type="number" name="supply"
+                                                               max="100000000" min="0"
+                                                               placeholder="0" class="inputBox form-control">
+                                                    </div>
+
+                                                    <input type="text" style="visibility:hidden; display: none"
+                                                           name="myProductId1" id="myProductId1" value=""/>
+
+                                                    <div class="d-flex justify-content-between">
+                                                        <button type="button"
+                                                                class="btn btn-block btn-outline-danger mr-1 mt-2"
+                                                                data-dismiss="modal">
+                                                            Close
+                                                        </button>
+                                                        <button type="submit"
+                                                                class="btn btn-block btn-outline-success ml-1 mt-2">
+                                                            Add supply
+                                                            <i class="far fa-plus-square"></i>
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
+
                     <div class="card-body text-left clickable">
                         <form action="/myProductsArea" method="post">
                             <div class="input-group">
@@ -149,7 +216,8 @@
 
                     </div>
                     <div class="card-footer text-muted">
-                        <a class="btn btn-block btn-outline-danger" th:href="@{/myProductsArea/remove/{id}(id=${product.getId()})}">
+                        <a class="btn btn-block btn-outline-danger"
+                           th:href="@{/myProductsArea/remove/{id}(id=${product.getId()})}">
                             Delete Product&nbsp
                             <i class="fas fa-trash-alt"></i>
                         </a>
@@ -179,6 +247,11 @@
                 evt.preventDefault();
             }
         });
+    });
+
+    $(document).on("click", ".open-AddSupplyDialog", function () {
+        var myProductId = $(this).data('id');
+        $(".modal-body #myProductId1").val(myProductId);
     });
 </script>
 </body>

@@ -68,6 +68,16 @@ public class MerchantArea {
         return "redirect:/myProductsArea";
     }
 
+    @PostMapping("/addSupply")
+    public String addSupply(Model model,
+                            Integer supply,
+                            Integer myProductId1){
+        Product p = dbManager.getProductService().findById(myProductId1);
+        p.addSupply(supply);
+        dbManager.getProductService().saveProduct(p);
+        return "redirect:/myProductsArea";
+    }
+
     @PostMapping("/addPromotion")
     public String createPromotion(Model model,
                                   @CookieValue(value = "user_id", defaultValue = "") String userid,

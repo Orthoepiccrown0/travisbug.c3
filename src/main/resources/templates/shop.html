@@ -29,9 +29,9 @@
                         <div class="d-flex justify-content-between mb-4">
                             <h5 th:text="${product.getName()}"></h5>
                             <kbd class="align-self-center" th:if="${product.promoted}"
-                                 style="background-color: darkred">Promo</kbd>
+                                 style="background-color: darkred">Promo
+                            </kbd>
                         </div>
-
                         <h6 class="card-subtitle mb-2 text-muted"
                             th:text="${product.getCategory().getName()}"></h6>
                         <div class="row mb-3">

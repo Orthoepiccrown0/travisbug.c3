@@ -211,4 +211,8 @@ public class Product {
             return false;
         }
     }
+
+    public void addSupply(Integer sup) {
+        this.supply = this.supply + sup;
+    }
 }
