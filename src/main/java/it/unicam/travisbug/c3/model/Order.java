@@ -21,8 +21,7 @@ public class Order {
     @Column(nullable = false)
     private Date date;
 
-    @ManyToOne
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "client_id", referencedColumnName = "ID")
     private Client client;
 

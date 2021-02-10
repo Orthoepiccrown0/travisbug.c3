@@ -22,25 +22,36 @@
     <div th:each="employeeRequest: ${employeeRequests}">
         <div class="row justify-content-center m-2">
             <div class="col-lg-6 col-md-8">
-                <div id="request" class="collapsible">
-                    <div class="row">
-                        <h4 th:text="${employeeRequest.getEmployee().getName()}+' '+${employeeRequest.getEmployee().getSurname()}"
-                            class="col-6 pl-4 m-auto"></h4>
-                        <div class="col-6 d-flex justify-content-end">
-                            <a th:href="@{/notificationCentre/accept/{id}(id=${employeeRequest.getId()})}"
-                               class="btn btn-outline-success">Approve
-                                <i class="fas fa-check"></i>
-                            </a>
-                            <a class="btn btn-outline-danger ml-1 mr-2"
-                               th:href="@{/notificationCentre/decline/{id}(id=${employeeRequest.getId()})}">
-                                Decline
-                                <i class="fas fa-trash-alt"></i>
-                            </a>
-                        </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 th:text="${employeeRequest.getEmployee().getName()}+' '+${employeeRequest.getEmployee().getSurname()}"
+                            class="card-title"></h5>
+                        <h6 th:text="'Employee Id: '+${employeeRequest.getEmployee().getId()}"
+                            class="card-subtitle mb-2 text-muted"></h6>
+                        <p class="card-text">New employee request</p>
+                        <a th:href="@{/notificationCentre/accept/{id}(id=${employeeRequest.getId()})}"
+                           class="btn btn-outline-success">Approve
+                            <i class="fas fa-check"></i>
+                        </a>
+                        <a class="btn btn-outline-danger ml-1 mr-2"
+                           th:href="@{/notificationCentre/decline/{id}(id=${employeeRequest.getId()})}">
+                            Decline
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
                     </div>
-                </div>
-                <div class="content">
-                    <p th:text="'Employee Id: '+${employeeRequest.getEmployee().getId()}"></p>
+                    <!--                        <h4 th:text="${employeeRequest.getEmployee().getName()}+' '+${employeeRequest.getEmployee().getSurname()}"-->
+                    <!--                            class="col-6 pl-4 m-auto"></h4>-->
+                    <!--                        <div class="col-6 d-flex justify-content-end">-->
+                    <!--                            <a th:href="@{/notificationCentre/accept/{id}(id=${employeeRequest.getId()})}"-->
+                    <!--                               class="btn btn-outline-success">Approve-->
+                    <!--                                <i class="fas fa-check"></i>-->
+                    <!--                            </a>-->
+                    <!--                            <a class="btn btn-outline-danger ml-1 mr-2"-->
+                    <!--                               th:href="@{/notificationCentre/decline/{id}(id=${employeeRequest.getId()})}">-->
+                    <!--                                Decline-->
+                    <!--                                <i class="fas fa-trash-alt"></i>-->
+                    <!--                            </a>-->
+                    <!--                        </div>-->
                 </div>
             </div>
         </div>

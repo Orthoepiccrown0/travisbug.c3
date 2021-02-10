@@ -29,7 +29,7 @@ public class CourierArea {
     public String deleteCourier(@CookieValue(value = "user_id", defaultValue = "") String userid) {
         Courier c = dbManager.getCourierService().findById(userid).orElseThrow();
         dbManager.getCourierService().deleteCourier(c);
-        return "redirect:/user_logout";
+        return "redirect:/account/logout";
     }
 
     @GetMapping("/courierArea")

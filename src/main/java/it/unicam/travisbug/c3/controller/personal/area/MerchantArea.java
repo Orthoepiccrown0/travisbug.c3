@@ -192,7 +192,7 @@ public class MerchantArea {
         Shop s = m.getShop();
         dbManager.getShopService().deleteShop(s);
         dbManager.getMerchantService().deleteMerchant(m);
-        return "redirect:/user_logout";
+        return "redirect:/account/logout";
     }
 
 }

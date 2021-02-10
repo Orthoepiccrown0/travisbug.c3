@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Controller
@@ -28,10 +30,12 @@ public class ClientArea {
     }
 
     @GetMapping("/deleteClient")
-    public String deleteClient(@CookieValue(value = "user_id", defaultValue = "") String userid) {
+    public String deleteClient(@CookieValue(value = "user_id", defaultValue = "") String userid,
+                               HttpServletResponse response) {
         Client c = dbManager.getClientService().findById(userid).orElseThrow();
         dbManager.getClientService().deleteClient(c);
-        return "redirect:/user_logout";
+
+        return "redirect:/account/logout";
     }
 
     @GetMapping("/account/orders")

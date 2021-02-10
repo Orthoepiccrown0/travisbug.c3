@@ -32,20 +32,23 @@ public class EmployeeArea {
     public String deleteEmployee(@CookieValue(value = "user_id", defaultValue = "") String userid) {
         Employee e = dbManager.getEmployeeService().findById(userid).orElseThrow();
         dbManager.getEmployeeService().deleteEmployee(e);
-        return "redirect:/user_logout";
+        return "redirect:/account/logout";
     }
 
     @GetMapping("/employeeArea")
     public String showEmployeeArea(Model model,
                                    @CookieValue(value = "user_id", defaultValue = "") String userid,
-                                   @CookieValue(value = "role", defaultValue = "") String role){
+                                   @CookieValue(value = "role", defaultValue = "") String role) {
         appCookies.checkLogged(model, userid, role, dbManager);
 
-        List<Order> user_orders = getOrdersByShippingStatus(userid, ShippingStatus.Confirmed);
-        List<Order> confirmedShopOrders = getOrdersByShippingStatus(userid, ShippingStatus.ConfirmedShop);
+        Employee employee = dbManager.getEmployeeService().findById(userid).orElseThrow();
+        if (employee.getStatus().equals("Approved")) {
+            List<Order> user_orders = getOrdersByShippingStatus(userid, ShippingStatus.Confirmed);
+            List<Order> confirmedShopOrders = getOrdersByShippingStatus(userid, ShippingStatus.ConfirmedShop);
 
-        model.addAttribute("user_orders", user_orders);
-        model.addAttribute("confirmedShopOrders", confirmedShopOrders);
+            model.addAttribute("user_orders", user_orders);
+            model.addAttribute("confirmedShopOrders", confirmedShopOrders);
+        }
         return "employeeArea";
     }
 
@@ -57,9 +60,9 @@ public class EmployeeArea {
                 getShop().
                 getMerchant().
                 getProduct();
-        for (Product p: productShop) {
-            for(OrderDetails od : p.getOrderDetails()){
-                if(od.getOrder().getShipping().getShippingStatus().equals(shippingStatus)) {
+        for (Product p : productShop) {
+            for (OrderDetails od : p.getOrderDetails()) {
+                if (od.getOrder().getShipping().getShippingStatus().equals(shippingStatus)) {
                     confirmedOrders.add(od.getOrder());
                 }
             }
@@ -69,12 +72,12 @@ public class EmployeeArea {
 
     @GetMapping("/employeeArea/update/{status}/{id}")
     public String updateOrder(@PathVariable String status,
-                              @PathVariable String id){
+                              @PathVariable String id) {
         Order order = dbManager.getOrderService().findById(id);
         Shipping shipping = order.getShipping();
-        if(status.equals(ShippingStatus.Confirmed.toString())) {
+        if (status.equals(ShippingStatus.Confirmed.toString())) {
             shipping.setShippingStatus(ShippingStatus.ReadyForPickup);
-        }else if(status.equals(ShippingStatus.ConfirmedShop.toString())) {
+        } else if (status.equals(ShippingStatus.ConfirmedShop.toString())) {
             shipping.setShippingStatus(ShippingStatus.ReadyForClientPickup);
         }
         dbManager.getShippingService().saveShipping(shipping);
