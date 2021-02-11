@@ -1,6 +1,7 @@
 package it.unicam.travisbug.c3.model;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -71,5 +72,19 @@ public class Shop {
 
     public void setShopCategory(ShopCategory shopCategory) {
         this.shopCategory = shopCategory;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Shop shop = (Shop) o;
+        return id.equals(shop.id) &&
+                shopName.equals(shop.shopName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, shopName);
     }
 }

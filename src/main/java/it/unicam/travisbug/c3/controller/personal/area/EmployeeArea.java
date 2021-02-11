@@ -46,6 +46,11 @@ public class EmployeeArea {
             List<Order> user_orders = getOrdersByShippingStatus(userid, ShippingStatus.Confirmed);
             List<Order> confirmedShopOrders = getOrdersByShippingStatus(userid, ShippingStatus.ConfirmedShop);
 
+            user_orders.removeIf(order -> !order.getShops().contains(employee.getShop()));
+            confirmedShopOrders.removeIf(order -> !order.getShops().contains(employee.getShop()));
+
+            Set<Product> shop_products = employee.getShop().getMerchant().getProduct();
+            model.addAttribute("shop_products", shop_products);
             model.addAttribute("user_orders", user_orders);
             model.addAttribute("confirmedShopOrders", confirmedShopOrders);
         }
@@ -72,15 +77,21 @@ public class EmployeeArea {
 
     @GetMapping("/employeeArea/update/{status}/{id}")
     public String updateOrder(@PathVariable String status,
-                              @PathVariable String id) {
+                              @PathVariable String id,
+                              @CookieValue(value = "user_id", defaultValue = "") String userid) {
         Order order = dbManager.getOrderService().findById(id);
         Shipping shipping = order.getShipping();
-        if (status.equals(ShippingStatus.Confirmed.toString())) {
-            shipping.setShippingStatus(ShippingStatus.ReadyForPickup);
-        } else if (status.equals(ShippingStatus.ConfirmedShop.toString())) {
-            shipping.setShippingStatus(ShippingStatus.ReadyForClientPickup);
+        Employee employee = dbManager.getEmployeeService().findById(userid).orElseThrow();
+        order.removeShop(employee.getShop());
+        if (order.getShops().size() == 0) {    //if others are ready
+            if (status.equals(ShippingStatus.Confirmed.toString())) {
+                shipping.setShippingStatus(ShippingStatus.ReadyForPickup);
+            } else if (status.equals(ShippingStatus.ConfirmedShop.toString())) {
+                shipping.setShippingStatus(ShippingStatus.ReadyForClientPickup);
+            }
+            dbManager.getShippingService().saveShipping(shipping);
         }
-        dbManager.getShippingService().saveShipping(shipping);
+        dbManager.getOrderService().saveOrder(order);
         return "redirect:/employeeArea";
     }
 

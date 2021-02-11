@@ -116,6 +116,7 @@ public class ShoppingCart {
                       RedirectAttributes redirectAttributes) {
         Client client = dbManager.getClientService().findById(userid).orElseThrow();
         Product product = dbManager.getProductService().findById(Integer.parseInt(product_id));
+        Shop shop = dbManager.getShopService().findById(Integer.parseInt(shop_id));
 
         Order order = getOrder(client);
         OrderDetails orderDetails = getOrderDetails(product, order);
@@ -123,6 +124,7 @@ public class ShoppingCart {
         product.addOrderDetails(orderDetails);
         order.addOrderDetails(orderDetails);
         order.updateAmount();
+        order.addShop(shop);
         dbManager.getOrderDetailsService().saveOrderDetails(orderDetails);
         dbManager.getProductService().saveProduct(product);
         dbManager.getOrderService().saveOrder(order);

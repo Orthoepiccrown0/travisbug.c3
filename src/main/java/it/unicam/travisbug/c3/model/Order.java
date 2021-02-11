@@ -4,9 +4,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "user_order")
@@ -33,6 +31,28 @@ public class Order {
     @OneToMany(mappedBy = "order")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<OrderDetails> orderDetails;
+
+    @ManyToMany
+    private List<Shop> shops;
+
+    public List<Shop> getShops() {
+        return shops;
+    }
+
+    public void setShops(List<Shop> shops) {
+        this.shops = shops;
+    }
+
+    public void addShop(Shop shop) {
+        if (shops == null)
+            shops = new ArrayList<>();
+        shops.add(shop);
+    }
+
+    public void removeShop(Shop shop) {
+        if (shops != null)
+            shops.remove(shop);
+    }
 
     public String getId() {
         return id;

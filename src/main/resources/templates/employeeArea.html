@@ -48,12 +48,14 @@
                             </div>
 
                         </div>
-                        <p>
-                            <span th:text="${user_order.getOrderDetails().size()}"></span> product(s)
-                        </p>
+<!--                        <p>-->
+<!--                            <span th:text="${user_order.getOrderDetails().size()}"></span> product(s)-->
+<!--                            <a href="#" data-toggle="tooltip" title="May include other shop">info</a>-->
+<!--                        </p>-->
                     </div>
                     <div class="card-body">
-                        <div th:each="item : ${user_order.getOrderDetails()}">
+                        <div th:each="item : ${user_order.getOrderDetails()}"
+                             th:if="${shop_products.contains(item.getProduct())}">
                             <div class="row mb-4">
                                 <div class="col">
 
