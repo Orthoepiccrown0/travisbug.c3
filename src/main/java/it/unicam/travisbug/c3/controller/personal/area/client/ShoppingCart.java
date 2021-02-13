@@ -92,7 +92,7 @@ public class ShoppingCart {
             else
                 model.addAttribute("selected_shipping", "null");
         }
-        return "client/shoppingCart";
+        return "accounts/client/cart";
     }
 
     private Order getCart(String userid) {
@@ -119,6 +119,8 @@ public class ShoppingCart {
         Shop shop = dbManager.getShopService().findById(Integer.parseInt(shop_id));
 
         Order order = getOrder(client);
+        order.setVisible(true);
+
         OrderDetails orderDetails = getOrderDetails(product, order);
 
         product.addOrderDetails(orderDetails);

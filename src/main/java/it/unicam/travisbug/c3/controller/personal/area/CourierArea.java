@@ -4,7 +4,6 @@ import it.unicam.travisbug.c3.model.Courier;
 import it.unicam.travisbug.c3.model.Shipping;
 import it.unicam.travisbug.c3.utils.AppCookies;
 import it.unicam.travisbug.c3.utils.DBManager;
-import it.unicam.travisbug.c3.utils.Roles;
 import it.unicam.travisbug.c3.utils.ShippingStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,7 +39,7 @@ public class CourierArea {
         model.addAttribute("readyShipments", dbManager.getShippingService().getAll(ShippingStatus.ReadyForPickup));
         model.addAttribute("takenShipments", dbManager.getShippingService().getAll(ShippingStatus.Shipping));
         model.addAttribute("deliveredShipments", dbManager.getShippingService().getAll(ShippingStatus.Delivered));
-        return "courierArea";
+        return "accounts/courier/courierArea";
     }
 
     @GetMapping("/courierArea/take/{id}")

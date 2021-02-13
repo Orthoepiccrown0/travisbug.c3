@@ -3,7 +3,6 @@ package it.unicam.travisbug.c3.controller.personal.area;
 import it.unicam.travisbug.c3.model.*;
 import it.unicam.travisbug.c3.utils.AppCookies;
 import it.unicam.travisbug.c3.utils.DBManager;
-import it.unicam.travisbug.c3.utils.Roles;
 import it.unicam.travisbug.c3.utils.ShippingStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -54,7 +53,7 @@ public class EmployeeArea {
             model.addAttribute("user_orders", user_orders);
             model.addAttribute("confirmedShopOrders", confirmedShopOrders);
         }
-        return "employeeArea";
+        return "accounts/employee/employeeArea";
     }
 
     private List<Order> getOrdersByShippingStatus(String userid, ShippingStatus shippingStatus) {

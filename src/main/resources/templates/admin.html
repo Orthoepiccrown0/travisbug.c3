@@ -28,21 +28,23 @@
             <div th:each="request: ${requests}">
                 <div class="row justify-content-center m-2">
                     <div class="col-lg-6 col-md-8">
-                        <div id="request" class="collapsible">
-                            <div class="row">
-                                <h4 th:text="${request.title}" class="col-7 pl-4 m-auto"></h4>
-                                <div class="col-5 d-flex justify-content-end">
-                                    <a th:href="@{/admin/accept/{id}(id=${request.id})}" class="btn btn-outline-success">
-                                        Approve
-                                    </a>
-                                    <a th:href="@{/admin/decline/{id}(id=${request.id})}" class="btn btn-outline-danger ml-1 mr-2">
-                                        Decline
-                                    </a>
-                                </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 th:text="${request.title}"
+                                    class="card-title"></h5>
+                                <h6 th:text="'Request Id: '+${request.getId()}"
+                                    class="card-subtitle mb-2 text-muted"></h6>
+                                <p class="cart-text" th:text="${request.comment}"></p>
+                                <a th:href="@{/admin/accept/{id}(id=${request.id})}"
+                                   class="btn btn-outline-success">Approve
+                                    <i class="fas fa-check"></i>
+                                </a>
+                                <a class="btn btn-outline-danger ml-1 mr-2"
+                                   th:href="@{/admin/decline/{id}(id=${request.id})}">
+                                    Decline
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
                             </div>
-                        </div>
-                        <div class="content">
-                            <p th:text="${request.comment}"></p>
                         </div>
                     </div>
                 </div>
@@ -50,33 +52,5 @@
         </div>
     </div>
 </div>
-
-<script>
-    var coll = document.getElementsByClassName("collapsible");
-    var i;
-
-    for (i = 0; i < coll.length; i++) {
-        coll[i].addEventListener("click", function () {
-            this.classList.toggle("active");
-            var content = this.nextElementSibling;
-            if (content.style.maxHeight) {
-                content.style.maxHeight = null;
-            } else {
-                content.style.maxHeight = content.scrollHeight + "px";
-            }
-        });
-    }
-
-    // var collapsed = false;
-    // document.querySelector('#request').addEventListener('click', () => {
-    //     if (collapsed)
-    //         document.querySelector('#request').setAttribute("class", "collapsible");
-    //     else
-    //         document.querySelector('#request').setAttribute("class", "collapsible-onclick");
-    //     collapsed = !collapsed;
-    // });
-</script>
-
-
 </body>
 </html>

@@ -21,18 +21,51 @@ html, body {
 }
 
 .card:hover {
-    -webkit-box-shadow: 0px 13px 35px -16px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 13px 35px -16px rgba(0,0,0,0.75);
-    box-shadow: 0px 13px 35px -16px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 0px 13px 35px -16px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 13px 35px -16px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 13px 35px -16px rgba(0, 0, 0, 0.75);
     transition: 0.2s ease;
 }
 
-.card{
+.card {
     text-align: center;
     -webkit-user-select: none; /* Safari */
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* IE10+/Edge */
     user-select: none; /* Standard */
     transition: 0.2s ease;
+}
+
+.carousel {
+    margin-bottom: 4rem;
+}
+
+
+.carousel-caption {
+    bottom: 3rem;
+    z-index: 10;
+}
+
+
+.carousel-item {
+    height: 32rem;
+    background-color: #777;
+}
+
+.image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%;
+}
+
+.carousel .blurred {
+    background-color: rgba(39, 39, 39, 0.4);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    border: #5a5a5a;
+    padding: 8px 16px 8px 16px;
 }
 

@@ -5,7 +5,6 @@ import it.unicam.travisbug.c3.model.Order;
 import it.unicam.travisbug.c3.model.Shipping;
 import it.unicam.travisbug.c3.utils.AppCookies;
 import it.unicam.travisbug.c3.utils.DBManager;
-import it.unicam.travisbug.c3.utils.Roles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
@@ -46,21 +44,19 @@ public class ClientArea {
 
         Client client = dbManager.getClientService().findById(userid).orElseThrow();
         List<Order> orders = dbManager.getOrderService().getAll(client);
+        orders.removeIf(order -> !order.isVisible());
         orders.removeIf(order -> order.getShipping().getAddress() == null);
         if (orders.size() == 0)
             orders = null;
         model.addAttribute("orders", orders);
-        return "client/orders";
+        return "accounts/client/orders";
     }
 
     @GetMapping("/account/orders/delete/{id}")
-    public String deleteOrder(@PathVariable String id){
+    public String deleteOrder(@PathVariable String id) {
         Order order = dbManager.getOrderService().findById(id);
-        Shipping shipping = order.getShipping();
-        order.setShipping(null);
+        order.setVisible(false);
         dbManager.getOrderService().saveOrder(order);
-        dbManager.getOrderService().deleteOrder(order);
-        dbManager.getShippingService().deleteShipping(shipping);
         return "redirect:/account/orders";
     }
 

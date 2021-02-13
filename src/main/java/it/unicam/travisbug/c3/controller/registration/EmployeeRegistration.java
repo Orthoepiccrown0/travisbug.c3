@@ -38,7 +38,7 @@ public class EmployeeRegistration {
             model.addAttribute("shops", shops);
         }
         model.addAttribute("used_email", used_email);
-        return "accounts/employeeRegistration";
+        return "accounts/employee/registration";
     }
 
     @PostMapping("/register/employee")

@@ -35,7 +35,7 @@ public class MerchantRegistration {
     @GetMapping("/register/merchant")
     public String merchantRegister(Model model, String used_email) {
         model.addAttribute("used_email", used_email);
-        return "accounts/merchantRegistration";
+        return "accounts/merchant/registration";
     }
 
     @PostMapping("/register/merchant")
@@ -83,7 +83,7 @@ public class MerchantRegistration {
         if (shopCategories.size() != 0) {
             model.addAttribute("shopCategories", shopCategories);
         }
-        return "shopSubmit";
+        return "accounts/merchant/shopSubmit";
     }
 
     @PostMapping("/register/merchant/shop")

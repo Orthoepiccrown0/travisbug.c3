@@ -3,7 +3,6 @@ package it.unicam.travisbug.c3.controller.personal.area;
 import it.unicam.travisbug.c3.model.*;
 import it.unicam.travisbug.c3.utils.AppCookies;
 import it.unicam.travisbug.c3.utils.DBManager;
-import it.unicam.travisbug.c3.utils.Roles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,13 +38,14 @@ public class MerchantArea {
         List<Product> products = dbManager.getProductService().findAllByMerchant(m);
         List<Category> categories = new ArrayList<>();
         for (Product product : products) {
-            categories.add(product.getCategory());
+            if (!categories.contains(product.getCategory()))
+                categories.add(product.getCategory());
         }
 
         model.addAttribute("products", products);
         model.addAttribute("categories", categories);
 
-        return "products/myProductsArea";
+        return "accounts/merchant/products/products";
     }
 
     @PostMapping("/myProductsArea")
@@ -60,7 +60,7 @@ public class MerchantArea {
 
     @GetMapping("/myProductsArea/remove/{id}")
     public String removeProduct(Model model,
-                                @PathVariable Integer id){
+                                @PathVariable Integer id) {
 
         Product p = dbManager.getProductService().findById(id);
         dbManager.getProductService().deleteProduct(p);
@@ -71,7 +71,7 @@ public class MerchantArea {
     @PostMapping("/addSupply")
     public String addSupply(Model model,
                             Integer supply,
-                            Integer myProductId1){
+                            Integer myProductId1) {
         Product p = dbManager.getProductService().findById(myProductId1);
         p.addSupply(supply);
         dbManager.getProductService().saveProduct(p);
@@ -108,8 +108,11 @@ public class MerchantArea {
         AdminRequests request = new AdminRequests();
         request.setId(UUID.randomUUID().toString());
         request.setDate(new Date());
-        request.setTitle(merchant.getShop().getShopName());
-        request.setComment("This promotion is used in my shop");
+        request.setTitle("Promotion for " + merchant.getShop().getShopName());
+        request.setComment("I want to discount "
+                + category.getName()
+                + " category by "
+                + discount + "%");
         request.setPromotion(promotion);
         dbManager.getAdminRequestsService().saveAdminRequests(request);
         return "redirect:/myProductsArea";
@@ -121,7 +124,7 @@ public class MerchantArea {
         if (categories.size() != 0) {
             model.addAttribute("categories", categories);
         }
-        return "products/addProduct";
+        return "accounts/merchant/products/add";
     }
 
     @PostMapping("/addProduct")
@@ -169,7 +172,7 @@ public class MerchantArea {
         List<EmployeeRequests> employeeRequests = dbManager.getEmployeeRequestsService().findAllByShopOrderByDateDesc(merchant.getShop());
 
         model.addAttribute("employeeRequests", employeeRequests);
-        return "notificationCentre";
+        return "accounts/merchant/notifications";
     }
 
     @GetMapping("/notificationCentre/accept/{id}")
