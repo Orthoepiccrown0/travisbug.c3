@@ -3,7 +3,7 @@
 
 ## Breve Introduzione:
 
-  	Il progetto è un’applicazione Web per un Centro Commerciale, che permetta ad
+  	Il progetto è un’applicazione Web per un Centro Commerciale, che permette ad
   	ogni suo negozio di registrarsi sulla piattaforma per vendere i propri prodotti
   	online che possono essere comprati da un cliente e spediti da un corriere in
   	un locker o ritirati direttamente di persona in negozio.
