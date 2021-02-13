@@ -1,7 +1,7 @@
 # travisbug.c3
 
 
-##Breve Introduzione:
+## Breve Introduzione:
 
   Il progetto è un’applicazione Web per un Centro Commerciale, che permetta ad
   ogni suo negozio di registrarsi sulla piattaforma per vendere i propri prodotti
@@ -9,7 +9,7 @@
   un locker o ritirati direttamente di persona in negozio.
   
   
-##Attori che compaiono nel progetto:
+## Attori che compaiono nel progetto:
   
   Cliente - 
   
@@ -24,7 +24,7 @@
   Amministratore -
   
 
-##Funzionalità:
+## Funzionalità:
 
 • Registrazione nella piattaforma
     Un utente può registrarsi nella piattaforma come “Cliente”, “Commerciante”,
@@ -69,7 +69,7 @@
     piattaforma, in caso sia un commerciante verrà rimosso anche il suo negozio.
 
 
-##Tecnologie Utilizzate:
+## Tecnologie Utilizzate:
   
   La parte di back-end è stata realizzata utilizzando il framework “Spring Boot” che, insieme a
   “Java Persistence API”, ci ha permesso di utilizzare il database, con motore MariaDB, in modo
@@ -84,7 +84,7 @@
   Per la configurazione del progetto abbiamo utilizzato Gradle.
   
   
-##Partecipanti al progetto:
+## Partecipanti al progetto:
 
   Francesco Santarelli
   francesc.santarelli@studenti.unicam.it
