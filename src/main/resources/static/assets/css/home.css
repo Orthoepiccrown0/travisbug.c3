@@ -61,9 +61,10 @@ html, body {
 }
 
 .carousel .blurred {
-    background-color: rgba(39, 39, 39, 0.4);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
+    color: #222222;
+    background-color: rgba(255, 255, 255, 0.8);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
     border-radius: 16px;
     border: #5a5a5a;
     padding: 8px 16px 8px 16px;
