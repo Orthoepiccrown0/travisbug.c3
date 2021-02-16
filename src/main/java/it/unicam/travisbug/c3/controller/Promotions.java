@@ -1,8 +1,8 @@
 package it.unicam.travisbug.c3.controller;
 
-import it.unicam.travisbug.c3.container.CategoryDetails;
-import it.unicam.travisbug.c3.model.Category;
-import it.unicam.travisbug.c3.model.Product;
+import it.unicam.travisbug.c3.utils.CategoryDetails;
+import it.unicam.travisbug.c3.model.shop.Category;
+import it.unicam.travisbug.c3.model.shop.Product;
 import it.unicam.travisbug.c3.utils.AppCookies;
 import it.unicam.travisbug.c3.utils.DBManager;
 import org.springframework.beans.factory.annotation.Autowired;

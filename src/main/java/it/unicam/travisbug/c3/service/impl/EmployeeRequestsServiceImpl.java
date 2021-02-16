@@ -1,7 +1,7 @@
 package it.unicam.travisbug.c3.service.impl;
 
-import it.unicam.travisbug.c3.model.EmployeeRequests;
-import it.unicam.travisbug.c3.model.Shop;
+import it.unicam.travisbug.c3.model.requests.EmployeeRequests;
+import it.unicam.travisbug.c3.model.shop.Shop;
 import it.unicam.travisbug.c3.repository.EmployeeRequestsRepository;
 import it.unicam.travisbug.c3.service.EmployeeRequestsService;
 import org.springframework.beans.factory.annotation.Autowired;

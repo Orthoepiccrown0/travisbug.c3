@@ -52,7 +52,7 @@
                                 <label for="sel1">Select category of products to promote</label>
                                 <select class="form-control mb-2" id="sel1" name="category_id">
                                     <div th:if="${categories.size()!=0}" th:each="category : ${categories}">
-                                        <!--/*@thymesVar id="category" type="it.unicam.travisbug.c3.model.Category"*/-->
+                                        <!--/*@thymesVar id="category" type="it.unicam.travisbug.c3.model.shop.Category"*/-->
                                         <option th:value="${category.getId()}" th:text="${category.getName()}"></option>
                                     </div>
                                 </select>

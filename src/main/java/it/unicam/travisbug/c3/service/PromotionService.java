@@ -1,6 +1,6 @@
 package it.unicam.travisbug.c3.service;
 
-import it.unicam.travisbug.c3.model.Promotion;
+import it.unicam.travisbug.c3.model.shop.Promotion;
 
 import java.util.List;
 

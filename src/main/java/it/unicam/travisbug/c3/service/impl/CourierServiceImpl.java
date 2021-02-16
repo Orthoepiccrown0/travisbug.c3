@@ -1,6 +1,6 @@
 package it.unicam.travisbug.c3.service.impl;
 
-import it.unicam.travisbug.c3.model.Courier;
+import it.unicam.travisbug.c3.model.users.Courier;
 import it.unicam.travisbug.c3.repository.CourierRepository;
 import it.unicam.travisbug.c3.service.CourierService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,18 +19,6 @@ public class CourierServiceImpl implements CourierService {
     @Autowired
     public void setCourierRepository(CourierRepository courierRepository) {
         this.courierRepository = courierRepository;
-    }
-
-    private static CourierServiceImpl courierService;
-
-    private CourierServiceImpl() {
-
-    }
-
-    public static CourierService getServiceInstance() {
-        if (courierService == null)
-            courierService = new CourierServiceImpl();
-        return courierService;
     }
 
     @Override

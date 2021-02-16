@@ -1,6 +1,6 @@
 package it.unicam.travisbug.c3.repository;
 
-import it.unicam.travisbug.c3.model.AdminRequests;
+import it.unicam.travisbug.c3.model.requests.AdminRequests;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

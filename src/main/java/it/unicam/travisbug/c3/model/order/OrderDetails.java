@@ -1,4 +1,6 @@
-package it.unicam.travisbug.c3.model;
+package it.unicam.travisbug.c3.model.order;
+
+import it.unicam.travisbug.c3.model.shop.Product;
 
 import javax.persistence.*;
 

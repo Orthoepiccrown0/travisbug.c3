@@ -1,6 +1,6 @@
 package it.unicam.travisbug.c3.service.impl;
 
-import it.unicam.travisbug.c3.model.AdminRequests;
+import it.unicam.travisbug.c3.model.requests.AdminRequests;
 import it.unicam.travisbug.c3.repository.AdminRequestsRepository;
 import it.unicam.travisbug.c3.service.AdminRequestsService;
 import org.springframework.beans.factory.annotation.Autowired;

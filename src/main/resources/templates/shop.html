@@ -22,15 +22,14 @@
 
     <div class="row justify-content-center">
         <div th:if="${products != null}" th:each="product : ${products}">
-            <!--/*@thymesVar id="product" type="it.unicam.travisbug.c3.model.Product"*/-->
+            <!--/*@thymesVar id="product" type="it.unicam.travisbug.c3.model.shop.Product"*/-->
             <div th:if="${product.getSupply()!=0}" class="col-auto mb-3">
                 <div class="card " style="width: 18rem;">
                     <div class="card-body text-left">
                         <div class="d-flex justify-content-between mb-4">
                             <h5 th:text="${product.getName()}"></h5>
                             <kbd class="align-self-center" th:if="${product.promoted}"
-                                 style="background-color: darkred">Promo
-                            </kbd>
+                                 style="background-color: darkred">Promo</kbd>
                         </div>
                         <h6 class="card-subtitle mb-2 text-muted"
                             th:text="${product.getCategory().getName()}"></h6>
@@ -57,7 +56,11 @@
     </div>
     <div th:insert="blocks/footer :: footer"></div>
 </div>
-
+<script>
+    document.getElementById('promo').onclick = function(e){
+        alert('click');
+    }
+</script>
 
 </body>
 </html>

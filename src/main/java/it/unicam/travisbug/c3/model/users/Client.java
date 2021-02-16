@@ -1,7 +1,6 @@
-package it.unicam.travisbug.c3.model;
+package it.unicam.travisbug.c3.model.users;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import it.unicam.travisbug.c3.model.order.Order;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;

@@ -1,6 +1,10 @@
 package it.unicam.travisbug.c3.controller;
 
-import it.unicam.travisbug.c3.model.*;
+import it.unicam.travisbug.c3.model.requests.AdminRequests;
+import it.unicam.travisbug.c3.model.shop.Product;
+import it.unicam.travisbug.c3.model.shop.Promotion;
+import it.unicam.travisbug.c3.model.shop.Shop;
+import it.unicam.travisbug.c3.model.users.Merchant;
 import it.unicam.travisbug.c3.utils.DBManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -1,6 +1,6 @@
 package it.unicam.travisbug.c3.service;
 
-import it.unicam.travisbug.c3.model.Courier;
+import it.unicam.travisbug.c3.model.users.Courier;
 
 import java.util.List;
 import java.util.Optional;

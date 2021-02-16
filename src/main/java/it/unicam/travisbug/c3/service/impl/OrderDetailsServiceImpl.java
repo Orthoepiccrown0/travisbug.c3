@@ -1,8 +1,8 @@
 package it.unicam.travisbug.c3.service.impl;
 
-import it.unicam.travisbug.c3.model.Order;
-import it.unicam.travisbug.c3.model.OrderDetails;
-import it.unicam.travisbug.c3.model.Product;
+import it.unicam.travisbug.c3.model.order.Order;
+import it.unicam.travisbug.c3.model.order.OrderDetails;
+import it.unicam.travisbug.c3.model.shop.Product;
 import it.unicam.travisbug.c3.repository.OrderDetailsRepository;
 import it.unicam.travisbug.c3.service.OrderDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;

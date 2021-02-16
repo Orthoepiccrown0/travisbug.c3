@@ -1,4 +1,4 @@
-package it.unicam.travisbug.c3.model;
+package it.unicam.travisbug.c3.model.order;
 
 import javax.persistence.*;
 import java.util.Set;

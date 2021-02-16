@@ -1,6 +1,6 @@
 package it.unicam.travisbug.c3.service.impl;
 
-import it.unicam.travisbug.c3.model.Shop;
+import it.unicam.travisbug.c3.model.shop.Shop;
 import it.unicam.travisbug.c3.repository.ShopRepository;
 import it.unicam.travisbug.c3.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;

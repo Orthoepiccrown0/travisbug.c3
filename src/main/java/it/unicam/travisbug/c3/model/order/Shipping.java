@@ -1,5 +1,6 @@
-package it.unicam.travisbug.c3.model;
+package it.unicam.travisbug.c3.model.order;
 
+import it.unicam.travisbug.c3.model.users.Courier;
 import it.unicam.travisbug.c3.utils.ShippingStatus;
 
 import javax.persistence.*;

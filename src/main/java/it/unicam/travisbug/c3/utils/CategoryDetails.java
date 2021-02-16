@@ -1,6 +1,6 @@
-package it.unicam.travisbug.c3.container;
+package it.unicam.travisbug.c3.utils;
 
-import it.unicam.travisbug.c3.model.Category;
+import it.unicam.travisbug.c3.model.shop.Category;
 
 import java.util.Objects;
 

@@ -19,7 +19,7 @@
         <div class="col-lg-4 my-3">
             <h4 class="ml-2">Categories</h4>
             <div class="list-group">
-                <!--/*@thymesVar id="category" type="it.unicam.travisbug.c3.container.CategoryDetails"*/-->
+                <!--/*@thymesVar id="category" type="it.unicam.travisbug.c3.utils.CategoryDetails"*/-->
                 <div th:if="${categories!=null}" th:each="category : ${categories}">
                     <a th:href="@{/promo/{category}(category=${category.getCategory().getName()})}"
                        class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">

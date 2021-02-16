@@ -26,7 +26,7 @@
 
                 <!-- Card -->
                 <!--/*@thymesVar id="cart" type="java.util.List"*/-->
-                <!--/*@thymesVar id="item" type="it.unicam.travisbug.c3.model.OrderDetails"*/-->
+                <!--/*@thymesVar id="item" type="it.unicam.travisbug.c3.model.order.OrderDetails"*/-->
                 <div class="card wish-list mb-3">
                     <div class="card-body">
 
@@ -127,7 +127,7 @@
                                             <option value="" disabled selected>Select your option</option>
                                         <div th:if="${addresses != null}"
                                              th:each="address : ${addresses}">
-                                            <!--/*@thymesVar id="address" type="it.unicam.travisbug.c3.model.Address"*/-->
+                                            <!--/*@thymesVar id="address" type="it.unicam.travisbug.c3.model.order.Address"*/-->
                                             <option id="address" th:value="${address.getId()}"
                                                     th:text="${address.toString()}"
                                                     th:selected="${address.getId()==selected_shipping}"></option>

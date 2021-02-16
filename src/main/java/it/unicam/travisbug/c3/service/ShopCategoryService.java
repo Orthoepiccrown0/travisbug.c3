@@ -1,6 +1,6 @@
 package it.unicam.travisbug.c3.service;
 
-import it.unicam.travisbug.c3.model.ShopCategory;
+import it.unicam.travisbug.c3.model.shop.ShopCategory;
 
 import java.util.List;
 import java.util.Optional;

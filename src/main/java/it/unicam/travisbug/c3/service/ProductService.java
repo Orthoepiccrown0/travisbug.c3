@@ -1,8 +1,8 @@
 package it.unicam.travisbug.c3.service;
 
-import it.unicam.travisbug.c3.model.Category;
-import it.unicam.travisbug.c3.model.Merchant;
-import it.unicam.travisbug.c3.model.Product;
+import it.unicam.travisbug.c3.model.shop.Category;
+import it.unicam.travisbug.c3.model.users.Merchant;
+import it.unicam.travisbug.c3.model.shop.Product;
 
 import java.util.List;
 

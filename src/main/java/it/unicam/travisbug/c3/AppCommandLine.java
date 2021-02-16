@@ -1,6 +1,14 @@
 package it.unicam.travisbug.c3;
 
-import it.unicam.travisbug.c3.model.*;
+import it.unicam.travisbug.c3.model.order.Address;
+import it.unicam.travisbug.c3.model.shop.Category;
+import it.unicam.travisbug.c3.model.shop.Product;
+import it.unicam.travisbug.c3.model.shop.Shop;
+import it.unicam.travisbug.c3.model.shop.ShopCategory;
+import it.unicam.travisbug.c3.model.users.Client;
+import it.unicam.travisbug.c3.model.users.Courier;
+import it.unicam.travisbug.c3.model.users.Employee;
+import it.unicam.travisbug.c3.model.users.Merchant;
 import it.unicam.travisbug.c3.utils.DBManager;
 import it.unicam.travisbug.c3.utils.PasswordTool;
 import org.springframework.beans.factory.annotation.Autowired;

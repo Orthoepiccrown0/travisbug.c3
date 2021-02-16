@@ -1,7 +1,12 @@
 package it.unicam.travisbug.c3.utils;
 
-import it.unicam.travisbug.c3.model.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import it.unicam.travisbug.c3.model.order.Order;
+import it.unicam.travisbug.c3.model.order.OrderDetails;
+import it.unicam.travisbug.c3.model.shop.Product;
+import it.unicam.travisbug.c3.model.users.Client;
+import it.unicam.travisbug.c3.model.users.Courier;
+import it.unicam.travisbug.c3.model.users.Employee;
+import it.unicam.travisbug.c3.model.users.Merchant;
 import org.springframework.ui.Model;
 
 import javax.servlet.http.Cookie;

@@ -1,4 +1,7 @@
-package it.unicam.travisbug.c3.model;
+package it.unicam.travisbug.c3.model.requests;
+
+import it.unicam.travisbug.c3.model.shop.Shop;
+import it.unicam.travisbug.c3.model.users.Employee;
 
 import javax.persistence.*;
 import java.util.Date;

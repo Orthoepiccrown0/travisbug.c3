@@ -1,5 +1,7 @@
-package it.unicam.travisbug.c3.model;
+package it.unicam.travisbug.c3.model.order;
 
+import it.unicam.travisbug.c3.model.shop.Shop;
+import it.unicam.travisbug.c3.model.users.Client;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 

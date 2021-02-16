@@ -1,6 +1,13 @@
 package it.unicam.travisbug.c3.controller.personal.area;
 
-import it.unicam.travisbug.c3.model.*;
+import it.unicam.travisbug.c3.model.requests.AdminRequests;
+import it.unicam.travisbug.c3.model.shop.Category;
+import it.unicam.travisbug.c3.model.shop.Product;
+import it.unicam.travisbug.c3.model.shop.Promotion;
+import it.unicam.travisbug.c3.model.shop.Shop;
+import it.unicam.travisbug.c3.model.users.Employee;
+import it.unicam.travisbug.c3.model.requests.EmployeeRequests;
+import it.unicam.travisbug.c3.model.users.Merchant;
 import it.unicam.travisbug.c3.utils.AppCookies;
 import it.unicam.travisbug.c3.utils.DBManager;
 import org.springframework.beans.factory.annotation.Autowired;

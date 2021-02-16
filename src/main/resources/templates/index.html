@@ -95,7 +95,7 @@
     <div class="row justify-content-center">
 
         <div th:if="${shops != null}" th:each="shop : ${shops}">
-            <!--/*@thymesVar id="shop" type="it.unicam.travisbug.c3.model.Shop"*/-->
+            <!--/*@thymesVar id="shop" type="it.unicam.travisbug.c3.model.shop.Shop"*/-->
             <div class="col-auto mb-3">
                 <a style="text-decoration:none" th:href="@{/shop/{id}(id=${shop.getId()})}">
                     <div class="card" style="width: 18rem;">

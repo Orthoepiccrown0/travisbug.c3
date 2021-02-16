@@ -1,6 +1,6 @@
 package it.unicam.travisbug.c3.service.impl;
 
-import it.unicam.travisbug.c3.model.Address;
+import it.unicam.travisbug.c3.model.order.Address;
 import it.unicam.travisbug.c3.repository.AddressRepository;
 import it.unicam.travisbug.c3.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;

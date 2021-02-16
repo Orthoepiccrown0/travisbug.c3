@@ -1,9 +1,10 @@
-package it.unicam.travisbug.c3.model;
+package it.unicam.travisbug.c3.model.shop;
 
+import it.unicam.travisbug.c3.model.order.OrderDetails;
+import it.unicam.travisbug.c3.model.users.Merchant;
 import org.decimal4j.util.DoubleRounder;
 
 import javax.persistence.*;
-import java.text.DecimalFormat;
 import java.util.*;
 
 @Entity

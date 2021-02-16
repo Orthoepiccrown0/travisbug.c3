@@ -1,6 +1,6 @@
 package it.unicam.travisbug.c3.service.impl;
 
-import it.unicam.travisbug.c3.model.Shipping;
+import it.unicam.travisbug.c3.model.order.Shipping;
 import it.unicam.travisbug.c3.repository.ShippingRepository;
 import it.unicam.travisbug.c3.service.ShippingService;
 import it.unicam.travisbug.c3.utils.ShippingStatus;

@@ -1,4 +1,4 @@
-package it.unicam.travisbug.c3.model;
+package it.unicam.travisbug.c3.model.shop;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

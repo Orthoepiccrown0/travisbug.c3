@@ -1,6 +1,6 @@
 package it.unicam.travisbug.c3.repository;
 
-import it.unicam.travisbug.c3.model.Client;
+import it.unicam.travisbug.c3.model.users.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

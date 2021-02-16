@@ -1,6 +1,6 @@
 package it.unicam.travisbug.c3.service.impl;
 
-import it.unicam.travisbug.c3.model.Promotion;
+import it.unicam.travisbug.c3.model.shop.Promotion;
 import it.unicam.travisbug.c3.repository.PromotionRepository;
 import it.unicam.travisbug.c3.service.PromotionService;
 import org.springframework.beans.factory.annotation.Autowired;

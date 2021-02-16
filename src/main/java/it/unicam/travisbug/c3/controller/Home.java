@@ -1,7 +1,10 @@
 package it.unicam.travisbug.c3.controller;
 
-import it.unicam.travisbug.c3.AppCommandLine;
-import it.unicam.travisbug.c3.model.*;
+import it.unicam.travisbug.c3.model.shop.Shop;
+import it.unicam.travisbug.c3.model.users.Client;
+import it.unicam.travisbug.c3.model.users.Courier;
+import it.unicam.travisbug.c3.model.users.Employee;
+import it.unicam.travisbug.c3.model.users.Merchant;
 import it.unicam.travisbug.c3.utils.AppCookies;
 import it.unicam.travisbug.c3.utils.DBManager;
 import it.unicam.travisbug.c3.utils.PasswordTool;

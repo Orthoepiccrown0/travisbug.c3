@@ -1,4 +1,6 @@
-package it.unicam.travisbug.c3.model;
+package it.unicam.travisbug.c3.model.users;
+
+import it.unicam.travisbug.c3.model.order.Shipping;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;

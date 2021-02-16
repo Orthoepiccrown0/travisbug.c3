@@ -1,4 +1,4 @@
-package it.unicam.travisbug.c3.model;
+package it.unicam.travisbug.c3.model.users;
 
 import javax.persistence.Column;
 import javax.persistence.Id;

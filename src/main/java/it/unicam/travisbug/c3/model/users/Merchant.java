@@ -1,10 +1,13 @@
-package it.unicam.travisbug.c3.model;
+package it.unicam.travisbug.c3.model.users;
+
+import it.unicam.travisbug.c3.model.shop.Product;
+import it.unicam.travisbug.c3.model.shop.Shop;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-public class Merchant extends RegisteredUser{
+public class Merchant extends RegisteredUser {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "shop_id", referencedColumnName = "ID")
