@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Component
 public class AppCommandLine implements CommandLineRunner {
@@ -44,7 +45,14 @@ public class AppCommandLine implements CommandLineRunner {
     }
 
     private void addMerchant() {
-        List<String> merchantInfos = new ArrayList<>(Arrays.asList("m@m", "n@n", "b@b", "v@v"));
+        List<String> merchantInfos = new ArrayList<>(Arrays.asList("m@m", "n@n", "b@b", "v@v", "merchant@gmail.com"));
+        List<String> shopNames = new ArrayList<>(Arrays.asList(
+                "KnickKnacks",
+                "Healthy Treats",
+                "Cybershop",
+                "Anytime Buys",
+                "Shopdrop"));
+
         int count = 0;
         for (String minfo : merchantInfos) {
             Merchant merchant = new Merchant();
@@ -52,8 +60,8 @@ public class AppCommandLine implements CommandLineRunner {
             merchant.setName(minfo);
             merchant.setSurname(minfo);
             merchant.setEmail(minfo);
-            merchant.setPassword(PasswordTool.getMD5String(minfo.substring(0,1)));
-            merchant.setShop(addShop(merchant, minfo, count));
+            merchant.setPassword(PasswordTool.getMD5String(minfo.substring(0, 1)));
+            merchant.setShop(addShop(merchant, shopNames.get(count), count));
             addProducts(merchant, minfo, count);
             dbManager.getMerchantService().saveMerchant(merchant);
             count++;
@@ -62,16 +70,19 @@ public class AppCommandLine implements CommandLineRunner {
 
     private void addProducts(Merchant merchant, String minfo, int count) {
         List<Category> categories = dbManager.getCategoryService().getAll();
-        for (int i = 0; i < 3; i++) {
+        int randomNum = ThreadLocalRandom.current().nextInt(0, 4 + 1);
+        for (int i = 0; i < 4; i++) {
             Product product = new Product();
             product.setCategory(categories.get(i));
-            product.setName("Test " + i + count);
+            product.setName("Product name " + i);
             product.setDescription("prodotto di " + minfo);
             product.setMerchant(merchant);
             product.setPrice(i + 1.0 + count);
-            product.setSupply(5 * (i+1) + count);
+            product.setSupply(5 * (i + 1) + count);
             product.setWeight(1.0 + i + count);
             product.setPromoted(false);
+            if(randomNum == i)
+                product.setDiscount(10);
             dbManager.getProductService().saveProduct(product);
         }
     }
@@ -81,7 +92,7 @@ public class AppCommandLine implements CommandLineRunner {
         Shop shop = new Shop();
         shop.setApproved(true);
         shop.setMerchant(merchant);
-        shop.setShopName("Shop "+ minfo);
+        shop.setShopName(minfo);
         shop.setShopCategory(categories.get(count));
         dbManager.getShopService().saveShop(shop);
         return shop;
@@ -111,7 +122,8 @@ public class AppCommandLine implements CommandLineRunner {
     }
 
     private void addShopCategories() {
-        String[] categories = {"Games",
+        String[] categories = {
+                "Games",
                 "Restaurants",
                 "Electronics",
                 "Bakery",
@@ -126,7 +138,8 @@ public class AppCommandLine implements CommandLineRunner {
     }
 
     private void addCategories() {
-        String[] categories = {"Video games",
+        String[] categories = {
+                "Video games",
                 "Food",
                 "Films",
                 "Flowers",
@@ -140,7 +153,7 @@ public class AppCommandLine implements CommandLineRunner {
         }
     }
 
-    private void addClients(){
+    private void addClients() {
         List<String> clientsInfo = new ArrayList<>(Arrays.asList("z@z", "x@x", "c@c"));
         for (String cinfo : clientsInfo) {
             Client client = new Client();
@@ -148,12 +161,12 @@ public class AppCommandLine implements CommandLineRunner {
             client.setName(cinfo);
             client.setSurname(cinfo);
             client.setEmail(cinfo);
-            client.setPassword(PasswordTool.getMD5String(cinfo.substring(0,1)));
+            client.setPassword(PasswordTool.getMD5String(cinfo.substring(0, 1)));
             dbManager.getClientService().saveClient(client);
         }
     }
 
-    private void addCouriers(){
+    private void addCouriers() {
         List<String> couriersInfo = new ArrayList<>(Arrays.asList("a@a", "s@s", "d@d", "f@f"));
         for (String cinfo : couriersInfo) {
             Courier courier = new Courier();
@@ -161,12 +174,12 @@ public class AppCommandLine implements CommandLineRunner {
             courier.setName(cinfo);
             courier.setSurname(cinfo);
             courier.setEmail(cinfo);
-            courier.setPassword(PasswordTool.getMD5String(cinfo.substring(0,1)));
+            courier.setPassword(PasswordTool.getMD5String(cinfo.substring(0, 1)));
             dbManager.getCourierService().saveCourier(courier);
         }
     }
 
-    private void addEmployee(){
+    private void addEmployee() {
         List<Shop> shops = dbManager.getShopService().getAll();
         List<String> employeeInfo = new ArrayList<>(Arrays.asList("g@g", "h@h", "j@j", "k@k"));
         int count = 0;
@@ -178,7 +191,7 @@ public class AppCommandLine implements CommandLineRunner {
             employee.setEmail(einfo);
             employee.setStatus("Approved");
             employee.setShop(shops.get(count));
-            employee.setPassword(PasswordTool.getMD5String(einfo.substring(0,1)));
+            employee.setPassword(PasswordTool.getMD5String(einfo.substring(0, 1)));
             dbManager.getEmployeeService().saveEmployee(employee);
             count++;
         }

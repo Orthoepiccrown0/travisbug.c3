@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.List;
+
 @Controller
 public class CourierArea {
 
@@ -36,16 +38,27 @@ public class CourierArea {
                                   @CookieValue(value = "user_id", defaultValue = "") String userid,
                                   @CookieValue(value = "role", defaultValue = "") String role) {
         appCookies.checkLogged(model, userid, role, dbManager);
+        Courier courier = dbManager.getCourierService().findById(userid).orElseThrow();
+
+        List<Shipping> taken = dbManager.getShippingService().getAll(ShippingStatus.Shipping);
+        taken.removeIf(shipping -> !shipping.getCourier().getId().equals(courier.getId()));
+
+        List<Shipping> delivered = dbManager.getShippingService().getAll(ShippingStatus.Delivered);
+        delivered.removeIf(shipping -> !shipping.getCourier().getId().equals(courier.getId()));
+
         model.addAttribute("readyShipments", dbManager.getShippingService().getAll(ShippingStatus.ReadyForPickup));
-        model.addAttribute("takenShipments", dbManager.getShippingService().getAll(ShippingStatus.Shipping));
-        model.addAttribute("deliveredShipments", dbManager.getShippingService().getAll(ShippingStatus.Delivered));
+        model.addAttribute("takenShipments", taken);
+        model.addAttribute("deliveredShipments", delivered);
         return "accounts/courier/courierArea";
     }
 
     @GetMapping("/courierArea/take/{id}")
-    public String takeShipment(@PathVariable Integer id) {
+    public String takeShipment(@PathVariable Integer id,
+                               @CookieValue(value = "user_id", defaultValue = "") String userid) {
+        Courier courier = dbManager.getCourierService().findById(userid).orElseThrow();
         Shipping s = dbManager.getShippingService().findById(id);
         s.setShippingStatus(ShippingStatus.Shipping);
+        s.setCourier(courier);
         dbManager.getShippingService().saveShipping(s);
         return "redirect:/courierArea";
     }
