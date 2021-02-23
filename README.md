@@ -99,10 +99,6 @@
 
 	Per la configurazione del progetto abbiamo utilizzato Gradle.
 	
-## Link Utili
-  
-	Repository UML del progetto con Visual Paradigm: [Travis Bug VP](https://github.com/Orthoepiccrown0/travisbug.c3.vp)
-  
 ## Partecipanti al progetto:
 
 	Francesco Santarelli
@@ -114,3 +110,7 @@
 	Diego Concetti
 	diego.concetti@studenti.unicam.it
 
+## Link Utili
+  
+Repository UML del progetto con Visual Paradigm: [Travis Bug VP](https://github.com/Orthoepiccrown0/travisbug.c3.vp)
+  
