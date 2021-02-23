@@ -11,18 +11,34 @@
   
 ## Attori che compaiono nel progetto:
 
-	Cliente - 
+	• Cliente:
+		Il cliente è colui che può comprare i prodotti dalla piattaforma.
+		Può gestire il suo carrello, procedere all'aquisto di prodotti,
+		ritirare la merce ordinata in negozio oppure nei punti di ritiro.
+		Inoltre può visualizzare e filtrare le promozioni del sito.	
 
-	Corriere - 
+	• Corriere:
+		Il corriere si registra sulla piattaforma e visualizza tutte le spedizioni disponibili. 
+		Può sceglierle ed effettuare il trasporto della merce. 
+		Preleva la merce dai negozi e la rilascia presso i punti di prelievo. 
 
-	Commerciante - 
+	• Commerciante:
+		Coincide con titolare del negozio. 
+		Può aggiungere o rimuovere prodotti, aggiungere scorte o applicare uno sconto e lanciare vendite promozionali. 
+		Accetta i suoi impiegati dall'area notifiche. 
 
-	Impiegato - 
+	• Impiegato:
+		L'impiegato è una persona che lavora in un determinato negozio all'interno del centro commerciale.
+		Ha il compito di preparare i pacchi richiesti dai clienti, aggiornare lo stato della spedizione 
+		e consegnare tale pacco al corriere, in caso di ritiro direttamente in negozio da parte del cliente,
+		provvede a consegnarlo di persona.
 
-	Supporto - 
+	• Servizio clienti:
+		Si occupa di aiutare gli utenti registrati quando questi hanno bisogno di aiuto o vogliono chiedere informazioni.
 
-	Amministratore -
-  
+	• Amministratore:
+		L'amministratore è il moderatore della piattaforma.
+		Approva sia le richieste di registrazione alla piattaforma dei commercianti sia le promozioni.  
 
 ## Funzionalità:
 
@@ -82,7 +98,10 @@
 	di gruppo attraverso i commit ed il semplice accesso alla repository.
 
 	Per la configurazione del progetto abbiamo utilizzato Gradle.
+	
+## Link Utili
   
+	Repository UML del progetto con Visual Paradigm: [Travis Bug VP]:(https://github.com/Orthoepiccrown0/travisbug.c3.vp)
   
 ## Partecipanti al progetto:
 
