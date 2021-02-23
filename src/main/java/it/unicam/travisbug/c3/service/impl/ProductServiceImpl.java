@@ -1,8 +1,8 @@
 package it.unicam.travisbug.c3.service.impl;
 
 import it.unicam.travisbug.c3.model.shop.Category;
-import it.unicam.travisbug.c3.model.users.Merchant;
 import it.unicam.travisbug.c3.model.shop.Product;
+import it.unicam.travisbug.c3.model.users.Merchant;
 import it.unicam.travisbug.c3.repository.ProductRepository;
 import it.unicam.travisbug.c3.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;

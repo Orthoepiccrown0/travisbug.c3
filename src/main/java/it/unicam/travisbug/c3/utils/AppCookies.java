@@ -74,7 +74,6 @@ public class AppCookies {
         for (Order o : orders) {
             balance = balance + (o.getAmount() - o.getShipping().getAddress().getShipCharge());
         }
-
         return String.format("%.2f", balance);
     }
 

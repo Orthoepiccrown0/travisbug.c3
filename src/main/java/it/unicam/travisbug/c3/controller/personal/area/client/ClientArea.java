@@ -1,7 +1,7 @@
 package it.unicam.travisbug.c3.controller.personal.area.client;
 
-import it.unicam.travisbug.c3.model.users.Client;
 import it.unicam.travisbug.c3.model.order.Order;
+import it.unicam.travisbug.c3.model.users.Client;
 import it.unicam.travisbug.c3.utils.AppCookies;
 import it.unicam.travisbug.c3.utils.DBManager;
 import org.springframework.beans.factory.annotation.Autowired;
